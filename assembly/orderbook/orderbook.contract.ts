@@ -1,0 +1,821 @@
+import {
+  Asset,
+  check,
+  Contract,
+  currentTimePoint,
+  currentTimeSec,
+  InlineAction,
+  isAccount,
+  Name,
+  PermissionLevel,
+  requireAuth,
+  Symbol,
+  TableStore,
+  TimePointSec,
+  U128,
+} from "proton-tsc";
+import {
+  PairsTable,
+  OrdersTable,
+  TradesTable,
+  BalancesTable,
+  ConfigTable,
+  FeesTable,
+} from "./tables";
+import { TokenTransfer } from "./orderbook.inline";
+
+@contract
+export class orderbook extends Contract {
+  private pairsTable: TableStore<PairsTable> = new TableStore<PairsTable>(
+    this.receiver,
+    this.receiver
+  );
+
+  private ordersTable: TableStore<OrdersTable> = new TableStore<OrdersTable>(
+    this.receiver,
+    this.receiver
+  );
+
+  private tradesTable: TableStore<TradesTable> = new TableStore<TradesTable>(
+    this.receiver,
+    this.receiver
+  );
+
+  private configTable: TableStore<ConfigTable> = new TableStore<ConfigTable>(
+    this.receiver,
+    this.receiver
+  );
+
+  private feesTable: TableStore<FeesTable> = new TableStore<FeesTable>(
+    this.receiver,
+    this.receiver
+  );
+
+  @action("init")
+  init(admin: Name, fee_recipient: Name): void {
+    requireAuth(this.receiver);
+
+    const existing = this.configTable.get(0);
+    check(!existing, "DEX already initialized");
+
+    const config = new ConfigTable(
+      0,
+      admin,
+      false,
+      1,
+      100,
+      1,
+      100,
+      fee_recipient
+    );
+
+    this.configTable.store(config, this.receiver);
+  }
+
+  /**
+   * ========================================
+   * PAIR MANAGEMENT ACTIONS
+   * ========================================
+   */
+
+  /**
+   * Create a new trading pair
+   */
+
+  @action("createpair")
+  createPair(
+    base_symbol: Symbol,
+    base_contract: Name,
+    quote_symbol: Symbol,
+    quote_contract: Name,
+    min_order_size: Asset,
+    max_order_size: Asset,
+    tick_size: Asset,
+    maker_fee_bp: u16,
+    taker_fee_bp: u16
+  ): void {
+    const config = this.getConfig();
+    requireAuth(config.admin);
+
+    check(isAccount(base_contract), "Base contract does not exist");
+    check(isAccount(quote_contract), "Quote contract does not exist");
+    check(
+      maker_fee_bp >= config.min_maker_fee_bp &&
+        maker_fee_bp <= config.max_maker_fee_bp,
+      "Maker fee out of range"
+    );
+    check(
+      taker_fee_bp >= config.min_taker_fee_bp &&
+        taker_fee_bp <= config.max_taker_fee_bp,
+      "Taker fee out of range"
+    );
+    check(
+      max_order_size.amount > min_order_size.amount,
+      "Max must be greater than min"
+    );
+
+    const pair_id = this.pairsTable.availablePrimaryKey;
+
+    const pair = new PairsTable(
+      pair_id,
+      base_symbol,
+      base_contract,
+      quote_symbol,
+      quote_contract,
+      min_order_size,
+      max_order_size,
+      tick_size,
+      maker_fee_bp,
+      taker_fee_bp,
+      "active",
+      new TimePointSec()
+    );
+
+    this.pairsTable.store(pair, this.receiver);
+  }
+
+  /**
+   * Pause/Resume trading pair
+   */
+  @action("pausepair")
+  pausePair(pair_id: u64, pause: string): void {
+    const config = this.getConfig();
+    requireAuth(config.admin);
+
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+    pair.status = pause;
+    this.pairsTable.update(pair, this.receiver);
+  }
+
+  @action("transfer", notify)
+  onTransfer(from: Name, to: Name, quantity: Asset, memo: string): void {
+    if (to != this.receiver) return;
+    if (from == this.receiver) return;
+    if (memo != "deposit") return;
+
+    // Auto-deposit all transfers to DEX
+    const token_contract = this.firstReceiver;
+    const balancesTable = new TableStore<BalancesTable>(this.receiver, from);
+    const symbol_code = quantity.symbol.code();
+    const existing = balancesTable.get(symbol_code);
+
+    if (existing) {
+      existing.balance = Asset.add(existing.balance, quantity);
+      existing.updated_at = new TimePointSec();
+
+      balancesTable.update(existing, this.receiver);
+    } else {
+      const newBalance = new BalancesTable(
+        token_contract,
+        quantity,
+        new Asset(0, quantity.symbol),
+        new TimePointSec()
+      );
+      balancesTable.store(newBalance, this.receiver);
+    }
+  }
+
+  /**
+   * ========================================
+   * ORDER PLACEMENT (MetalX Style)
+   * ========================================
+   */
+
+  /**
+   * Place limit order
+   */
+  @action("limitorder")
+  LimitOrder(
+    user: Name,
+    pair_id: u64,
+    side: string,
+    price: Asset,
+    amount: Asset
+  ): void {
+    requireAuth(user);
+
+    const config = this.getConfig();
+    check(!config.paused, "DEX is paused");
+
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+    check(pair.status == "active", "Trading paused for this pair");
+
+    check(side == "buy" || side == "sell", "Invalid side");
+    check(amount.amount >= pair.min_order_size.amount, "Below min order size");
+    check(
+      amount.amount <= pair.max_order_size.amount,
+      "Exceeds max order size"
+    );
+    check(price.amount > 0, "Price must be positive");
+
+    const remainder = price.amount % pair.tick_size.amount;
+
+    check(remainder == 0, "Price must be multiple of tick size");
+
+    const total_value = this.calculateTotalValue(price, amount, pair);
+
+    this.lockBalance(user, side, amount, total_value, pair);
+
+    const order_id = this.ordersTable.availablePrimaryKey;
+
+    const order = new OrdersTable(
+      order_id,
+      pair_id,
+      user,
+      side,
+      "limit",
+      price,
+      amount,
+      new Asset(0, amount.symbol),
+      amount,
+      0,
+      new TimePointSec(),
+      new TimePointSec()
+    );
+
+    this.ordersTable.store(order, this.receiver);
+  }
+
+  /**
+   * Place market order
+   */
+  @action("marketorder")
+  marketOrder(user: Name, pair_id: u64, side: string, amount: Asset): void {
+    requireAuth(user);
+
+    const config = this.getConfig();
+    check(!config.paused, "DEX is paused");
+
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+    check(pair.status == "active", "Trading paused");
+
+    check(side == "buy" || side == "sell", "Invalid side");
+    check(amount.amount > 0, "Amount must be positive");
+
+    // For market orders, estimate total value from orderbook
+    const estimatedPrice = this.estimateMarketPrice(pair_id, side);
+    const total_value = this.calculateTotalValue(estimatedPrice, amount, pair);
+
+    // Lock balance
+    this.lockBalance(user, side, amount, total_value, pair);
+
+    // Create order
+    const order_id = this.ordersTable.availablePrimaryKey;
+    const now = new TimePointSec();
+
+    const order = new OrdersTable(
+      order_id,
+      pair_id,
+      user,
+      side,
+      "market",
+      estimatedPrice,
+      amount,
+      new Asset(0, amount.symbol),
+      amount,
+      0,
+      now,
+      now
+    );
+
+    this.ordersTable.store(order, this.receiver);
+  }
+
+  /**
+   * ========================================
+   * ORDER PROCESSING (MetalX Batch Style)
+   * ========================================
+   */
+
+  /**
+   * Process orders from limit queue
+   */
+  @action("processlimit")
+  processLimit(pair_id: u64, max_orders: u32): void {
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+
+    let processed: u32 = 0;
+
+    let order = this.ordersTable.first();
+    while (order != null && processed < max_orders) {
+      const currentOrder = order;
+
+      if (
+        currentOrder.pair_id == pair_id &&
+        currentOrder.order_type == "limit" &&
+        (currentOrder.status == 0 || currentOrder.status == 1)
+      ) {
+        let matchOrder = this.ordersTable.first();
+
+        while (matchOrder != null && processed < max_orders) {
+          const currentMatch = matchOrder;
+
+          // Skip same order
+          if (currentOrder.order_id != currentMatch.order_id) {
+            if (
+              currentMatch.pair_id == pair_id &&
+              currentMatch.order_type == "limit" &&
+              (currentMatch.status == 0 || currentMatch.status == 1) &&
+              currentOrder.side != currentMatch.side &&
+              this.canMatch(currentOrder, currentMatch)
+            ) {
+              const tradeAmount = this.calculateTradeAmount(
+                currentOrder,
+                currentMatch
+              );
+
+              this.executeTrade(
+                currentOrder,
+                currentMatch,
+                currentMatch.price,
+                tradeAmount,
+                pair
+              );
+
+              processed++;
+
+              const updated = this.ordersTable.get(currentOrder.order_id);
+              if (updated && updated.status == 2) {
+                break; // order fully filled
+              }
+            }
+          }
+
+          matchOrder = this.ordersTable.next(currentMatch);
+        }
+      }
+
+      order = this.ordersTable.next(currentOrder);
+    }
+  }
+
+  /**
+   * Process stop-loss/take-profit orders
+   * This matches "Process 10 orders from sl/tp queue"
+   * (For now, this is a placeholder - stop-loss logic would go here)
+   */
+
+  @action("processsltpq")
+  processStopLossTakeProfit(pair_id: u64, max_orders: u32): void {
+    // Placeholder for stop-loss/take-profit processing
+    // Would check trigger prices and activate orders
+  }
+
+  /**
+   * ========================================
+   * WITHDRAWAL
+   * ========================================
+   */
+
+  /**
+   * Withdraw all available balance for user
+   */
+  @action("withdrawall")
+  withdrawAll(user: Name): void {
+    requireAuth(user);
+
+    const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
+
+    let balance = balancesTable.first();
+
+    while (balance != null) {
+      const current = balance;
+
+      if (current.balance.amount > 0) {
+        this.transfer(
+          current.token_contract,
+          this.receiver,
+          user,
+          current.balance,
+          "DEX withdrawal"
+        );
+
+        current.balance = new Asset(0, current.balance.symbol);
+        current.updated_at = new TimePointSec();
+
+        balancesTable.update(current, this.receiver);
+      }
+      balance = balancesTable.next(current);
+    }
+  }
+
+  /**
+   * Withdraw specific token amount
+   */
+  @action("withdraw")
+  withdraw(user: Name, quantity: Asset): void {
+    requireAuth(user);
+
+    const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
+    const balance = balancesTable.requireGet(
+      quantity.symbol.code(),
+      "No balance found"
+    );
+
+    check(balance.balance.amount >= quantity.amount, "Insufficient balance");
+
+    balance.balance = Asset.sub(balance.balance, quantity);
+    balance.updated_at = new TimePointSec();
+
+    balancesTable.update(balance, this.receiver);
+
+    this.transfer(
+      balance.token_contract,
+      this.receiver,
+      user,
+      quantity,
+      "DEX withdrawal"
+    );
+  }
+
+  /**
+   * ========================================
+   * ORDER CANCELLATION
+   * ========================================
+   */
+
+  @action("cancelorder")
+  cancelOrder(user: Name, order_id: u64): void {
+    requireAuth(user);
+
+    const order = this.ordersTable.requireGet(order_id, "Order not found");
+
+    check(order.user == user, "Not your order");
+    check(order.status == 0 || order.status == 1, "Cannot cancel this order");
+
+    const pair = this.pairsTable.requireGet(order.pair_id, "Pair not found");
+
+    this.unlockBalance(
+      order.user,
+      order.side,
+      order.remaining_amount,
+      pair,
+      order.price
+    );
+
+    order.status = 3;
+    order.updated_at = new TimePointSec();
+
+    this.ordersTable.update(order, this.receiver);
+  }
+
+  /**
+   * ========================================
+   * PRIVATE HELPER FUNCTIONS
+   * ========================================
+   */
+
+  /**
+   * Get DEX configuration
+   */
+  private getConfig(): ConfigTable {
+    const config = this.configTable.requireGet(0, "DEX not initialized");
+    return config;
+  }
+
+  private estimateMarketPrice(pair_id: u64, side: string): Asset {
+    let order = this.ordersTable.first();
+    let bestPrice: u64 = 0;
+
+    while (order != null) {
+      if (
+        order.pair_id == pair_id &&
+        order.side != side &&
+        (order.status == 0 || order.status == 1)
+      ) {
+        if (bestPrice == 0) {
+          bestPrice = order.price.amount;
+        } else if (side == "buy" && order.price.amount < bestPrice) {
+          // Buy → want lowest ask
+          bestPrice = order.price.amount;
+        } else if (side == "sell" && order.price.amount > bestPrice) {
+          // Sell → want highest bid
+          bestPrice = order.price.amount;
+        }
+      }
+
+      order = this.ordersTable.next(order);
+    }
+
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+
+    return new Asset(bestPrice > 0 ? bestPrice : 1, pair.quote_symbol);
+  }
+
+  private calculateTotalValue(
+    price: Asset,
+    amount: Asset,
+    pair: PairsTable
+  ): Asset {
+    const base_precision = pair.base_symbol.precision();
+    const value_amount =
+      (price.amount * amount.amount) / u64(Math.pow(10, base_precision));
+    return new Asset(value_amount, pair.quote_symbol);
+  }
+
+  private lockBalance(
+    user: Name,
+    side: string,
+    amount: Asset,
+    total_value: Asset,
+    pair: PairsTable
+  ): void {
+    const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
+
+    if (side == "buy") {
+      const balance = balancesTable.requireGet(
+        pair.quote_symbol.code(),
+        "Insufficient quote token"
+      );
+      check(balance.balance.amount >= total_value.amount, "Insufficient funds");
+
+      balance.balance = Asset.sub(balance.balance, total_value);
+      balance.locked = Asset.add(balance.locked, total_value);
+      balance.updated_at = new TimePointSec();
+
+      balancesTable.update(balance, this.receiver);
+    } else {
+      const balance = balancesTable.requireGet(
+        pair.base_symbol.code(),
+        "Insufficient base token"
+      );
+      check(balance.balance.amount >= amount.amount, "Insufficient funds");
+
+      balance.balance = Asset.sub(balance.balance, amount);
+      balance.locked = Asset.add(balance.locked, amount);
+      balance.updated_at = new TimePointSec();
+
+      balancesTable.update(balance, this.receiver);
+    }
+  }
+
+  private unlockBalance(
+    user: Name,
+    side: string,
+    remaining_amount: Asset,
+    pair: PairsTable,
+    price: Asset
+  ): void {
+    const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
+
+    if (side == "buy") {
+      const locked_value = this.calculateTotalValue(
+        price,
+        remaining_amount,
+        pair
+      );
+      const balance = balancesTable.requireGet(
+        pair.quote_symbol.code(),
+        "Balance error"
+      );
+
+      balance.locked = Asset.sub(balance.locked, locked_value);
+      balance.balance = Asset.add(balance.balance, locked_value);
+      balance.updated_at = new TimePointSec();
+
+      balancesTable.update(balance, this.receiver);
+    } else {
+      const balance = balancesTable.requireGet(
+        pair.base_symbol.code(),
+        "Balance error"
+      );
+
+      balance.locked = Asset.sub(balance.locked, remaining_amount);
+      balance.balance = Asset.add(balance.balance, remaining_amount);
+      balance.updated_at = new TimePointSec();
+
+      balancesTable.update(balance, this.receiver);
+    }
+  }
+
+  private canMatch(order1: OrdersTable, order2: OrdersTable): bool {
+    if (order1.side == "buy") {
+      return order1.price.amount >= order2.price.amount;
+    } else {
+      return order1.price.amount <= order2.price.amount;
+    }
+  }
+
+  private calculateTradeAmount(
+    order1: OrdersTable,
+    order2: OrdersTable
+  ): Asset {
+    const minAmount = Math.min(
+      order1.remaining_amount.amount,
+      order2.remaining_amount.amount
+    );
+    return new Asset(minAmount, order1.amount.symbol);
+  }
+
+  private executeTrade(
+    order1: OrdersTable,
+    order2: OrdersTable,
+    executionPrice: Asset,
+    tradeAmount: Asset,
+    pair: PairsTable
+  ): void {
+    const buyOrder = order1.side == "buy" ? order1 : order2;
+    const sellOrder = order1.side == "sell" ? order1 : order2;
+
+    const buyer = buyOrder.user;
+    const seller = sellOrder.user;
+
+    const totalValue = this.calculateTotalValue(
+      executionPrice,
+      tradeAmount,
+      pair
+    );
+
+    const buyerFeeAmount = (totalValue.amount * u64(pair.taker_fee_bp)) / 10000;
+    const buyerFee = new Asset(buyerFeeAmount, pair.quote_symbol);
+
+    const sellerFeeAmount =
+      (tradeAmount.amount * u64(pair.maker_fee_bp)) / 10000;
+    const sellerFee = new Asset(sellerFeeAmount, pair.base_symbol);
+
+    this.updateTradeBalances(
+      buyer,
+      seller,
+      tradeAmount,
+      totalValue,
+      buyerFee,
+      sellerFee,
+      pair
+    );
+
+    this.updateOrderAfterTrade(buyOrder, tradeAmount);
+    this.updateOrderAfterTrade(sellOrder, tradeAmount);
+
+    const tradeId = this.tradesTable.availablePrimaryKey;
+    const trade = new TradesTable(
+      tradeId,
+      pair.pair_id,
+      buyOrder.order_id,
+      sellOrder.order_id,
+      buyer,
+      seller,
+      executionPrice,
+      tradeAmount,
+      totalValue,
+      buyerFee,
+      sellerFee,
+      new TimePointSec()
+    );
+
+    this.tradesTable.store(trade, this.receiver);
+
+    this.recordFee(pair.pair_id, pair.quote_contract, buyerFee, false);
+    this.recordFee(pair.pair_id, pair.base_contract, sellerFee, true);
+  }
+
+  private updateTradeBalances(
+    buyer: Name,
+    seller: Name,
+    tradeAmount: Asset,
+    totalValue: Asset,
+    buyerFee: Asset,
+    sellerFee: Asset,
+    pair: PairsTable
+  ): void {
+    const buyerBalances = new TableStore<BalancesTable>(this.receiver, buyer);
+    const sellerBalances = new TableStore<BalancesTable>(this.receiver, seller);
+
+    const buyerBase = buyerBalances.get(pair.base_symbol.code());
+    if (buyerBase) {
+      buyerBase.balance = Asset.add(buyerBase.balance, tradeAmount);
+      buyerBase.updated_at = new TimePointSec();
+
+      buyerBalances.update(buyerBase, this.receiver);
+    } else {
+      const balance = new BalancesTable(
+        pair.base_contract,
+        tradeAmount,
+        new Asset(0, tradeAmount.symbol),
+        new TimePointSec()
+      );
+
+      buyerBalances.store(balance, this.receiver);
+    }
+
+    const buyerQuote = buyerBalances.requireGet(
+      pair.quote_symbol.code(),
+      "Buyer balance error"
+    );
+    const buyerTotal = Asset.add(totalValue, buyerFee);
+    buyerQuote.locked = Asset.sub(buyerQuote.locked, buyerTotal);
+    buyerQuote.updated_at = new TimePointSec();
+
+    buyerBalances.update(buyerQuote, this.receiver);
+
+    const sellerBase = sellerBalances.requireGet(
+      pair.base_symbol.code(),
+      "Seller balance error"
+    );
+    const sellerTotal = Asset.add(tradeAmount, sellerFee);
+
+    sellerBase.locked = Asset.sub(sellerBase.locked, sellerTotal);
+    sellerBase.updated_at = new TimePointSec();
+
+    sellerBalances.update(sellerBase, this.receiver);
+
+    const sellerQuote = sellerBalances.get(pair.quote_symbol.code());
+    if (sellerQuote) {
+      sellerQuote.balance = Asset.add(sellerQuote.balance, totalValue);
+      sellerQuote.updated_at = new TimePointSec();
+
+      sellerBalances.update(sellerQuote, this.receiver);
+    } else {
+      const balance = new BalancesTable(
+        pair.quote_contract,
+        totalValue,
+        new Asset(0, totalValue.symbol),
+        new TimePointSec()
+      );
+
+      sellerBalances.store(balance, this.receiver);
+    }
+  }
+
+  private updateOrderAfterTrade(order: OrdersTable, tradeAmount: Asset): void {
+    order.filled_amount = Asset.add(order.filled_amount, tradeAmount);
+    order.remaining_amount = Asset.sub(order.remaining_amount, tradeAmount);
+    order.status = order.remaining_amount.amount == 0 ? 2 : 1;
+    order.updated_at = new TimePointSec();
+
+    this.ordersTable.update(order, this.receiver);
+  }
+
+  private recordFee(
+    pair_id: u64,
+    token_contract: Name,
+    feeAmount: Asset,
+    isMaker: bool
+  ): void {
+    const compositeKey = this.createCompositeKey(
+      pair_id,
+      feeAmount.symbol.code()
+    );
+
+    // const allFees = this.feesTable.first();
+    let existing: FeesTable | null = this.feesTable.first();
+
+    while (existing != null) {
+      const current = existing;
+
+      if (U128.eq(current.by_pair_token, compositeKey)) {
+        break;
+      }
+      existing = this.feesTable.next(current);
+    }
+
+    if (existing != null) {
+      existing.total_collected = Asset.add(existing.total_collected, feeAmount);
+      if (isMaker) {
+        existing.maker_fees = Asset.add(existing.maker_fees, feeAmount);
+      } else {
+        existing.taker_fees = Asset.add(existing.taker_fees, feeAmount);
+      }
+      existing.last_updated = new TimePointSec();
+
+      this.feesTable.update(existing, this.receiver);
+    } else {
+      // Create new fee row
+      const newFee = new FeesTable(
+        this.feesTable.availablePrimaryKey,
+        pair_id,
+        token_contract,
+        feeAmount,
+        isMaker ? feeAmount : new Asset(0, feeAmount.symbol),
+        isMaker ? new Asset(0, feeAmount.symbol) : feeAmount,
+        new TimePointSec()
+      );
+      this.feesTable.store(newFee, this.receiver);
+    }
+  }
+
+  private createCompositeKey(pair_id: u64, symbol_code: u64): U128 {
+    const high = U128.fromU64(pair_id);
+    const shifted = U128.shl(high, 64);
+    const low = U128.fromU64(symbol_code);
+    return U128.or(shifted, low);
+  }
+
+  private transfer(
+    tokenContract: Name,
+    from: Name,
+    to: Name,
+    quantity: Asset,
+    memo: string
+  ): void {
+    const transfer = new InlineAction<TokenTransfer>("transfer");
+
+    const action = transfer.act(
+      tokenContract,
+      new PermissionLevel(this.receiver, Name.fromString("active"))
+    );
+
+    const transferParams = new TokenTransfer(from, to, quantity, memo);
+
+    action.send(transferParams);
+  }
+}

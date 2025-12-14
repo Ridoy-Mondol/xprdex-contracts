@@ -498,7 +498,7 @@ export class XPRSwap extends Contract {
     requireAuth(this.receiver);
 
     let cursor1 = this.poolsTable.first();
-    while (cursor1 !== null) {
+    while (cursor1 != null) {
       let nextCursor = this.poolsTable.next(cursor1);
       this.poolsTable.remove(cursor1);
       cursor1 = nextCursor;
