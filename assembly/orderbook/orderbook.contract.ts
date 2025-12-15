@@ -2,8 +2,6 @@ import {
   Asset,
   check,
   Contract,
-  currentTimePoint,
-  currentTimeSec,
   InlineAction,
   isAccount,
   Name,
@@ -228,6 +226,8 @@ export class orderbook extends Contract {
       amount,
       new Asset(0, amount.symbol),
       amount,
+      new Asset(0, price.symbol),
+      false,
       0,
       new TimePointSec(),
       new TimePointSec()
@@ -273,9 +273,75 @@ export class orderbook extends Contract {
       amount,
       new Asset(0, amount.symbol),
       amount,
+      new Asset(0, estimatedPrice.symbol),
+      false,
       0,
       now,
       now
+    );
+
+    this.ordersTable.store(order, this.receiver);
+  }
+
+  @action("stoploss")
+  stopLossOrder(
+    user: Name,
+    pair_id: u64,
+    side: string,
+    trigger_price: Asset,
+    limit_price: Asset,
+    amount: Asset
+  ): void {
+    requireAuth(user);
+
+    const config = this.getConfig();
+    check(!config.paused, "DEX is paused");
+
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+    check(pair.status == "active", "Trading paused for this pair");
+
+    check(side == "buy" || side == "sell", "Invalid side");
+    check(amount.amount >= pair.min_order_size.amount, "Below min order size");
+    check(
+      amount.amount <= pair.max_order_size.amount,
+      "Exceeds max order size"
+    );
+    check(trigger_price.amount > 0, "Trigger price must be positive");
+    check(limit_price.amount > 0, "Limit price must be positive");
+
+    const currentPrice = this.getCurrentMarketPrice(pair_id);
+
+    if (side == "buy") {
+      check(
+        trigger_price.amount >= currentPrice.amount,
+        "Buy stop-loss trigger must be above current price"
+      );
+    } else {
+      check(
+        trigger_price.amount <= currentPrice.amount,
+        "Sell stop-loss trigger must be below current price"
+      );
+    }
+
+    const total_value = this.calculateTotalValue(limit_price, amount, pair);
+
+    this.lockBalance(user, side, amount, total_value, pair);
+
+    const order = new OrdersTable(
+      this.ordersTable.availablePrimaryKey,
+      pair_id,
+      user,
+      side,
+      "stoploss",
+      limit_price,
+      amount,
+      new Asset(0, amount.symbol),
+      amount,
+      trigger_price,
+      false,
+      0,
+      new TimePointSec(),
+      new TimePointSec()
     );
 
     this.ordersTable.store(order, this.receiver);
@@ -351,14 +417,56 @@ export class orderbook extends Contract {
 
   /**
    * Process stop-loss/take-profit orders
-   * This matches "Process 10 orders from sl/tp queue"
-   * (For now, this is a placeholder - stop-loss logic would go here)
+   * Checks if trigger conditions are met and activates orders
    */
 
   @action("processsltpq")
   processStopLossTakeProfit(pair_id: u64, max_orders: u32): void {
-    // Placeholder for stop-loss/take-profit processing
-    // Would check trigger prices and activate orders
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+
+    const currentPrice = this.getCurrentMarketPrice(pair_id);
+
+    let processed: u32 = 0;
+
+    let order = this.ordersTable.first();
+
+    while (order != null && processed < max_orders) {
+      const currentOrder = order;
+
+      // Only process stop-loss orders for this pair that haven't been triggered
+      if (
+        currentOrder.pair_id == pair_id &&
+        currentOrder.order_type == "stoploss" &&
+        !currentOrder.is_triggered &&
+        (currentOrder.status == 0 || currentOrder.status == 1)
+      ) {
+        let shouldTrigger = false;
+
+        if (currentOrder.side == "buy") {
+          // Buy stop-loss: Trigger when market price >= trigger price
+          shouldTrigger =
+            currentPrice.amount >= currentOrder.trigger_price.amount;
+        } else {
+          // Sell stop-loss: Trigger when market price <= trigger price
+          shouldTrigger =
+            currentPrice.amount <= currentOrder.trigger_price.amount;
+        }
+
+        if (shouldTrigger) {
+          currentOrder.is_triggered = true;
+          currentOrder.order_type = "limit";
+          currentOrder.updated_at = new TimePointSec();
+
+          this.ordersTable.update(currentOrder, this.receiver);
+
+          this.matchStopLossOrder(currentOrder, pair);
+
+          processed++;
+        }
+      }
+
+      order = this.ordersTable.next(currentOrder);
+    }
   }
 
   /**
@@ -594,6 +702,130 @@ export class orderbook extends Contract {
     } else {
       return order1.price.amount <= order2.price.amount;
     }
+  }
+
+  private matchStopLossOrder(
+    stopLossOrder: OrdersTable,
+    pair: PairsTable
+  ): void {
+    let matchOrder = this.ordersTable.first();
+
+    while (matchOrder != null) {
+      const currentMatch = matchOrder;
+
+      if (stopLossOrder.order_id != currentMatch.order_id) {
+        if (
+          currentMatch.pair_id == pair.pair_id &&
+          (currentMatch.order_type == "limit" ||
+            currentMatch.order_type == "stoploss") &&
+          (currentMatch.status == 0 || currentMatch.status == 1) &&
+          stopLossOrder.side != currentMatch.side &&
+          this.canMatch(stopLossOrder, currentMatch)
+        ) {
+          const tradeAmount = this.calculateTradeAmount(
+            stopLossOrder,
+            currentMatch
+          );
+
+          this.executeTrade(
+            stopLossOrder,
+            currentMatch,
+            currentMatch.price,
+            tradeAmount,
+            pair
+          );
+
+          const updated = this.ordersTable.get(stopLossOrder.order_id);
+          if (updated && updated.status == 2) {
+            break;
+          }
+        }
+      }
+
+      matchOrder = this.ordersTable.next(currentMatch);
+    }
+  }
+
+  private getCurrentMarketPrice(pair_id: u64): Asset {
+    let lastTrade: TradesTable | null = null;
+    let trade = this.tradesTable.first();
+
+    while (trade != null) {
+      if (trade.pair_id == pair_id) {
+        if (lastTrade == null || trade.trade_id > lastTrade.trade_id) {
+          lastTrade = trade;
+        }
+      }
+      trade = this.tradesTable.next(trade);
+    }
+
+    if (lastTrade != null) {
+      return lastTrade.price;
+    }
+
+    // Fallback: Get mid-price from orderbook
+    const bestBid = this.getBestBidPrice(pair_id);
+    const bestAsk = this.getBestAskPrice(pair_id);
+
+    if (bestBid.amount > 0 && bestAsk.amount > 0) {
+      const midPrice = (bestBid.amount + bestAsk.amount) / 2;
+      const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+      return new Asset(midPrice, pair.quote_symbol);
+    }
+
+    // No price available
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+    return new Asset(0, pair.quote_symbol);
+  }
+
+  /**
+   * Get best bid (highest buy) price
+   */
+  private getBestBidPrice(pair_id: u64): Asset {
+    let order = this.ordersTable.first();
+    let bestPrice: u64 = 0;
+    let priceSymbol: Symbol = new Symbol();
+
+    while (order != null) {
+      if (
+        order.pair_id == pair_id &&
+        order.side == "buy" &&
+        (order.status == 0 || order.status == 1)
+      ) {
+        if (order.price.amount > bestPrice) {
+          bestPrice = order.price.amount;
+          priceSymbol = order.price.symbol;
+        }
+      }
+      order = this.ordersTable.next(order);
+    }
+
+    return new Asset(bestPrice, priceSymbol);
+  }
+
+  /**
+   * Get best ask (lowest sell) price
+   */
+  private getBestAskPrice(pair_id: u64): Asset {
+    let order = this.ordersTable.first();
+    let bestPrice: u64 = 0;
+    let priceSymbol: Symbol = new Symbol();
+
+    while (order != null) {
+      if (
+        order.pair_id == pair_id &&
+        order.side == "sell" &&
+        (order.status == 0 || order.status == 1)
+      ) {
+        if (bestPrice == 0 || order.price.amount < bestPrice) {
+          bestPrice = order.price.amount;
+          priceSymbol = order.price.symbol;
+        }
+      }
+      order = this.ordersTable.next(order);
+    }
+
+    return new Asset(bestPrice, priceSymbol);
   }
 
   private calculateTradeAmount(
