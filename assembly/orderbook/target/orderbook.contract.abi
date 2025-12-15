@@ -1,0 +1,590 @@
+{
+  "version": "eosio::abi/1.2",
+  "structs": [
+    {
+      "name": "BalancesTable",
+      "base": "",
+      "fields": [
+        {
+          "name": "token_contract",
+          "type": "name"
+        },
+        {
+          "name": "balance",
+          "type": "asset"
+        },
+        {
+          "name": "locked",
+          "type": "asset"
+        },
+        {
+          "name": "updated_at",
+          "type": "time_point_sec"
+        }
+      ]
+    },
+    {
+      "name": "ConfigTable",
+      "base": "",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uint64"
+        },
+        {
+          "name": "admin",
+          "type": "name"
+        },
+        {
+          "name": "paused",
+          "type": "bool"
+        },
+        {
+          "name": "min_maker_fee_bp",
+          "type": "uint16"
+        },
+        {
+          "name": "max_maker_fee_bp",
+          "type": "uint16"
+        },
+        {
+          "name": "min_taker_fee_bp",
+          "type": "uint16"
+        },
+        {
+          "name": "max_taker_fee_bp",
+          "type": "uint16"
+        },
+        {
+          "name": "fee_recipient",
+          "type": "name"
+        }
+      ]
+    },
+    {
+      "name": "FeesTable",
+      "base": "",
+      "fields": [
+        {
+          "name": "fee_id",
+          "type": "uint64"
+        },
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "token_contract",
+          "type": "name"
+        },
+        {
+          "name": "total_collected",
+          "type": "asset"
+        },
+        {
+          "name": "maker_fees",
+          "type": "asset"
+        },
+        {
+          "name": "taker_fees",
+          "type": "asset"
+        },
+        {
+          "name": "last_updated",
+          "type": "time_point_sec"
+        }
+      ]
+    },
+    {
+      "name": "OrdersTable",
+      "base": "",
+      "fields": [
+        {
+          "name": "order_id",
+          "type": "uint64"
+        },
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "user",
+          "type": "name"
+        },
+        {
+          "name": "side",
+          "type": "string"
+        },
+        {
+          "name": "order_type",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "asset"
+        },
+        {
+          "name": "amount",
+          "type": "asset"
+        },
+        {
+          "name": "filled_amount",
+          "type": "asset"
+        },
+        {
+          "name": "remaining_amount",
+          "type": "asset"
+        },
+        {
+          "name": "trigger_price",
+          "type": "asset"
+        },
+        {
+          "name": "is_triggered",
+          "type": "bool"
+        },
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "created_at",
+          "type": "time_point_sec"
+        },
+        {
+          "name": "updated_at",
+          "type": "time_point_sec"
+        }
+      ]
+    },
+    {
+      "name": "PairsTable",
+      "base": "",
+      "fields": [
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "base_symbol",
+          "type": "symbol"
+        },
+        {
+          "name": "base_contract",
+          "type": "name"
+        },
+        {
+          "name": "quote_symbol",
+          "type": "symbol"
+        },
+        {
+          "name": "quote_contract",
+          "type": "name"
+        },
+        {
+          "name": "min_order_size",
+          "type": "asset"
+        },
+        {
+          "name": "max_order_size",
+          "type": "asset"
+        },
+        {
+          "name": "tick_size",
+          "type": "asset"
+        },
+        {
+          "name": "maker_fee_bp",
+          "type": "uint16"
+        },
+        {
+          "name": "taker_fee_bp",
+          "type": "uint16"
+        },
+        {
+          "name": "status",
+          "type": "string"
+        },
+        {
+          "name": "created_at",
+          "type": "time_point_sec"
+        }
+      ]
+    },
+    {
+      "name": "TradesTable",
+      "base": "",
+      "fields": [
+        {
+          "name": "trade_id",
+          "type": "uint64"
+        },
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "buy_order_id",
+          "type": "uint64"
+        },
+        {
+          "name": "sell_order_id",
+          "type": "uint64"
+        },
+        {
+          "name": "buyer",
+          "type": "name"
+        },
+        {
+          "name": "seller",
+          "type": "name"
+        },
+        {
+          "name": "price",
+          "type": "asset"
+        },
+        {
+          "name": "amount",
+          "type": "asset"
+        },
+        {
+          "name": "total_value",
+          "type": "asset"
+        },
+        {
+          "name": "buyer_fee",
+          "type": "asset"
+        },
+        {
+          "name": "seller_fee",
+          "type": "asset"
+        },
+        {
+          "name": "executed_at",
+          "type": "time_point_sec"
+        }
+      ]
+    },
+    {
+      "name": "cancelorder",
+      "base": "",
+      "fields": [
+        {
+          "name": "user",
+          "type": "name"
+        },
+        {
+          "name": "order_id",
+          "type": "uint64"
+        }
+      ]
+    },
+    {
+      "name": "createpair",
+      "base": "",
+      "fields": [
+        {
+          "name": "base_symbol",
+          "type": "symbol"
+        },
+        {
+          "name": "base_contract",
+          "type": "name"
+        },
+        {
+          "name": "quote_symbol",
+          "type": "symbol"
+        },
+        {
+          "name": "quote_contract",
+          "type": "name"
+        },
+        {
+          "name": "min_order_size",
+          "type": "asset"
+        },
+        {
+          "name": "max_order_size",
+          "type": "asset"
+        },
+        {
+          "name": "tick_size",
+          "type": "asset"
+        },
+        {
+          "name": "maker_fee_bp",
+          "type": "uint16"
+        },
+        {
+          "name": "taker_fee_bp",
+          "type": "uint16"
+        }
+      ]
+    },
+    {
+      "name": "init",
+      "base": "",
+      "fields": [
+        {
+          "name": "admin",
+          "type": "name"
+        },
+        {
+          "name": "fee_recipient",
+          "type": "name"
+        }
+      ]
+    },
+    {
+      "name": "limitorder",
+      "base": "",
+      "fields": [
+        {
+          "name": "user",
+          "type": "name"
+        },
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "side",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "asset"
+        },
+        {
+          "name": "amount",
+          "type": "asset"
+        }
+      ]
+    },
+    {
+      "name": "marketorder",
+      "base": "",
+      "fields": [
+        {
+          "name": "user",
+          "type": "name"
+        },
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "side",
+          "type": "string"
+        },
+        {
+          "name": "amount",
+          "type": "asset"
+        }
+      ]
+    },
+    {
+      "name": "pausepair",
+      "base": "",
+      "fields": [
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "pause",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "processlimit",
+      "base": "",
+      "fields": [
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "max_orders",
+          "type": "uint32"
+        }
+      ]
+    },
+    {
+      "name": "processsltpq",
+      "base": "",
+      "fields": [
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "max_orders",
+          "type": "uint32"
+        }
+      ]
+    },
+    {
+      "name": "stoploss",
+      "base": "",
+      "fields": [
+        {
+          "name": "user",
+          "type": "name"
+        },
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "side",
+          "type": "string"
+        },
+        {
+          "name": "trigger_price",
+          "type": "asset"
+        },
+        {
+          "name": "limit_price",
+          "type": "asset"
+        },
+        {
+          "name": "amount",
+          "type": "asset"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "base": "",
+      "fields": [
+        {
+          "name": "user",
+          "type": "name"
+        },
+        {
+          "name": "quantity",
+          "type": "asset"
+        }
+      ]
+    },
+    {
+      "name": "withdrawall",
+      "base": "",
+      "fields": [
+        {
+          "name": "user",
+          "type": "name"
+        }
+      ]
+    }
+  ],
+  "types": [],
+  "actions": [
+    {
+      "name": "cancelorder",
+      "type": "cancelorder",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "createpair",
+      "type": "createpair",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "init",
+      "type": "init",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "limitorder",
+      "type": "limitorder",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "marketorder",
+      "type": "marketorder",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "pausepair",
+      "type": "pausepair",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "processlimit",
+      "type": "processlimit",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "processsltpq",
+      "type": "processsltpq",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "stoploss",
+      "type": "stoploss",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "withdraw",
+      "type": "withdraw",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "withdrawall",
+      "type": "withdrawall",
+      "ricardian_contract": ""
+    }
+  ],
+  "tables": [
+    {
+      "name": "balances",
+      "type": "BalancesTable",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": []
+    },
+    {
+      "name": "config",
+      "type": "ConfigTable",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": []
+    },
+    {
+      "name": "fees",
+      "type": "FeesTable",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": []
+    },
+    {
+      "name": "orders",
+      "type": "OrdersTable",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": []
+    },
+    {
+      "name": "pairs",
+      "type": "PairsTable",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": []
+    },
+    {
+      "name": "trades",
+      "type": "TradesTable",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": []
+    }
+  ],
+  "ricardian_clauses": [],
+  "variants": [],
+  "action_results": [],
+  "abi_extensions": [],
+  "error_messages": []
+}

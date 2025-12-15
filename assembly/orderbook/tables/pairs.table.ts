@@ -32,12 +32,16 @@ export class PairsTable extends Table {
   }
 
   @secondary
-  get by_base_symbol(): u64 {
+  get bybasesymbol(): u64 {
     return this.base_symbol.code();
   }
 
+  set bybasesymbol(value: u64) {}
+
   @secondary
-  get by_quote_symbol(): u64 {
+  get byquotesymbol(): u64 {
     return this.quote_symbol.code();
   }
+
+  set byquotesymbol(value: u64) {}
 }

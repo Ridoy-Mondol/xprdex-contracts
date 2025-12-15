@@ -20,20 +20,28 @@ export class FeesTable extends Table {
   }
 
   @secondary
-  get by_pair_token(): U128 {
+  get bypairtoken(): U128 {
     const high = U128.fromU64(this.pair_id);
     const shifted = U128.shl(high, 64);
     const low = U128.fromU64(this.total_collected.symbol.code());
     return U128.or(shifted, low);
   }
 
+  set bypairtoken(value: u64) {}
+
   @secondary
-  get by_pair(): u64 {
+  get bypair(): u64 {
     return this.pair_id;
   }
 
+  set bypair(value: u64) {
+    this.pair_id = value;
+  }
+
   @secondary
-  get by_token(): u64 {
+  get bytoken(): u64 {
     return this.total_collected.symbol.code();
   }
+
+  set bytoken(value: u64) {}
 }

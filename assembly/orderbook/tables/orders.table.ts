@@ -27,35 +27,57 @@ export class OrdersTable extends Table {
   }
 
   @secondary
-  get by_user(): u64 {
+  get byuser(): u64 {
     return this.user.N;
   }
 
+  set byuser(value: u64) {
+    this.user.N = value;
+  }
+
   @secondary
-  get by_pair(): u64 {
+  get bypair(): u64 {
     return this.pair_id;
   }
 
+  set bypair(value: u64) {
+    this.pair_id = value;
+  }
+
   @secondary
-  get by_status(): u64 {
+  get bystatus(): u64 {
     return this.status;
   }
 
-  @secondary
-  get by_price(): u64 {
-    return this.price.amount;
+  set bystatus(value: u64) {
+    this.status = value;
   }
 
   @secondary
-  get by_pair_price(): U128 {
+  get byprice(): u64 {
+    return this.price.amount;
+  }
+
+  set byprice(value: u64) {
+    this.price.amount = value;
+  }
+
+  @secondary
+  get byPairPrice(): U128 {
     const high = U128.fromU64(this.pair_id);
     const shifted = U128.shl(high, 64);
     const low = U128.fromU64(this.price.amount);
     return U128.or(shifted, low);
   }
 
+  set byPairPrice(value: U128) {}
+
   @secondary
-  get by_trigger_price(): u64 {
+  get bytriggerprice(): u64 {
     return this.trigger_price.amount;
+  }
+
+  set bytriggerprice(value: u64) {
+    this.trigger_price.amount = value;
   }
 }

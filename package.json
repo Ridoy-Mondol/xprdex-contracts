@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:swap": "npx proton-asc assembly/swap/swap.contract.ts"
+    "build:swap": "npx proton-asc assembly/swap/swap.contract.ts",
+    "build:orderbook": "npx proton-asc assembly/orderbook/orderbook.contract.ts"
   },
   "keywords": [],
   "author": "",

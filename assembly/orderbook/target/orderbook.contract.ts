@@ -1,3 +1,4 @@
+import * as _chain from "as-chain";
 import {
   Asset,
   check,
@@ -834,6 +835,10 @@ export class orderbook extends Contract {
   ): Asset {
     const amount1 = order1.remaining_amount.amount;
     const amount2 = order2.remaining_amount.amount;
+    // const minAmount = Math.min(
+    //   order1.remaining_amount.amount,
+    //   order2.remaining_amount.amount
+    // );
     const minAmount = amount1 < amount2 ? amount1 : amount2;
     return new Asset(minAmount, order1.amount.symbol);
   }
@@ -987,6 +992,7 @@ export class orderbook extends Contract {
       feeAmount.symbol.code()
     );
 
+    // const allFees = this.feesTable.first();
     let existing: FeesTable | null = this.feesTable.first();
 
     while (existing != null) {
@@ -1041,11 +1047,630 @@ export class orderbook extends Contract {
 
     const action = transfer.act(
       tokenContract,
-      new PermissionLevel(this.receiver, Name.fromString("active"))
+      new PermissionLevel(this.receiver, Name.fromU64(0x3232EDA800000000))
     );
 
     const transferParams = new TokenTransfer(from, to, quantity, memo);
 
     action.send(transferParams);
   }
+}
+
+
+class initAction implements _chain.Packer {
+    constructor (
+        public admin: _chain.Name | null = null,
+        public fee_recipient: _chain.Name | null = null,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.admin!);
+        enc.pack(this.fee_recipient!);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.admin! = obj;
+        }
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.fee_recipient! = obj;
+        }
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.admin!.getSize();
+        size += this.fee_recipient!.getSize();
+        return size;
+    }
+}
+
+class createPairAction implements _chain.Packer {
+    constructor (
+        public base_symbol: _chain.Symbol | null = null,
+        public base_contract: _chain.Name | null = null,
+        public quote_symbol: _chain.Symbol | null = null,
+        public quote_contract: _chain.Name | null = null,
+        public min_order_size: _chain.Asset | null = null,
+        public max_order_size: _chain.Asset | null = null,
+        public tick_size: _chain.Asset | null = null,
+        public maker_fee_bp: u16 = 0,
+        public taker_fee_bp: u16 = 0,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.base_symbol!);
+        enc.pack(this.base_contract!);
+        enc.pack(this.quote_symbol!);
+        enc.pack(this.quote_contract!);
+        enc.pack(this.min_order_size!);
+        enc.pack(this.max_order_size!);
+        enc.pack(this.tick_size!);
+        enc.packNumber<u16>(this.maker_fee_bp);
+        enc.packNumber<u16>(this.taker_fee_bp);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Symbol();
+            dec.unpack(obj);
+            this.base_symbol! = obj;
+        }
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.base_contract! = obj;
+        }
+        
+        {
+            let obj = new _chain.Symbol();
+            dec.unpack(obj);
+            this.quote_symbol! = obj;
+        }
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.quote_contract! = obj;
+        }
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.min_order_size! = obj;
+        }
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.max_order_size! = obj;
+        }
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.tick_size! = obj;
+        }
+        this.maker_fee_bp = dec.unpackNumber<u16>();
+        this.taker_fee_bp = dec.unpackNumber<u16>();
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.base_symbol!.getSize();
+        size += this.base_contract!.getSize();
+        size += this.quote_symbol!.getSize();
+        size += this.quote_contract!.getSize();
+        size += this.min_order_size!.getSize();
+        size += this.max_order_size!.getSize();
+        size += this.tick_size!.getSize();
+        size += sizeof<u16>();
+        size += sizeof<u16>();
+        return size;
+    }
+}
+
+class pausePairAction implements _chain.Packer {
+    constructor (
+        public pair_id: u64 = 0,
+        public pause: string = "",
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.packNumber<u64>(this.pair_id);
+        enc.packString(this.pause);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        this.pair_id = dec.unpackNumber<u64>();
+        this.pause = dec.unpackString();
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += sizeof<u64>();
+        size += _chain.Utils.calcPackedStringLength(this.pause);
+        return size;
+    }
+}
+
+class onTransferAction implements _chain.Packer {
+    constructor (
+        public from: _chain.Name | null = null,
+        public to: _chain.Name | null = null,
+        public quantity: _chain.Asset | null = null,
+        public memo: string = "",
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.from!);
+        enc.pack(this.to!);
+        enc.pack(this.quantity!);
+        enc.packString(this.memo);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.from! = obj;
+        }
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.to! = obj;
+        }
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.quantity! = obj;
+        }
+        this.memo = dec.unpackString();
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.from!.getSize();
+        size += this.to!.getSize();
+        size += this.quantity!.getSize();
+        size += _chain.Utils.calcPackedStringLength(this.memo);
+        return size;
+    }
+}
+
+class LimitOrderAction implements _chain.Packer {
+    constructor (
+        public user: _chain.Name | null = null,
+        public pair_id: u64 = 0,
+        public side: string = "",
+        public price: _chain.Asset | null = null,
+        public amount: _chain.Asset | null = null,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.user!);
+        enc.packNumber<u64>(this.pair_id);
+        enc.packString(this.side);
+        enc.pack(this.price!);
+        enc.pack(this.amount!);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.user! = obj;
+        }
+        this.pair_id = dec.unpackNumber<u64>();
+        this.side = dec.unpackString();
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.price! = obj;
+        }
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.amount! = obj;
+        }
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.user!.getSize();
+        size += sizeof<u64>();
+        size += _chain.Utils.calcPackedStringLength(this.side);
+        size += this.price!.getSize();
+        size += this.amount!.getSize();
+        return size;
+    }
+}
+
+class marketOrderAction implements _chain.Packer {
+    constructor (
+        public user: _chain.Name | null = null,
+        public pair_id: u64 = 0,
+        public side: string = "",
+        public amount: _chain.Asset | null = null,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.user!);
+        enc.packNumber<u64>(this.pair_id);
+        enc.packString(this.side);
+        enc.pack(this.amount!);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.user! = obj;
+        }
+        this.pair_id = dec.unpackNumber<u64>();
+        this.side = dec.unpackString();
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.amount! = obj;
+        }
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.user!.getSize();
+        size += sizeof<u64>();
+        size += _chain.Utils.calcPackedStringLength(this.side);
+        size += this.amount!.getSize();
+        return size;
+    }
+}
+
+class stopLossOrderAction implements _chain.Packer {
+    constructor (
+        public user: _chain.Name | null = null,
+        public pair_id: u64 = 0,
+        public side: string = "",
+        public trigger_price: _chain.Asset | null = null,
+        public limit_price: _chain.Asset | null = null,
+        public amount: _chain.Asset | null = null,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.user!);
+        enc.packNumber<u64>(this.pair_id);
+        enc.packString(this.side);
+        enc.pack(this.trigger_price!);
+        enc.pack(this.limit_price!);
+        enc.pack(this.amount!);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.user! = obj;
+        }
+        this.pair_id = dec.unpackNumber<u64>();
+        this.side = dec.unpackString();
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.trigger_price! = obj;
+        }
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.limit_price! = obj;
+        }
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.amount! = obj;
+        }
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.user!.getSize();
+        size += sizeof<u64>();
+        size += _chain.Utils.calcPackedStringLength(this.side);
+        size += this.trigger_price!.getSize();
+        size += this.limit_price!.getSize();
+        size += this.amount!.getSize();
+        return size;
+    }
+}
+
+class processLimitAction implements _chain.Packer {
+    constructor (
+        public pair_id: u64 = 0,
+        public max_orders: u32 = 0,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.packNumber<u64>(this.pair_id);
+        enc.packNumber<u32>(this.max_orders);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        this.pair_id = dec.unpackNumber<u64>();
+        this.max_orders = dec.unpackNumber<u32>();
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += sizeof<u64>();
+        size += sizeof<u32>();
+        return size;
+    }
+}
+
+class processStopLossTakeProfitAction implements _chain.Packer {
+    constructor (
+        public pair_id: u64 = 0,
+        public max_orders: u32 = 0,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.packNumber<u64>(this.pair_id);
+        enc.packNumber<u32>(this.max_orders);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        this.pair_id = dec.unpackNumber<u64>();
+        this.max_orders = dec.unpackNumber<u32>();
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += sizeof<u64>();
+        size += sizeof<u32>();
+        return size;
+    }
+}
+
+class withdrawAllAction implements _chain.Packer {
+    constructor (
+        public user: _chain.Name | null = null,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.user!);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.user! = obj;
+        }
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.user!.getSize();
+        return size;
+    }
+}
+
+class withdrawAction implements _chain.Packer {
+    constructor (
+        public user: _chain.Name | null = null,
+        public quantity: _chain.Asset | null = null,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.user!);
+        enc.pack(this.quantity!);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.user! = obj;
+        }
+        
+        {
+            let obj = new _chain.Asset();
+            dec.unpack(obj);
+            this.quantity! = obj;
+        }
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.user!.getSize();
+        size += this.quantity!.getSize();
+        return size;
+    }
+}
+
+class cancelOrderAction implements _chain.Packer {
+    constructor (
+        public user: _chain.Name | null = null,
+        public order_id: u64 = 0,
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        enc.pack(this.user!);
+        enc.packNumber<u64>(this.order_id);
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        
+        {
+            let obj = new _chain.Name();
+            dec.unpack(obj);
+            this.user! = obj;
+        }
+        this.order_id = dec.unpackNumber<u64>();
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
+        size += this.user!.getSize();
+        size += sizeof<u64>();
+        return size;
+    }
+}
+
+export function apply(receiver: u64, firstReceiver: u64, action: u64): void {
+	const _receiver = new _chain.Name(receiver);
+	const _firstReceiver = new _chain.Name(firstReceiver);
+	const _action = new _chain.Name(action);
+
+	const mycontract = new orderbook(_receiver, _firstReceiver, _action);
+	const actionData = _chain.readActionData();
+
+	if (receiver == firstReceiver) {
+		if (action == 0x74DD900000000000) {//init
+            const args = new initAction();
+            args.unpack(actionData);
+            mycontract.init(args.admin!,args.fee_recipient!);
+        }
+		if (action == 0x45D46CAAA675C000) {//createpair
+            const args = new createPairAction();
+            args.unpack(actionData);
+            mycontract.createPair(args.base_symbol!,args.base_contract!,args.quote_symbol!,args.quote_contract!,args.min_order_size!,args.max_order_size!,args.tick_size!,args.maker_fee_bp,args.taker_fee_bp);
+        }
+		if (action == 0xA9B58554CEB80000) {//pausepair
+            const args = new pausePairAction();
+            args.unpack(actionData);
+            mycontract.pausePair(args.pair_id,args.pause);
+        }
+		
+		if (action == 0x8BA4ECD2E955C000) {//limitorder
+            const args = new LimitOrderAction();
+            args.unpack(actionData);
+            mycontract.LimitOrder(args.user!,args.pair_id,args.side,args.price!,args.amount!);
+        }
+		if (action == 0x91AF0566974AAE00) {//marketorder
+            const args = new marketOrderAction();
+            args.unpack(actionData);
+            mycontract.marketOrder(args.user!,args.pair_id,args.side,args.amount!);
+        }
+		if (action == 0xC66958D318000000) {//stoploss
+            const args = new stopLossOrderAction();
+            args.unpack(actionData);
+            mycontract.stopLossOrder(args.user!,args.pair_id,args.side,args.trigger_price!,args.limit_price!,args.amount!);
+        }
+		if (action == 0xADE8856311749D90) {//processlimit
+            const args = new processLimitAction();
+            args.unpack(actionData);
+            mycontract.processLimit(args.pair_id,args.max_orders);
+        }
+		if (action == 0xADE88563188E6B60) {//processsltpq
+            const args = new processStopLossTakeProfitAction();
+            args.unpack(actionData);
+            mycontract.processStopLossTakeProfit(args.pair_id,args.max_orders);
+        }
+		if (action == 0xE3B2D4DCDC346200) {//withdrawall
+            const args = new withdrawAllAction();
+            args.unpack(actionData);
+            mycontract.withdrawAll(args.user!);
+        }
+		if (action == 0xE3B2D4DCDC000000) {//withdraw
+            const args = new withdrawAction();
+            args.unpack(actionData);
+            mycontract.withdraw(args.user!,args.quantity!);
+        }
+		if (action == 0x41A68546974AAE00) {//cancelorder
+            const args = new cancelOrderAction();
+            args.unpack(actionData);
+            mycontract.cancelOrder(args.user!,args.order_id);
+        }
+	}
+  
+	if (receiver != firstReceiver) {
+		if (action == 0xCDCD3C2D57000000) {//transfer
+            const args = new onTransferAction();
+            args.unpack(actionData);
+            mycontract.onTransfer(args.from!,args.to!,args.quantity!,args.memo);
+        }
+	}
+	return;
 }
