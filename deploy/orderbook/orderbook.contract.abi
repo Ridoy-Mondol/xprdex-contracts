@@ -280,6 +280,11 @@
       ]
     },
     {
+      "name": "clrpair",
+      "base": "",
+      "fields": []
+    },
+    {
       "name": "createpair",
       "base": "",
       "fields": [
@@ -485,6 +490,11 @@
     {
       "name": "cancelorder",
       "type": "cancelorder",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "clrpair",
+      "type": "clrpair",
       "ricardian_contract": ""
     },
     {

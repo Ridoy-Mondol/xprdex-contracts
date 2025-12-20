@@ -54,21 +54,31 @@ export class orderbook extends Contract {
   init(admin: Name, fee_recipient: Name): void {
     requireAuth(this.receiver);
 
+    check(isAccount(admin), "Admin not found");
+    check(isAccount(fee_recipient), "Fee Recipient account not found");
+
     const existing = this.configTable.get(0);
-    check(!existing, "DEX already initialized");
+    // check(!existing, "DEX already initialized");
 
-    const config = new ConfigTable(
-      0,
-      admin,
-      false,
-      1,
-      100,
-      1,
-      100,
-      fee_recipient
-    );
+    if (existing) {
+      existing.admin = admin;
+      existing.fee_recipient = fee_recipient;
 
-    this.configTable.store(config, this.receiver);
+      this.configTable.update(existing, this.receiver);
+    } else {
+      const config = new ConfigTable(
+        0,
+        admin,
+        false,
+        1,
+        100,
+        1,
+        100,
+        fee_recipient
+      );
+
+      this.configTable.store(config, this.receiver);
+    }
   }
 
   /**
@@ -113,6 +123,20 @@ export class orderbook extends Contract {
       "Max must be greater than min"
     );
 
+    // const pairkey = this.createPairKey(
+    //   base_contract,
+    //   base_symbol,
+    //   quote_contract,
+    //   quote_symbol
+    // );
+
+    // const existing = this.pairsTable.getBySecondaryU128(pairkey, 4);
+
+    // check(existing == null, "Pair already exists");
+
+    // ✅ CRITICAL: Check for duplicate pairs
+    this.isPairExists(base_symbol, base_contract, quote_symbol, quote_contract);
+
     const pair_id = this.pairsTable.availablePrimaryKey;
 
     const pair = new PairsTable(
@@ -131,6 +155,17 @@ export class orderbook extends Contract {
     );
 
     this.pairsTable.store(pair, this.receiver);
+  }
+
+  @action("clrpair")
+  clearPair(): void {
+    let pair = this.pairsTable.first();
+
+    while (pair != null) {
+      let nextPair = this.pairsTable.next(pair);
+      this.pairsTable.remove(pair);
+      pair = nextPair;
+    }
   }
 
   /**
@@ -582,6 +617,42 @@ export class orderbook extends Contract {
     return config;
   }
 
+  /**
+   * Check Pair uniqueness
+   */
+  private isPairExists(
+    base_symbol: Symbol,
+    base_contract: Name,
+    quote_symbol: Symbol,
+    quote_contract: Name
+  ): void {
+    let pair = this.pairsTable.first();
+
+    // Check if exact pair exists (same base and quote)
+    while (pair != null) {
+      if (
+        pair.base_symbol.code() == base_symbol.code() &&
+        pair.base_contract == base_contract &&
+        pair.quote_symbol == quote_symbol &&
+        pair.quote_contract == quote_contract
+      ) {
+        check(false, "Pair already exists");
+      }
+
+      // Check if reverse pair exists
+      if (
+        pair.base_symbol.code() == quote_symbol.code() &&
+        pair.base_contract == quote_contract &&
+        pair.quote_symbol == base_symbol &&
+        pair.quote_contract == base_contract
+      ) {
+        check(false, "Pair already exists");
+      }
+
+      pair = this.pairsTable.next(pair);
+    }
+  }
+
   private estimateMarketPrice(pair_id: u64, side: string): Asset {
     let order = this.ordersTable.first();
     let bestPrice: i64 = 0;
@@ -835,10 +906,6 @@ export class orderbook extends Contract {
   ): Asset {
     const amount1 = order1.remaining_amount.amount;
     const amount2 = order2.remaining_amount.amount;
-    // const minAmount = Math.min(
-    //   order1.remaining_amount.amount,
-    //   order2.remaining_amount.amount
-    // );
     const minAmount = amount1 < amount2 ? amount1 : amount2;
     return new Asset(minAmount, order1.amount.symbol);
   }
@@ -992,7 +1059,6 @@ export class orderbook extends Contract {
       feeAmount.symbol.code()
     );
 
-    // const allFees = this.feesTable.first();
     let existing: FeesTable | null = this.feesTable.first();
 
     while (existing != null) {
@@ -1034,6 +1100,25 @@ export class orderbook extends Contract {
     const shifted = U128.shl(high, 64);
     const low = U128.fromU64(symbol_code);
     return U128.or(shifted, low);
+  }
+
+  private createPairKey(
+    base_contract: Name,
+    base_symbol: Symbol,
+    quote_contract: Name,
+    quote_symbol: Symbol
+  ): U128 {
+    const baseContract = U128.fromU64(base_contract.value);
+    const baseSymbol = U128.fromU64(base_symbol.code());
+    const quoteContract = U128.fromU64(quote_contract.value);
+    const quoteSymbol = U128.fromU64(quote_symbol.code());
+
+    let key = U128.shl(baseContract, 96);
+    key = U128.or(key, U128.shl(baseSymbol, 64));
+    key = U128.or(key, U128.shl(quoteContract, 32));
+    key = U128.or(key, quoteSymbol);
+
+    return key;
   }
 
   private transfer(
@@ -1184,6 +1269,27 @@ class createPairAction implements _chain.Packer {
         size += this.tick_size!.getSize();
         size += sizeof<u16>();
         size += sizeof<u16>();
+        return size;
+    }
+}
+
+class clearPairAction implements _chain.Packer {
+    constructor (
+    ) {
+    }
+
+    pack(): u8[] {
+        let enc = new _chain.Encoder(this.getSize());
+        return enc.getBytes();
+    }
+    
+    unpack(data: u8[]): usize {
+        let dec = new _chain.Decoder(data);
+        return dec.getPos();
+    }
+
+    getSize(): usize {
+        let size: usize = 0;
         return size;
     }
 }
@@ -1616,6 +1722,11 @@ export function apply(receiver: u64, firstReceiver: u64, action: u64): void {
             const args = new createPairAction();
             args.unpack(actionData);
             mycontract.createPair(args.base_symbol!,args.base_contract!,args.quote_symbol!,args.quote_contract!,args.min_order_size!,args.max_order_size!,args.tick_size!,args.maker_fee_bp,args.taker_fee_bp);
+        }
+		if (action == 0x446F533AE0000000) {//clrpair
+            const args = new clearPairAction();
+            args.unpack(actionData);
+            mycontract.clearPair();
         }
 		if (action == 0xA9B58554CEB80000) {//pausepair
             const args = new pausePairAction();

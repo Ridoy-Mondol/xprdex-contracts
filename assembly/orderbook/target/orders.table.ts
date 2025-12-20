@@ -133,9 +133,7 @@ export class OrdersTable implements _chain.MultiIndexValue {
     return U128.or(shifted, low);
   }
 
-  set byPairPrice(value: U128) {
-    // this.pool_id = value;
-  }
+  set byPairPrice(value: U128) {}
 
   @secondary
   get bytriggerprice(): u64 {

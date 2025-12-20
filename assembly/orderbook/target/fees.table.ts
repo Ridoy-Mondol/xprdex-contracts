@@ -63,9 +63,7 @@ export class FeesTable implements _chain.MultiIndexValue {
     return U128.or(shifted, low);
   }
 
-  set bypairtoken(value: u64) {
-    // this.pair_id = value;
-  }
+  set bypairtoken(value: u64) {}
 
   @secondary
   get bypair(): u64 {
@@ -81,9 +79,7 @@ export class FeesTable implements _chain.MultiIndexValue {
     return this.total_collected.symbol.code();
   }
 
-  set bytoken(value: u64) {
-    // this.total_collected.symbol.code() = value;
-  }
+  set bytoken(value: u64) {}
 
     pack(): u8[] {
         let enc = new _chain.Encoder(this.getSize());

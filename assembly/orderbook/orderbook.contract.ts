@@ -53,21 +53,31 @@ export class orderbook extends Contract {
   init(admin: Name, fee_recipient: Name): void {
     requireAuth(this.receiver);
 
+    check(isAccount(admin), "Admin not found");
+    check(isAccount(fee_recipient), "Fee Recipient account not found");
+
     const existing = this.configTable.get(0);
-    check(!existing, "DEX already initialized");
+    // check(!existing, "DEX already initialized");
 
-    const config = new ConfigTable(
-      0,
-      admin,
-      false,
-      1,
-      100,
-      1,
-      100,
-      fee_recipient
-    );
+    if (existing) {
+      existing.admin = admin;
+      existing.fee_recipient = fee_recipient;
 
-    this.configTable.store(config, this.receiver);
+      this.configTable.update(existing, this.receiver);
+    } else {
+      const config = new ConfigTable(
+        0,
+        admin,
+        false,
+        1,
+        100,
+        1,
+        100,
+        fee_recipient
+      );
+
+      this.configTable.store(config, this.receiver);
+    }
   }
 
   /**
@@ -112,6 +122,9 @@ export class orderbook extends Contract {
       "Max must be greater than min"
     );
 
+    // ✅ Check for duplicate pairs
+    this.isPairExists(base_symbol, base_contract, quote_symbol, quote_contract);
+
     const pair_id = this.pairsTable.availablePrimaryKey;
 
     const pair = new PairsTable(
@@ -130,6 +143,17 @@ export class orderbook extends Contract {
     );
 
     this.pairsTable.store(pair, this.receiver);
+  }
+
+  @action("clrpair")
+  clearPair(): void {
+    let pair = this.pairsTable.first();
+
+    while (pair != null) {
+      let nextPair = this.pairsTable.next(pair);
+      this.pairsTable.remove(pair);
+      pair = nextPair;
+    }
   }
 
   /**
@@ -579,6 +603,42 @@ export class orderbook extends Contract {
   private getConfig(): ConfigTable {
     const config = this.configTable.requireGet(0, "DEX not initialized");
     return config;
+  }
+
+  /**
+   * Check Pair uniqueness
+   */
+  private isPairExists(
+    base_symbol: Symbol,
+    base_contract: Name,
+    quote_symbol: Symbol,
+    quote_contract: Name
+  ): void {
+    let pair = this.pairsTable.first();
+
+    // Check if exact pair exists (same base and quote)
+    while (pair != null) {
+      if (
+        pair.base_symbol.code() == base_symbol.code() &&
+        pair.base_contract == base_contract &&
+        pair.quote_symbol == quote_symbol &&
+        pair.quote_contract == quote_contract
+      ) {
+        check(false, "Pair already exists");
+      }
+
+      // Check if reverse pair exists
+      if (
+        pair.base_symbol.code() == quote_symbol.code() &&
+        pair.base_contract == quote_contract &&
+        pair.quote_symbol == base_symbol &&
+        pair.quote_contract == base_contract
+      ) {
+        check(false, "Pair already exists");
+      }
+
+      pair = this.pairsTable.next(pair);
+    }
   }
 
   private estimateMarketPrice(pair_id: u64, side: string): Asset {

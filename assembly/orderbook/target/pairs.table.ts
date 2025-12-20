@@ -6,6 +6,7 @@ import {
   Symbol,
   Table,
   TimePointSec,
+  U128,
 } from "proton-tsc";
 
 
@@ -63,18 +64,31 @@ export class PairsTable implements _chain.MultiIndexValue {
     return this.base_symbol.code();
   }
 
-  set bybasesymbol(value: u64) {
-    // this.pool_id = value;
-  }
+  set bybasesymbol(value: u64) {}
 
   @secondary
   get byquotesymbol(): u64 {
     return this.quote_symbol.code();
   }
 
-  set byquotesymbol(value: u64) {
-    // this.pool_id = value;
-  }
+  set byquotesymbol(value: u64) {}
+
+  // @secondary
+  // get bypairkey(): U128 {
+  //   const baseContract = U128.fromU64(this.base_contract.value);
+  //   const baseSymbol = U128.fromU64(this.base_symbol.code());
+  //   const quoteContract = U128.fromU64(this.quote_contract.value);
+  //   const quoteSymbol = U128.fromU64(this.quote_symbol.code());
+
+  //   let key = U128.shl(baseContract, 96);
+  //   key = U128.or(key, U128.shl(baseSymbol, 64));
+  //   key = U128.or(key, U128.shl(quoteContract, 32));
+  //   key = U128.or(key, quoteSymbol);
+
+  //   return key;
+  // }
+
+  // set bypairkey(_: U128) {}
 
     pack(): u8[] {
         let enc = new _chain.Encoder(this.getSize());
