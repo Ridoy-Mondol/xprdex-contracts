@@ -20,6 +20,7 @@ import {
   BalancesTable,
   ConfigTable,
   FeesTable,
+  TokenStatTable,
 } from "./tables";
 import { TokenTransfer } from "./orderbook.inline";
 
@@ -58,7 +59,6 @@ export class orderbook extends Contract {
     check(isAccount(fee_recipient), "Fee Recipient account not found");
 
     const existing = this.configTable.get(0);
-    // check(!existing, "DEX already initialized");
 
     if (existing) {
       existing.admin = admin;
@@ -108,6 +108,30 @@ export class orderbook extends Contract {
 
     check(isAccount(base_contract), "Base contract does not exist");
     check(isAccount(quote_contract), "Quote contract does not exist");
+
+    this.verifyTokenExist(base_symbol, base_contract);
+    this.verifyTokenExist(quote_symbol, quote_contract);
+
+    check(
+      base_symbol.code() != quote_symbol.code(),
+      "Base and quote cannot be the same"
+    );
+    check(
+      min_order_size.symbol.code() == base_symbol.code(),
+      "Min order size must be in base asset"
+    );
+    check(
+      max_order_size.symbol.code() == base_symbol.code(),
+      "Max order size must be in base asset"
+    );
+    check(
+      tick_size.symbol.code() == quote_symbol.code(),
+      "Tick size must be in quote asset"
+    );
+
+    check(min_order_size.amount > 0, "Min order size must be positive");
+    check(max_order_size.amount > 0, "Max order size must be positive");
+    check(tick_size.amount > 0, "Tick size must be positive");
     check(
       maker_fee_bp >= config.min_maker_fee_bp &&
         maker_fee_bp <= config.max_maker_fee_bp,
@@ -120,21 +144,10 @@ export class orderbook extends Contract {
     );
     check(
       max_order_size.amount > min_order_size.amount,
-      "Max must be greater than min"
+      "Max order size must be greater than min order size"
     );
 
-    // const pairkey = this.createPairKey(
-    //   base_contract,
-    //   base_symbol,
-    //   quote_contract,
-    //   quote_symbol
-    // );
-
-    // const existing = this.pairsTable.getBySecondaryU128(pairkey, 4);
-
-    // check(existing == null, "Pair already exists");
-
-    // ✅ CRITICAL: Check for duplicate pairs
+    // ✅ Check for duplicate pairs
     this.isPairExists(base_symbol, base_contract, quote_symbol, quote_contract);
 
     const pair_id = this.pairsTable.availablePrimaryKey;
@@ -653,6 +666,42 @@ export class orderbook extends Contract {
     }
   }
 
+  private verifyTokenExist(symbol: Symbol, contract: Name): void {
+    const symbolStr = symbol.toString().split(",")[1];
+
+    const precision = symbol.precision();
+
+    const symbolCode = this.calculateSymbolCode(symbolStr);
+
+    const scope = Name.fromU64(symbolCode);
+
+    const statTable = new TableStore<TokenStatTable>(contract, scope);
+
+    const stat = statTable.get(symbolCode);
+
+    check(
+      stat != null,
+      `TOKEN ${symbolStr} NOT FOUND IN ${contract.toString()}`
+    );
+
+    check(
+      stat!.supply.symbol.precision() == precision,
+      `WRONG PRECISION FOR ${symbolStr}`
+    );
+  }
+
+  private calculateSymbolCode(symbolStr: string): u64 {
+    let value: u64 = 0;
+
+    for (let i = 0; i < symbolStr.length && i < 7; i++) {
+      const char = symbolStr.charCodeAt(i);
+      check(char >= 65 && char <= 90, "INVALID_SYMBOL_CHARACTER");
+      value |= u64(char) << (8 * i);
+    }
+
+    return value;
+  }
+
   private estimateMarketPrice(pair_id: u64, side: string): Asset {
     let order = this.ordersTable.first();
     let bestPrice: i64 = 0;
@@ -1100,25 +1149,6 @@ export class orderbook extends Contract {
     const shifted = U128.shl(high, 64);
     const low = U128.fromU64(symbol_code);
     return U128.or(shifted, low);
-  }
-
-  private createPairKey(
-    base_contract: Name,
-    base_symbol: Symbol,
-    quote_contract: Name,
-    quote_symbol: Symbol
-  ): U128 {
-    const baseContract = U128.fromU64(base_contract.value);
-    const baseSymbol = U128.fromU64(base_symbol.code());
-    const quoteContract = U128.fromU64(quote_contract.value);
-    const quoteSymbol = U128.fromU64(quote_symbol.code());
-
-    let key = U128.shl(baseContract, 96);
-    key = U128.or(key, U128.shl(baseSymbol, 64));
-    key = U128.or(key, U128.shl(quoteContract, 32));
-    key = U128.or(key, quoteSymbol);
-
-    return key;
   }
 
   private transfer(

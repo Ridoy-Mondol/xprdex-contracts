@@ -212,6 +212,24 @@
       ]
     },
     {
+      "name": "TokenStatTable",
+      "base": "",
+      "fields": [
+        {
+          "name": "supply",
+          "type": "asset"
+        },
+        {
+          "name": "maxSupply",
+          "type": "asset"
+        },
+        {
+          "name": "issuer",
+          "type": "name"
+        }
+      ]
+    },
+    {
       "name": "TradesTable",
       "base": "",
       "fields": [
@@ -580,6 +598,13 @@
     {
       "name": "pairs",
       "type": "PairsTable",
+      "index_type": "i64",
+      "key_names": [],
+      "key_types": []
+    },
+    {
+      "name": "stat",
+      "type": "TokenStatTable",
       "index_type": "i64",
       "key_names": [],
       "key_types": []
