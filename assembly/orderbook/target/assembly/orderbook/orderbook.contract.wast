@@ -153,122 +153,142 @@
  (data (i32.const 4268) "\\")
  (data (i32.const 4280) "\01\00\00\00@\00\00\00T\00i\00c\00k\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00i\00n\00 \00q\00u\00o\00t\00e\00 \00a\00s\00s\00e\00t")
  (data (i32.const 4364) "\\")
- (data (i32.const 4376) "\01\00\00\00>\00\00\00M\00i\00n\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 4376) "\01\00\00\00B\00\00\00M\00i\00n\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00p\00r\00e\00c\00i\00s\00i\00o\00n\00 \00m\00i\00s\00m\00a\00t\00c\00h")
  (data (i32.const 4460) "\\")
- (data (i32.const 4472) "\01\00\00\00>\00\00\00M\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 4472) "\01\00\00\00B\00\00\00M\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00p\00r\00e\00c\00i\00s\00i\00o\00n\00 \00m\00i\00s\00m\00a\00t\00c\00h")
  (data (i32.const 4556) "L")
- (data (i32.const 4568) "\01\00\00\004\00\00\00T\00i\00c\00k\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
- (data (i32.const 4636) "<")
- (data (i32.const 4648) "\01\00\00\00,\00\00\00M\00a\00k\00e\00r\00 \00f\00e\00e\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e")
- (data (i32.const 4700) "<")
- (data (i32.const 4712) "\01\00\00\00,\00\00\00T\00a\00k\00e\00r\00 \00f\00e\00e\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e")
- (data (i32.const 4764) "|")
- (data (i32.const 4776) "\01\00\00\00d\00\00\00M\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00m\00i\00n\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
- (data (i32.const 4892) "<")
- (data (i32.const 4904) "\01\00\00\00&\00\00\00P\00a\00i\00r\00 \00a\00l\00r\00e\00a\00d\00y\00 \00e\00x\00i\00s\00t\00s")
- (data (i32.const 4956) "\1c")
- (data (i32.const 4968) "\01\00\00\00\0c\00\00\00a\00c\00t\00i\00v\00e")
- (data (i32.const 4988) ",")
- (data (i32.const 5000) "\01\00\00\00\1a\00\00\00b\00a\00d\00 \00d\00b\00 \00i\00n\00d\00e\00x\00!")
- (data (i32.const 5036) "L")
- (data (i32.const 5048) "\01\00\00\000\00\00\00p\00r\00i\00m\00a\00r\00y\00 \00v\00a\00l\00u\00e\00 \00n\00o\00t\00 \00f\00o\00u\00n\00d\00!")
- (data (i32.const 5116) ",")
- (data (i32.const 5128) "\01\00\00\00\1c\00\00\00P\00a\00i\00r\00 \00n\00o\00t\00 \00f\00o\00u\00n\00d")
- (data (i32.const 5164) ",")
- (data (i32.const 5176) "\01\00\00\00\0e\00\00\00d\00e\00p\00o\00s\00i\00t")
- (data (i32.const 5212) "\1c")
- (data (i32.const 5244) "<")
- (data (i32.const 5256) "\01\00\00\00&\00\00\00s\00y\00m\00b\00o\00l\00 \00n\00o\00t\00 \00t\00h\00e\00 \00s\00a\00m\00e")
- (data (i32.const 5308) "<")
- (data (i32.const 5320) "\01\00\00\00$\00\00\00a\00d\00d\00i\00t\00i\00o\00n\00 \00u\00n\00d\00e\00r\00f\00l\00o\00w")
- (data (i32.const 5372) "<")
- (data (i32.const 5384) "\01\00\00\00\"\00\00\00a\00d\00d\00i\00t\00i\00o\00n\00 \00o\00v\00e\00r\00f\00l\00o\00w")
- (data (i32.const 5436) ",")
- (data (i32.const 5448) "\01\00\00\00\1a\00\00\00D\00E\00X\00 \00i\00s\00 \00p\00a\00u\00s\00e\00d")
- (data (i32.const 5484) "L")
- (data (i32.const 5496) "\01\00\00\008\00\00\00T\00r\00a\00d\00i\00n\00g\00 \00p\00a\00u\00s\00e\00d\00 \00f\00o\00r\00 \00t\00h\00i\00s\00 \00p\00a\00i\00r")
- (data (i32.const 5564) "\1c")
- (data (i32.const 5576) "\01\00\00\00\06\00\00\00b\00u\00y")
- (data (i32.const 5596) "\1c")
- (data (i32.const 5608) "\01\00\00\00\08\00\00\00s\00e\00l\00l")
+ (data (i32.const 4568) "\01\00\00\008\00\00\00T\00i\00c\00k\00 \00s\00i\00z\00e\00 \00p\00r\00e\00c\00i\00s\00i\00o\00n\00 \00m\00i\00s\00m\00a\00t\00c\00h")
+ (data (i32.const 4636) "\\")
+ (data (i32.const 4648) "\01\00\00\00>\00\00\00M\00i\00n\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 4732) "\\")
+ (data (i32.const 4744) "\01\00\00\00>\00\00\00M\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 4828) "L")
+ (data (i32.const 4840) "\01\00\00\004\00\00\00T\00i\00c\00k\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 4908) "L")
+ (data (i32.const 4920) "\01\00\00\000\00\00\00M\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e")
+ (data (i32.const 4988) "<")
+ (data (i32.const 5000) "\01\00\00\00&\00\00\00T\00i\00c\00k\00 \00s\00i\00z\00e\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e")
+ (data (i32.const 5052) "<")
+ (data (i32.const 5064) "\01\00\00\00,\00\00\00M\00a\00k\00e\00r\00 \00f\00e\00e\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e")
+ (data (i32.const 5116) "<")
+ (data (i32.const 5128) "\01\00\00\00,\00\00\00T\00a\00k\00e\00r\00 \00f\00e\00e\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e")
+ (data (i32.const 5180) "\\")
+ (data (i32.const 5192) "\01\00\00\00B\00\00\00M\00a\00k\00e\00r\00 \00f\00e\00e\00 \00c\00a\00n\00n\00o\00t\00 \00e\00x\00c\00e\00e\00d\00 \00t\00a\00k\00e\00r\00 \00f\00e\00e")
+ (data (i32.const 5276) "|")
+ (data (i32.const 5288) "\01\00\00\00d\00\00\00M\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00m\00i\00n\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
+ (data (i32.const 5404) "<")
+ (data (i32.const 5416) "\01\00\00\00&\00\00\00P\00a\00i\00r\00 \00a\00l\00r\00e\00a\00d\00y\00 \00e\00x\00i\00s\00t\00s")
+ (data (i32.const 5468) "\1c")
+ (data (i32.const 5480) "\01\00\00\00\0c\00\00\00a\00c\00t\00i\00v\00e")
+ (data (i32.const 5500) ",")
+ (data (i32.const 5512) "\01\00\00\00\1a\00\00\00b\00a\00d\00 \00d\00b\00 \00i\00n\00d\00e\00x\00!")
+ (data (i32.const 5548) "L")
+ (data (i32.const 5560) "\01\00\00\000\00\00\00p\00r\00i\00m\00a\00r\00y\00 \00v\00a\00l\00u\00e\00 \00n\00o\00t\00 \00f\00o\00u\00n\00d\00!")
  (data (i32.const 5628) ",")
- (data (i32.const 5640) "\01\00\00\00\18\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00s\00i\00d\00e")
- (data (i32.const 5676) "<")
- (data (i32.const 5688) "\01\00\00\00(\00\00\00B\00e\00l\00o\00w\00 \00m\00i\00n\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
- (data (i32.const 5740) "<")
- (data (i32.const 5752) "\01\00\00\00,\00\00\00E\00x\00c\00e\00e\00d\00s\00 \00m\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
- (data (i32.const 5804) "<")
- (data (i32.const 5816) "\01\00\00\00,\00\00\00P\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
- (data (i32.const 5868) "\\")
- (data (i32.const 5880) "\01\00\00\00F\00\00\00P\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00m\00u\00l\00t\00i\00p\00l\00e\00 \00o\00f\00 \00t\00i\00c\00k\00 \00s\00i\00z\00e")
- (data (i32.const 5964) "L")
- (data (i32.const 5976) "\01\00\00\000\00\00\00I\00n\00s\00u\00f\00f\00i\00c\00i\00e\00n\00t\00 \00q\00u\00o\00t\00e\00 \00t\00o\00k\00e\00n")
+ (data (i32.const 5640) "\01\00\00\00\1c\00\00\00P\00a\00i\00r\00 \00n\00o\00t\00 \00f\00o\00u\00n\00d")
+ (data (i32.const 5676) "\1c")
+ (data (i32.const 5688) "\01\00\00\00\0c\00\00\00p\00a\00u\00s\00e\00d")
+ (data (i32.const 5708) ",")
+ (data (i32.const 5720) "\01\00\00\00\10\00\00\00d\00i\00s\00a\00b\00l\00e\00d")
+ (data (i32.const 5756) "<")
+ (data (i32.const 5768) "\01\00\00\00&\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00p\00a\00i\00r\00 \00s\00t\00a\00t\00u\00s")
+ (data (i32.const 5820) "L")
+ (data (i32.const 5832) "\01\00\00\004\00\00\00P\00a\00i\00r\00 \00a\00l\00r\00e\00a\00d\00y\00 \00i\00n\00 \00t\00h\00i\00s\00 \00s\00t\00a\00t\00e")
+ (data (i32.const 5900) ",")
+ (data (i32.const 5912) "\01\00\00\00\0e\00\00\00d\00e\00p\00o\00s\00i\00t")
+ (data (i32.const 5948) "\1c")
+ (data (i32.const 5980) "<")
+ (data (i32.const 5992) "\01\00\00\00&\00\00\00s\00y\00m\00b\00o\00l\00 \00n\00o\00t\00 \00t\00h\00e\00 \00s\00a\00m\00e")
  (data (i32.const 6044) "<")
- (data (i32.const 6056) "\01\00\00\00$\00\00\00I\00n\00s\00u\00f\00f\00i\00c\00i\00e\00n\00t\00 \00f\00u\00n\00d\00s")
+ (data (i32.const 6056) "\01\00\00\00$\00\00\00a\00d\00d\00i\00t\00i\00o\00n\00 \00u\00n\00d\00e\00r\00f\00l\00o\00w")
  (data (i32.const 6108) "<")
- (data (i32.const 6120) "\01\00\00\00*\00\00\00s\00u\00b\00t\00r\00a\00c\00t\00i\00o\00n\00 \00u\00n\00d\00e\00r\00f\00l\00o\00w")
- (data (i32.const 6172) "<")
- (data (i32.const 6184) "\01\00\00\00(\00\00\00s\00u\00b\00t\00r\00a\00c\00t\00i\00o\00n\00 \00o\00v\00e\00r\00f\00l\00o\00w")
- (data (i32.const 6236) "L")
- (data (i32.const 6248) "\01\00\00\00.\00\00\00I\00n\00s\00u\00f\00f\00i\00c\00i\00e\00n\00t\00 \00b\00a\00s\00e\00 \00t\00o\00k\00e\00n")
- (data (i32.const 6316) "\1c")
- (data (i32.const 6328) "\01\00\00\00\n\00\00\00l\00i\00m\00i\00t")
- (data (i32.const 6348) ",")
- (data (i32.const 6360) "\01\00\00\00\1c\00\00\00T\00r\00a\00d\00i\00n\00g\00 \00p\00a\00u\00s\00e\00d")
- (data (i32.const 6396) "L")
- (data (i32.const 6408) "\01\00\00\00.\00\00\00A\00m\00o\00u\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
- (data (i32.const 6476) "\1c")
- (data (i32.const 6488) "\01\00\00\00\0c\00\00\00m\00a\00r\00k\00e\00t")
- (data (i32.const 6508) "L")
- (data (i32.const 6520) "\01\00\00\00<\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
- (data (i32.const 6588) "L")
- (data (i32.const 6600) "\01\00\00\008\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
- (data (i32.const 6668) "|")
- (data (i32.const 6680) "\01\00\00\00b\00\00\00B\00u\00y\00 \00s\00t\00o\00p\00-\00l\00o\00s\00s\00 \00t\00r\00i\00g\00g\00e\00r\00 \00m\00u\00s\00t\00 \00b\00e\00 \00a\00b\00o\00v\00e\00 \00c\00u\00r\00r\00e\00n\00t\00 \00p\00r\00i\00c\00e")
- (data (i32.const 6796) "|")
- (data (i32.const 6808) "\01\00\00\00d\00\00\00S\00e\00l\00l\00 \00s\00t\00o\00p\00-\00l\00o\00s\00s\00 \00t\00r\00i\00g\00g\00e\00r\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00e\00l\00o\00w\00 \00c\00u\00r\00r\00e\00n\00t\00 \00p\00r\00i\00c\00e")
- (data (i32.const 6924) ",")
- (data (i32.const 6936) "\01\00\00\00\10\00\00\00s\00t\00o\00p\00l\00o\00s\00s")
- (data (i32.const 6972) "<")
- (data (i32.const 6984) "\01\00\00\00&\00\00\00B\00u\00y\00e\00r\00 \00b\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
- (data (i32.const 7036) "<")
- (data (i32.const 7048) "\01\00\00\00(\00\00\00S\00e\00l\00l\00e\00r\00 \00b\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
- (data (i32.const 7100) ",")
- (data (i32.const 7112) "\01\00\00\00\1c\00\00\00D\00E\00X\00 \00w\00i\00t\00h\00d\00r\00a\00w\00a\00l")
- (data (i32.const 7148) ",")
- (data (i32.const 7160) "\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00n\00a\00m\00e\00:\00 ")
- (data (i32.const 7196) "\1c")
- (data (i32.const 7208) "6\00\00\00\0c\00\00\00\00\1c\00\00\00\00\00\00\f0\08")
- (data (i32.const 7228) ",")
- (data (i32.const 7240) "\01\00\00\00\1a\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00n\00a\00m\00e\00 ")
- (data (i32.const 7276) "\1c")
- (data (i32.const 7288) "6\00\00\00\0c\00\00\00P\1c\00\00\00\00\00\00\f0\08")
- (data (i32.const 7308) ",")
- (data (i32.const 7320) "\01\00\00\00\10\00\00\00t\00r\00a\00n\00s\00f\00e\00r")
- (data (i32.const 7356) "<")
- (data (i32.const 7368) "\01\00\00\00 \00\00\00N\00o\00 \00b\00a\00l\00a\00n\00c\00e\00 \00f\00o\00u\00n\00d")
- (data (i32.const 7420) "<")
- (data (i32.const 7432) "\01\00\00\00(\00\00\00I\00n\00s\00u\00f\00f\00i\00c\00i\00e\00n\00t\00 \00b\00a\00l\00a\00n\00c\00e")
- (data (i32.const 7484) "<")
- (data (i32.const 7496) "\01\00\00\00\1e\00\00\00O\00r\00d\00e\00r\00 \00n\00o\00t\00 \00f\00o\00u\00n\00d")
- (data (i32.const 7548) ",")
- (data (i32.const 7560) "\01\00\00\00\1c\00\00\00N\00o\00t\00 \00y\00o\00u\00r\00 \00o\00r\00d\00e\00r")
- (data (i32.const 7596) "L")
- (data (i32.const 7608) "\01\00\00\000\00\00\00C\00a\00n\00n\00o\00t\00 \00c\00a\00n\00c\00e\00l\00 \00t\00h\00i\00s\00 \00o\00r\00d\00e\00r")
- (data (i32.const 7676) ",")
- (data (i32.const 7688) "\01\00\00\00\1a\00\00\00B\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
- (data (i32.const 7724) ",")
- (data (i32.const 7736) "\01\00\00\00\1c\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00s\00y\00m\00b\00o\00l")
- (data (i32.const 7772) ",")
- (data (i32.const 7784) "\01\00\00\00\1a\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00a\00s\00s\00e\00t")
- (data (i32.const 7820) "<")
- (data (i32.const 7832) "\01\00\00\00 \00\00\00i\00d\00x\006\004\00:\00 \00b\00a\00d\00 \00v\00a\00l\00u\00e")
- (data (i32.const 7884) "<")
- (data (i32.const 7896) "\01\00\00\00\"\00\00\00i\00d\00x\001\002\008\00:\00 \00b\00a\00d\00 \00v\00a\00l\00u\00e")
- (data (i32.const 7948) "<")
- (data (i32.const 7960) "\01\00\00\00\1e\00\00\00i\00d\00x\006\004\00:\00 \00b\00a\00d\00 \00t\00y\00p\00e")
- (data (i32.const 8012) "<")
- (data (i32.const 8024) "\01\00\00\00 \00\00\00i\00d\00x\001\002\008\00:\00 \00b\00a\00d\00 \00t\00y\00p\00e")
+ (data (i32.const 6120) "\01\00\00\00\"\00\00\00a\00d\00d\00i\00t\00i\00o\00n\00 \00o\00v\00e\00r\00f\00l\00o\00w")
+ (data (i32.const 6172) ",")
+ (data (i32.const 6184) "\01\00\00\00\1a\00\00\00D\00E\00X\00 \00i\00s\00 \00p\00a\00u\00s\00e\00d")
+ (data (i32.const 6220) "L")
+ (data (i32.const 6232) "\01\00\00\008\00\00\00T\00r\00a\00d\00i\00n\00g\00 \00p\00a\00u\00s\00e\00d\00 \00f\00o\00r\00 \00t\00h\00i\00s\00 \00p\00a\00i\00r")
+ (data (i32.const 6300) "\1c")
+ (data (i32.const 6312) "\01\00\00\00\06\00\00\00b\00u\00y")
+ (data (i32.const 6332) "\1c")
+ (data (i32.const 6344) "\01\00\00\00\08\00\00\00s\00e\00l\00l")
+ (data (i32.const 6364) ",")
+ (data (i32.const 6376) "\01\00\00\00\18\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00s\00i\00d\00e")
+ (data (i32.const 6412) "<")
+ (data (i32.const 6424) "\01\00\00\00(\00\00\00B\00e\00l\00o\00w\00 \00m\00i\00n\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
+ (data (i32.const 6476) "<")
+ (data (i32.const 6488) "\01\00\00\00,\00\00\00E\00x\00c\00e\00e\00d\00s\00 \00m\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
+ (data (i32.const 6540) "<")
+ (data (i32.const 6552) "\01\00\00\00,\00\00\00P\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 6604) "\\")
+ (data (i32.const 6616) "\01\00\00\00F\00\00\00P\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00m\00u\00l\00t\00i\00p\00l\00e\00 \00o\00f\00 \00t\00i\00c\00k\00 \00s\00i\00z\00e")
+ (data (i32.const 6700) "L")
+ (data (i32.const 6712) "\01\00\00\000\00\00\00I\00n\00s\00u\00f\00f\00i\00c\00i\00e\00n\00t\00 \00q\00u\00o\00t\00e\00 \00t\00o\00k\00e\00n")
+ (data (i32.const 6780) "<")
+ (data (i32.const 6792) "\01\00\00\00$\00\00\00I\00n\00s\00u\00f\00f\00i\00c\00i\00e\00n\00t\00 \00f\00u\00n\00d\00s")
+ (data (i32.const 6844) "<")
+ (data (i32.const 6856) "\01\00\00\00*\00\00\00s\00u\00b\00t\00r\00a\00c\00t\00i\00o\00n\00 \00u\00n\00d\00e\00r\00f\00l\00o\00w")
+ (data (i32.const 6908) "<")
+ (data (i32.const 6920) "\01\00\00\00(\00\00\00s\00u\00b\00t\00r\00a\00c\00t\00i\00o\00n\00 \00o\00v\00e\00r\00f\00l\00o\00w")
+ (data (i32.const 6972) "L")
+ (data (i32.const 6984) "\01\00\00\00.\00\00\00I\00n\00s\00u\00f\00f\00i\00c\00i\00e\00n\00t\00 \00b\00a\00s\00e\00 \00t\00o\00k\00e\00n")
+ (data (i32.const 7052) "\1c")
+ (data (i32.const 7064) "\01\00\00\00\n\00\00\00l\00i\00m\00i\00t")
+ (data (i32.const 7084) ",")
+ (data (i32.const 7096) "\01\00\00\00\1c\00\00\00T\00r\00a\00d\00i\00n\00g\00 \00p\00a\00u\00s\00e\00d")
+ (data (i32.const 7132) "L")
+ (data (i32.const 7144) "\01\00\00\00.\00\00\00A\00m\00o\00u\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 7212) "\1c")
+ (data (i32.const 7224) "\01\00\00\00\0c\00\00\00m\00a\00r\00k\00e\00t")
+ (data (i32.const 7244) "L")
+ (data (i32.const 7256) "\01\00\00\00<\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 7324) "L")
+ (data (i32.const 7336) "\01\00\00\008\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 7404) "|")
+ (data (i32.const 7416) "\01\00\00\00b\00\00\00B\00u\00y\00 \00s\00t\00o\00p\00-\00l\00o\00s\00s\00 \00t\00r\00i\00g\00g\00e\00r\00 \00m\00u\00s\00t\00 \00b\00e\00 \00a\00b\00o\00v\00e\00 \00c\00u\00r\00r\00e\00n\00t\00 \00p\00r\00i\00c\00e")
+ (data (i32.const 7532) "|")
+ (data (i32.const 7544) "\01\00\00\00d\00\00\00S\00e\00l\00l\00 \00s\00t\00o\00p\00-\00l\00o\00s\00s\00 \00t\00r\00i\00g\00g\00e\00r\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00e\00l\00o\00w\00 \00c\00u\00r\00r\00e\00n\00t\00 \00p\00r\00i\00c\00e")
+ (data (i32.const 7660) ",")
+ (data (i32.const 7672) "\01\00\00\00\10\00\00\00s\00t\00o\00p\00l\00o\00s\00s")
+ (data (i32.const 7708) "<")
+ (data (i32.const 7720) "\01\00\00\00&\00\00\00B\00u\00y\00e\00r\00 \00b\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
+ (data (i32.const 7772) "<")
+ (data (i32.const 7784) "\01\00\00\00(\00\00\00S\00e\00l\00l\00e\00r\00 \00b\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
+ (data (i32.const 7836) ",")
+ (data (i32.const 7848) "\01\00\00\00\1c\00\00\00D\00E\00X\00 \00w\00i\00t\00h\00d\00r\00a\00w\00a\00l")
+ (data (i32.const 7884) ",")
+ (data (i32.const 7896) "\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00n\00a\00m\00e\00:\00 ")
+ (data (i32.const 7932) "\1c")
+ (data (i32.const 7944) "6\00\00\00\0c\00\00\00\e0\1e\00\00\00\00\00\00\f0\08")
+ (data (i32.const 7964) ",")
+ (data (i32.const 7976) "\01\00\00\00\1a\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00n\00a\00m\00e\00 ")
+ (data (i32.const 8012) "\1c")
+ (data (i32.const 8024) "6\00\00\00\0c\00\00\000\1f\00\00\00\00\00\00\f0\08")
+ (data (i32.const 8044) ",")
+ (data (i32.const 8056) "\01\00\00\00\10\00\00\00t\00r\00a\00n\00s\00f\00e\00r")
+ (data (i32.const 8092) "<")
+ (data (i32.const 8104) "\01\00\00\00 \00\00\00N\00o\00 \00b\00a\00l\00a\00n\00c\00e\00 \00f\00o\00u\00n\00d")
+ (data (i32.const 8156) "<")
+ (data (i32.const 8168) "\01\00\00\00(\00\00\00I\00n\00s\00u\00f\00f\00i\00c\00i\00e\00n\00t\00 \00b\00a\00l\00a\00n\00c\00e")
+ (data (i32.const 8220) "<")
+ (data (i32.const 8232) "\01\00\00\00\1e\00\00\00O\00r\00d\00e\00r\00 \00n\00o\00t\00 \00f\00o\00u\00n\00d")
+ (data (i32.const 8284) ",")
+ (data (i32.const 8296) "\01\00\00\00\1c\00\00\00N\00o\00t\00 \00y\00o\00u\00r\00 \00o\00r\00d\00e\00r")
+ (data (i32.const 8332) "L")
+ (data (i32.const 8344) "\01\00\00\000\00\00\00C\00a\00n\00n\00o\00t\00 \00c\00a\00n\00c\00e\00l\00 \00t\00h\00i\00s\00 \00o\00r\00d\00e\00r")
+ (data (i32.const 8412) ",")
+ (data (i32.const 8424) "\01\00\00\00\1a\00\00\00B\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
+ (data (i32.const 8460) ",")
+ (data (i32.const 8472) "\01\00\00\00\1c\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00s\00y\00m\00b\00o\00l")
+ (data (i32.const 8508) ",")
+ (data (i32.const 8520) "\01\00\00\00\1a\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00a\00s\00s\00e\00t")
+ (data (i32.const 8556) "<")
+ (data (i32.const 8568) "\01\00\00\00 \00\00\00i\00d\00x\006\004\00:\00 \00b\00a\00d\00 \00v\00a\00l\00u\00e")
+ (data (i32.const 8620) "<")
+ (data (i32.const 8632) "\01\00\00\00\"\00\00\00i\00d\00x\001\002\008\00:\00 \00b\00a\00d\00 \00v\00a\00l\00u\00e")
+ (data (i32.const 8684) "<")
+ (data (i32.const 8696) "\01\00\00\00\1e\00\00\00i\00d\00x\006\004\00:\00 \00b\00a\00d\00 \00t\00y\00p\00e")
+ (data (i32.const 8748) "<")
+ (data (i32.const 8760) "\01\00\00\00 \00\00\00i\00d\00x\001\002\008\00:\00 \00b\00a\00d\00 \00t\00y\00p\00e")
  (table $0 2 funcref)
  (elem $0 (i32.const 1) $start:~lib/as-chain/name~anonymous|0)
  (export "orderbook" (global $assembly/orderbook/orderbook.contract/orderbook))
@@ -282,7 +302,7 @@
  (export "orderbook#init" (func $assembly/orderbook/orderbook.contract/orderbook#init))
  (export "orderbook#createPair" (func $assembly/orderbook/orderbook.contract/orderbook#createPair))
  (export "orderbook#clearPair" (func $assembly/orderbook/orderbook.contract/orderbook#clearPair))
- (export "orderbook#pausePair" (func $assembly/orderbook/orderbook.contract/orderbook#pausePair))
+ (export "orderbook#setPairStatus" (func $assembly/orderbook/orderbook.contract/orderbook#setPairStatus))
  (export "orderbook#onTransfer" (func $assembly/orderbook/orderbook.contract/orderbook#onTransfer))
  (export "orderbook#LimitOrder" (func $assembly/orderbook/orderbook.contract/orderbook#LimitOrder))
  (export "orderbook#marketOrder" (func $assembly/orderbook/orderbook.contract/orderbook#marketOrder))
@@ -7561,7 +7581,7 @@
       )
       (call $~lib/as-chain/system/check
        (i32.const 0)
-       (i32.const 4912)
+       (i32.const 5424)
       )
      )
      (if
@@ -7616,7 +7636,7 @@
       )
       (call $~lib/as-chain/system/check
        (i32.const 0)
-       (i32.const 4912)
+       (i32.const 5424)
       )
      )
      (local.set $5
@@ -8046,7 +8066,7 @@
   )
   (call $~lib/as-chain/system/assert
    (i32.const 0)
-   (i32.const 5008)
+   (i32.const 5520)
   )
   (call $~lib/as-chain/idxdb/SecondaryValue#constructor
    (i32.const 0)
@@ -8305,13 +8325,70 @@
    (i32.const 4288)
   )
   (call $~lib/as-chain/system/check
+   (i32.eq
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=8
+       (local.get $5)
+      )
+     )
+     (i32.const 255)
+    )
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (local.get $1)
+     )
+     (i32.const 255)
+    )
+   )
+   (i32.const 4384)
+  )
+  (call $~lib/as-chain/system/check
+   (i32.eq
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=8
+       (local.get $6)
+      )
+     )
+     (i32.const 255)
+    )
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (local.get $1)
+     )
+     (i32.const 255)
+    )
+   )
+   (i32.const 4480)
+  )
+  (call $~lib/as-chain/system/check
+   (i32.eq
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=8
+       (local.get $7)
+      )
+     )
+     (i32.const 255)
+    )
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (local.get $3)
+     )
+     (i32.const 255)
+    )
+   )
+   (i32.const 4576)
+  )
+  (call $~lib/as-chain/system/check
    (i64.gt_s
     (i64.load
      (local.get $5)
     )
     (i64.const 0)
    )
-   (i32.const 4384)
+   (i32.const 4656)
   )
   (call $~lib/as-chain/system/check
    (i64.gt_s
@@ -8320,7 +8397,7 @@
     )
     (i64.const 0)
    )
-   (i32.const 4480)
+   (i32.const 4752)
   )
   (call $~lib/as-chain/system/check
    (i64.gt_s
@@ -8329,7 +8406,25 @@
     )
     (i64.const 0)
    )
-   (i32.const 4576)
+   (i32.const 4848)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.lt_s
+    (i64.load
+     (local.get $6)
+    )
+    (i64.const 10000000000000)
+   )
+   (i32.const 4928)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.lt_s
+    (i64.load
+     (local.get $7)
+    )
+    (i64.const 1000000000)
+   )
+   (i32.const 5008)
   )
   (call $~lib/as-chain/system/check
    (if (result i32)
@@ -8353,7 +8448,7 @@
     )
     (i32.const 0)
    )
-   (i32.const 4656)
+   (i32.const 5072)
   )
   (call $~lib/as-chain/system/check
    (if (result i32)
@@ -8377,7 +8472,20 @@
     )
     (i32.const 0)
    )
-   (i32.const 4720)
+   (i32.const 5136)
+  )
+  (call $~lib/as-chain/system/check
+   (i32.le_u
+    (i32.and
+     (local.get $8)
+     (i32.const 65535)
+    )
+    (i32.and
+     (local.get $9)
+     (i32.const 65535)
+    )
+   )
+   (i32.const 5200)
   )
   (call $~lib/as-chain/system/check
    (i64.gt_s
@@ -8388,7 +8496,7 @@
      (local.get $5)
     )
    )
-   (i32.const 4784)
+   (i32.const 5296)
   )
   (call $assembly/orderbook/orderbook.contract/orderbook#isPairExists
    (local.get $0)
@@ -8519,7 +8627,7 @@
     (local.get $7)
     (local.get $8)
     (local.get $9)
-    (i32.const 4976)
+    (i32.const 5488)
     (call $~lib/as-chain/time/TimePointSec#constructor)
    )
   )
@@ -8593,7 +8701,7 @@
         )
        )
       )
-      (i32.const 5056)
+      (i32.const 5568)
      )
      (drop
       (i32.load
@@ -8736,13 +8844,68 @@
      )
     )
    )
-   (i32.const 5136)
+   (i32.const 5648)
   )
   (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/pairs.table/PairsTable>#get
    (i32.load
     (local.get $0)
    )
    (local.get $2)
+  )
+ )
+ (func $~lib/string/String.__eq (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (if
+   (i32.eq
+    (local.get $0)
+    (local.get $1)
+   )
+   (return
+    (i32.const 1)
+   )
+  )
+  (if
+   (select
+    (i32.eqz
+     (local.get $1)
+    )
+    (i32.const 1)
+    (local.get $0)
+   )
+   (return
+    (i32.const 0)
+   )
+  )
+  (if
+   (i32.ne
+    (local.tee $2
+     (call $~lib/string/String#get:length
+      (local.get $0)
+     )
+    )
+    (call $~lib/string/String#get:length
+     (local.get $1)
+    )
+   )
+   (return
+    (i32.const 0)
+   )
+  )
+  (i32.eqz
+   (call $~lib/util/string/compareImpl
+    (local.get $0)
+    (i32.const 0)
+    (local.get $1)
+    (local.get $2)
+   )
+  )
+ )
+ (func $~lib/string/String.__ne (param $0 i32) (param $1 i32) (result i32)
+  (i32.eqz
+   (call $~lib/string/String.__eq
+    (local.get $0)
+    (local.get $1)
+   )
   )
  )
  (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/pairs.table/PairsTable>#update (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32)
@@ -8943,7 +9106,7 @@
    )
   )
  )
- (func $assembly/orderbook/orderbook.contract/orderbook#pausePair (param $0 i32) (param $1 i64) (param $2 i32)
+ (func $assembly/orderbook/orderbook.contract/orderbook#setPairStatus (param $0 i32) (param $1 i64) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (call $~lib/as-chain/action/requireAuth
@@ -8953,15 +9116,46 @@
     )
    )
   )
-  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:status
-   (local.tee $3
-    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
-     (i32.load offset=12
-      (local.get $0)
+  (local.set $3
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
+    (i32.load offset=12
+     (local.get $0)
+    )
+    (local.get $1)
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (if (result i32)
+    (if (result i32)
+     (call $~lib/string/String.__eq
+      (local.get $2)
+      (i32.const 5488)
      )
-     (local.get $1)
+     (i32.const 1)
+     (call $~lib/string/String.__eq
+      (local.get $2)
+      (i32.const 5696)
+     )
+    )
+    (i32.const 1)
+    (call $~lib/string/String.__eq
+     (local.get $2)
+     (i32.const 5728)
     )
    )
+   (i32.const 5776)
+  )
+  (call $~lib/as-chain/system/check
+   (call $~lib/string/String.__ne
+    (i32.load offset=40
+     (local.get $3)
+    )
+    (local.get $2)
+   )
+   (i32.const 5840)
+  )
+  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:status
+   (local.get $3)
    (local.get $2)
   )
   (local.set $2
@@ -8991,61 +9185,6 @@
    (local.get $4)
    (local.get $3)
    (local.get $2)
-  )
- )
- (func $~lib/string/String.__eq (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (if
-   (i32.eq
-    (local.get $0)
-    (local.get $1)
-   )
-   (return
-    (i32.const 1)
-   )
-  )
-  (if
-   (select
-    (i32.eqz
-     (local.get $1)
-    )
-    (i32.const 1)
-    (local.get $0)
-   )
-   (return
-    (i32.const 0)
-   )
-  )
-  (if
-   (i32.ne
-    (local.tee $2
-     (call $~lib/string/String#get:length
-      (local.get $0)
-     )
-    )
-    (call $~lib/string/String#get:length
-     (local.get $1)
-    )
-   )
-   (return
-    (i32.const 0)
-   )
-  )
-  (i32.eqz
-   (call $~lib/util/string/compareImpl
-    (local.get $0)
-    (i32.const 0)
-    (local.get $1)
-    (local.get $2)
-   )
-  )
- )
- (func $~lib/string/String.__ne (param $0 i32) (param $1 i32) (result i32)
-  (i32.eqz
-   (call $~lib/string/String.__eq
-    (local.get $0)
-    (local.get $1)
-   )
   )
  )
  (func $assembly/orderbook/tables/balances.table/BalancesTable#constructor (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
@@ -9177,7 +9316,7 @@
     (i32.const 0)
     (i32.const 2)
     (i32.const 19)
-    (i32.const 5232)
+    (i32.const 5968)
    )
   )
   (call $~lib/rt/common/BLOCK#set:mmInfo
@@ -10003,7 +10142,7 @@
   (if
    (call $~lib/string/String.__ne
     (local.get $4)
-    (i32.const 5184)
+    (i32.const 5920)
    )
    (return)
   )
@@ -10048,7 +10187,7 @@
        )
       )
      )
-     (i32.const 5264)
+     (i32.const 6000)
     )
     (call $~lib/as-chain/system/check
      (i64.ge_s
@@ -10064,14 +10203,14 @@
       )
       (i64.const -4611686018427387903)
      )
-     (i32.const 5328)
+     (i32.const 6064)
     )
     (call $~lib/as-chain/system/check
      (i64.le_s
       (local.get $5)
       (i64.const 4611686018427387903)
      )
-     (i32.const 5392)
+     (i32.const 6128)
     )
     (call $~lib/rt/common/OBJECT#set:gcInfo
      (local.get $1)
@@ -10872,7 +11011,7 @@
    (if
     (call $~lib/string/String.__eq
      (local.get $2)
-     (i32.const 5584)
+     (i32.const 6320)
     )
     (block
      (call $~lib/as-chain/system/check
@@ -10887,7 +11026,7 @@
              (local.get $5)
             )
            )
-           (i32.const 5984)
+           (i32.const 6720)
           )
          )
         )
@@ -10896,7 +11035,7 @@
         (local.get $4)
        )
       )
-      (i32.const 6064)
+      (i32.const 6800)
      )
      (call $~lib/as-chain/system/check
       (i64.eq
@@ -10915,7 +11054,7 @@
         )
        )
       )
-      (i32.const 5264)
+      (i32.const 6000)
      )
      (call $~lib/as-chain/system/check
       (i64.ge_s
@@ -10931,14 +11070,14 @@
        )
        (i64.const -4611686018427387903)
       )
-      (i32.const 6128)
+      (i32.const 6864)
      )
      (call $~lib/as-chain/system/check
       (i64.le_s
        (local.get $6)
        (i64.const 4611686018427387903)
       )
-      (i32.const 6192)
+      (i32.const 6928)
      )
      (call $~lib/rt/common/OBJECT#set:gcInfo
       (local.get $1)
@@ -10970,7 +11109,7 @@
         )
        )
       )
-      (i32.const 5264)
+      (i32.const 6000)
      )
      (call $~lib/as-chain/system/check
       (i64.ge_s
@@ -10986,7 +11125,7 @@
        )
        (i64.const -4611686018427387903)
       )
-      (i32.const 5328)
+      (i32.const 6064)
      )
     )
     (block
@@ -11002,7 +11141,7 @@
              (local.get $5)
             )
            )
-           (i32.const 6256)
+           (i32.const 6992)
           )
          )
         )
@@ -11011,7 +11150,7 @@
         (local.get $3)
        )
       )
-      (i32.const 6064)
+      (i32.const 6800)
      )
      (call $~lib/as-chain/system/check
       (i64.eq
@@ -11030,7 +11169,7 @@
         )
        )
       )
-      (i32.const 5264)
+      (i32.const 6000)
      )
      (call $~lib/as-chain/system/check
       (i64.ge_s
@@ -11046,14 +11185,14 @@
        )
        (i64.const -4611686018427387903)
       )
-      (i32.const 6128)
+      (i32.const 6864)
      )
      (call $~lib/as-chain/system/check
       (i64.le_s
        (local.get $6)
        (i64.const 4611686018427387903)
       )
-      (i32.const 6192)
+      (i32.const 6928)
      )
      (call $~lib/rt/common/OBJECT#set:gcInfo
       (local.get $1)
@@ -11085,7 +11224,7 @@
         )
        )
       )
-      (i32.const 5264)
+      (i32.const 6000)
      )
      (call $~lib/as-chain/system/check
       (i64.ge_s
@@ -11101,7 +11240,7 @@
        )
        (i64.const -4611686018427387903)
       )
-      (i32.const 5328)
+      (i32.const 6064)
      )
     )
    )
@@ -11110,7 +11249,7 @@
      (local.get $6)
      (i64.const 4611686018427387903)
     )
-    (i32.const 5392)
+    (i32.const 6128)
    )
   )
   (call $~lib/rt/common/OBJECT#set:gcInfo2
@@ -11925,7 +12064,7 @@
   )
   (call $~lib/as-chain/system/assert
    (i32.const 0)
-   (i32.const 5008)
+   (i32.const 5520)
   )
   (call $~lib/as-chain/idxdb/SecondaryValue#constructor
    (i32.const 0)
@@ -12110,7 +12249,7 @@
      )
     )
    )
-   (i32.const 5456)
+   (i32.const 6192)
   )
   (call $~lib/as-chain/system/check
    (call $~lib/string/String.__eq
@@ -12124,23 +12263,23 @@
       )
      )
     )
-    (i32.const 4976)
+    (i32.const 5488)
    )
-   (i32.const 5504)
+   (i32.const 6240)
   )
   (call $~lib/as-chain/system/check
    (if (result i32)
     (call $~lib/string/String.__eq
      (local.get $3)
-     (i32.const 5584)
+     (i32.const 6320)
     )
     (i32.const 1)
     (call $~lib/string/String.__eq
      (local.get $3)
-     (i32.const 5616)
+     (i32.const 6352)
     )
    )
-   (i32.const 5648)
+   (i32.const 6384)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -12153,7 +12292,7 @@
      )
     )
    )
-   (i32.const 5696)
+   (i32.const 6432)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
@@ -12166,7 +12305,7 @@
      )
     )
    )
-   (i32.const 5760)
+   (i32.const 6496)
   )
   (call $~lib/as-chain/system/check
    (i64.gt_s
@@ -12175,7 +12314,7 @@
     )
     (i64.const 0)
    )
-   (i32.const 5824)
+   (i32.const 6560)
   )
   (call $~lib/as-chain/system/check
    (i64.eqz
@@ -12190,7 +12329,7 @@
      )
     )
    )
-   (i32.const 5888)
+   (i32.const 6624)
   )
   (call $assembly/orderbook/orderbook.contract/orderbook#lockBalance
    (local.get $0)
@@ -12214,7 +12353,7 @@
     (local.get $2)
     (local.get $1)
     (local.get $3)
-    (i32.const 6336)
+    (i32.const 7072)
     (local.get $4)
     (local.get $5)
     (call $~lib/as-chain/asset/Asset#constructor
@@ -12387,7 +12526,7 @@
          (if (result i32)
           (call $~lib/string/String.__eq
            (local.get $2)
-           (i32.const 5584)
+           (i32.const 6320)
           )
           (i64.gt_s
            (local.get $3)
@@ -12408,7 +12547,7 @@
           (if (result i32)
            (call $~lib/string/String.__eq
             (local.get $2)
-            (i32.const 5616)
+            (i32.const 6352)
            )
            (i64.lt_s
             (local.get $3)
@@ -12477,7 +12616,7 @@
      )
     )
    )
-   (i32.const 5456)
+   (i32.const 6192)
   )
   (call $~lib/as-chain/system/check
    (call $~lib/string/String.__eq
@@ -12491,23 +12630,23 @@
       )
      )
     )
-    (i32.const 4976)
+    (i32.const 5488)
    )
-   (i32.const 6368)
+   (i32.const 7104)
   )
   (call $~lib/as-chain/system/check
    (if (result i32)
     (call $~lib/string/String.__eq
      (local.get $3)
-     (i32.const 5584)
+     (i32.const 6320)
     )
     (i32.const 1)
     (call $~lib/string/String.__eq
      (local.get $3)
-     (i32.const 5616)
+     (i32.const 6352)
     )
    )
-   (i32.const 5648)
+   (i32.const 6384)
   )
   (call $~lib/as-chain/system/check
    (i64.gt_s
@@ -12516,7 +12655,7 @@
     )
     (i64.const 0)
    )
-   (i32.const 6416)
+   (i32.const 7152)
   )
   (call $assembly/orderbook/orderbook.contract/orderbook#lockBalance
    (local.get $0)
@@ -12552,7 +12691,7 @@
     (local.get $2)
     (local.get $1)
     (local.get $3)
-    (i32.const 6496)
+    (i32.const 7232)
     (local.get $6)
     (local.get $4)
     (call $~lib/as-chain/asset/Asset#constructor
@@ -13037,7 +13176,7 @@
          (i32.load offset=20
           (local.get $3)
          )
-         (i32.const 5584)
+         (i32.const 6320)
         )
         (i32.const 0)
        )
@@ -13132,7 +13271,7 @@
          (i32.load offset=20
           (local.get $3)
          )
-         (i32.const 5616)
+         (i32.const 6352)
         )
         (i32.const 0)
        )
@@ -13267,7 +13406,7 @@
      )
     )
    )
-   (i32.const 5456)
+   (i32.const 6192)
   )
   (call $~lib/as-chain/system/check
    (call $~lib/string/String.__eq
@@ -13281,23 +13420,23 @@
       )
      )
     )
-    (i32.const 4976)
+    (i32.const 5488)
    )
-   (i32.const 5504)
+   (i32.const 6240)
   )
   (call $~lib/as-chain/system/check
    (if (result i32)
     (call $~lib/string/String.__eq
      (local.get $3)
-     (i32.const 5584)
+     (i32.const 6320)
     )
     (i32.const 1)
     (call $~lib/string/String.__eq
      (local.get $3)
-     (i32.const 5616)
+     (i32.const 6352)
     )
    )
-   (i32.const 5648)
+   (i32.const 6384)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -13310,7 +13449,7 @@
      )
     )
    )
-   (i32.const 5696)
+   (i32.const 6432)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
@@ -13323,7 +13462,7 @@
      )
     )
    )
-   (i32.const 5760)
+   (i32.const 6496)
   )
   (call $~lib/as-chain/system/check
    (i64.gt_s
@@ -13332,7 +13471,7 @@
     )
     (i64.const 0)
    )
-   (i32.const 6528)
+   (i32.const 7264)
   )
   (call $~lib/as-chain/system/check
    (i64.gt_s
@@ -13341,7 +13480,7 @@
     )
     (i64.const 0)
    )
-   (i32.const 6608)
+   (i32.const 7344)
   )
   (local.set $8
    (call $assembly/orderbook/orderbook.contract/orderbook#getCurrentMarketPrice
@@ -13352,7 +13491,7 @@
   (if
    (call $~lib/string/String.__eq
     (local.get $3)
-    (i32.const 5584)
+    (i32.const 6320)
    )
    (call $~lib/as-chain/system/check
     (i64.ge_s
@@ -13363,7 +13502,7 @@
       (local.get $8)
      )
     )
-    (i32.const 6688)
+    (i32.const 7424)
    )
    (call $~lib/as-chain/system/check
     (i64.le_s
@@ -13374,7 +13513,7 @@
       (local.get $8)
      )
     )
-    (i32.const 6816)
+    (i32.const 7552)
    )
   )
   (call $assembly/orderbook/orderbook.contract/orderbook#lockBalance
@@ -13399,7 +13538,7 @@
     (local.get $2)
     (local.get $1)
     (local.get $3)
-    (i32.const 6944)
+    (i32.const 7680)
     (local.get $5)
     (local.get $6)
     (call $~lib/as-chain/asset/Asset#constructor
@@ -13430,7 +13569,7 @@
     (i32.load offset=20
      (local.get $0)
     )
-    (i32.const 5584)
+    (i32.const 6320)
    )
    (i64.ge_s
     (i64.load
@@ -13538,7 +13677,7 @@
        )
       )
      )
-     (i32.const 5264)
+     (i32.const 6000)
     )
     (call $~lib/as-chain/system/check
      (i64.ge_s
@@ -13554,14 +13693,14 @@
       )
       (i64.const -4611686018427387903)
      )
-     (i32.const 5328)
+     (i32.const 6064)
     )
     (call $~lib/as-chain/system/check
      (i64.le_s
       (local.get $8)
       (i64.const 4611686018427387903)
      )
-     (i32.const 5392)
+     (i32.const 6128)
     )
     (call $~lib/rt/common/OBJECT#set:gcInfo
      (local.get $9)
@@ -13616,7 +13755,7 @@
       (local.get $7)
      )
     )
-    (i32.const 6992)
+    (i32.const 7728)
    )
   )
   (call $~lib/as-chain/system/check
@@ -13632,7 +13771,7 @@
      )
     )
    )
-   (i32.const 5264)
+   (i32.const 6000)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -13648,14 +13787,14 @@
     )
     (i64.const -4611686018427387903)
    )
-   (i32.const 5328)
+   (i32.const 6064)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
     (local.get $8)
     (i64.const 4611686018427387903)
    )
-   (i32.const 5392)
+   (i32.const 6128)
   )
   (local.set $5
    (call $~lib/as-chain/asset/Asset#constructor
@@ -13686,7 +13825,7 @@
      )
     )
    )
-   (i32.const 5264)
+   (i32.const 6000)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -13702,14 +13841,14 @@
     )
     (i64.const -4611686018427387903)
    )
-   (i32.const 6128)
+   (i32.const 6864)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
     (local.get $8)
     (i64.const 4611686018427387903)
    )
-   (i32.const 6192)
+   (i32.const 6928)
   )
   (call $~lib/rt/common/OBJECT#set:gcInfo2
    (local.get $9)
@@ -13743,7 +13882,7 @@
       (local.get $7)
      )
     )
-    (i32.const 7056)
+    (i32.const 7792)
    )
   )
   (call $~lib/as-chain/system/check
@@ -13759,7 +13898,7 @@
      )
     )
    )
-   (i32.const 5264)
+   (i32.const 6000)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -13775,14 +13914,14 @@
     )
     (i64.const -4611686018427387903)
    )
-   (i32.const 5328)
+   (i32.const 6064)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
     (local.get $8)
     (i64.const 4611686018427387903)
    )
-   (i32.const 5392)
+   (i32.const 6128)
   )
   (local.set $3
    (call $~lib/as-chain/asset/Asset#constructor
@@ -13813,7 +13952,7 @@
      )
     )
    )
-   (i32.const 5264)
+   (i32.const 6000)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -13829,14 +13968,14 @@
     )
     (i64.const -4611686018427387903)
    )
-   (i32.const 6128)
+   (i32.const 6864)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
     (local.get $8)
     (i64.const 4611686018427387903)
    )
-   (i32.const 6192)
+   (i32.const 6928)
   )
   (call $~lib/rt/common/OBJECT#set:gcInfo2
    (local.get $1)
@@ -13891,7 +14030,7 @@
        )
       )
      )
-     (i32.const 5264)
+     (i32.const 6000)
     )
     (call $~lib/as-chain/system/check
      (i64.ge_s
@@ -13907,14 +14046,14 @@
       )
       (i64.const -4611686018427387903)
      )
-     (i32.const 5328)
+     (i32.const 6064)
     )
     (call $~lib/as-chain/system/check
      (i64.le_s
       (local.get $8)
       (i64.const 4611686018427387903)
      )
-     (i32.const 5392)
+     (i32.const 6128)
     )
     (call $~lib/rt/common/OBJECT#set:gcInfo
      (local.get $1)
@@ -14202,7 +14341,7 @@
      )
     )
    )
-   (i32.const 5264)
+   (i32.const 6000)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -14218,14 +14357,14 @@
     )
     (i64.const -4611686018427387903)
    )
-   (i32.const 5328)
+   (i32.const 6064)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
     (local.get $4)
     (i64.const 4611686018427387903)
    )
-   (i32.const 5392)
+   (i32.const 6128)
   )
   (call $assembly/orderbook/tables/orders.table/OrdersTable#set:filled_amount
    (local.get $1)
@@ -14257,7 +14396,7 @@
      )
     )
    )
-   (i32.const 5264)
+   (i32.const 6000)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -14273,14 +14412,14 @@
     )
     (i64.const -4611686018427387903)
    )
-   (i32.const 6128)
+   (i32.const 6864)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
     (local.get $4)
     (i64.const 4611686018427387903)
    )
-   (i32.const 6192)
+   (i32.const 6928)
   )
   (call $assembly/orderbook/tables/pairs.table/PairsTable#set:status
    (local.get $1)
@@ -14750,7 +14889,7 @@
        )
        (call $~lib/as-chain/system/assert
         (i32.const 0)
-        (i32.const 5008)
+        (i32.const 5520)
        )
        (call $~lib/as-chain/idxdb/SecondaryValue#constructor
         (i32.const 0)
@@ -15252,7 +15391,7 @@
   )
   (call $~lib/as-chain/system/assert
    (i32.const 0)
-   (i32.const 5008)
+   (i32.const 5520)
   )
   (call $~lib/as-chain/idxdb/SecondaryValue#constructor
    (i32.const 0)
@@ -15957,7 +16096,7 @@
        )
       )
      )
-     (i32.const 5264)
+     (i32.const 6000)
     )
     (call $~lib/as-chain/system/check
      (i64.ge_s
@@ -15973,14 +16112,14 @@
       )
       (i64.const -4611686018427387903)
      )
-     (i32.const 5328)
+     (i32.const 6064)
     )
     (call $~lib/as-chain/system/check
      (i64.le_s
       (local.get $1)
       (i64.const 4611686018427387903)
      )
-     (i32.const 5392)
+     (i32.const 6128)
     )
     (call $assembly/orderbook/tables/pairs.table/PairsTable#set:quote_contract
      (local.get $5)
@@ -16015,7 +16154,7 @@
          )
         )
        )
-       (i32.const 5264)
+       (i32.const 6000)
       )
       (call $~lib/as-chain/system/check
        (i64.ge_s
@@ -16031,14 +16170,14 @@
         )
         (i64.const -4611686018427387903)
        )
-       (i32.const 5328)
+       (i32.const 6064)
       )
       (call $~lib/as-chain/system/check
        (i64.le_s
         (local.get $1)
         (i64.const 4611686018427387903)
        )
-       (i32.const 5392)
+       (i32.const 6128)
       )
       (call $assembly/orderbook/tables/pairs.table/PairsTable#set:min_order_size
        (local.get $5)
@@ -16072,7 +16211,7 @@
          )
         )
        )
-       (i32.const 5264)
+       (i32.const 6000)
       )
       (call $~lib/as-chain/system/check
        (i64.ge_s
@@ -16088,14 +16227,14 @@
         )
         (i64.const -4611686018427387903)
        )
-       (i32.const 5328)
+       (i32.const 6064)
       )
       (call $~lib/as-chain/system/check
        (i64.le_s
         (local.get $1)
         (i64.const 4611686018427387903)
        )
-       (i32.const 5392)
+       (i32.const 6128)
       )
       (call $assembly/orderbook/tables/pairs.table/PairsTable#set:max_order_size
        (local.get $5)
@@ -16206,7 +16345,7 @@
      (i32.load offset=20
       (local.get $1)
      )
-     (i32.const 5584)
+     (i32.const 6320)
     )
    )
   )
@@ -16218,7 +16357,7 @@
      (i32.load offset=20
       (local.get $1)
      )
-     (i32.const 5616)
+     (i32.const 6352)
     )
    )
   )
@@ -16476,7 +16615,7 @@
          (i32.load offset=24
           (local.get $3)
          )
-         (i32.const 6336)
+         (i32.const 7072)
         )
         (i32.const 0)
        )
@@ -16537,7 +16676,7 @@
                  (i32.load offset=24
                   (local.get $4)
                  )
-                 (i32.const 6336)
+                 (i32.const 7072)
                 )
                 (i32.const 0)
                )
@@ -16686,14 +16825,14 @@
              (i32.load offset=24
               (local.get $3)
              )
-             (i32.const 6336)
+             (i32.const 7072)
             )
             (i32.const 1)
             (call $~lib/string/String.__eq
              (i32.load offset=24
               (local.get $3)
              )
-             (i32.const 6944)
+             (i32.const 7680)
             )
            )
            (i32.const 0)
@@ -16833,7 +16972,7 @@
           (i32.load offset=24
            (local.get $4)
           )
-          (i32.const 6944)
+          (i32.const 7680)
          )
          (i32.const 0)
         )
@@ -16864,7 +17003,7 @@
          (i32.load offset=20
           (local.get $4)
          )
-         (i32.const 5584)
+         (i32.const 6320)
         )
         (i64.ge_s
          (i64.load
@@ -16895,7 +17034,7 @@
          )
          (call $assembly/orderbook/tables/pairs.table/PairsTable#set:min_order_size
           (local.get $4)
-          (i32.const 6336)
+          (i32.const 7072)
          )
          (call $assembly/orderbook/tables/orders.table/OrdersTable#set:updated_at
           (local.get $4)
@@ -16944,20 +17083,20 @@
   (local.set $1
    (i32.le_s
     (call $~lib/string/String#get:length
-     (i32.const 7328)
+     (i32.const 8064)
     )
     (i32.const 13)
    )
   )
   (call $~lib/staticarray/StaticArray<~lib/string/String>#__uset
-   (i32.const 7216)
+   (i32.const 7952)
    (i32.const 1)
-   (i32.const 7328)
+   (i32.const 8064)
   )
   (call $~lib/as-chain/system/check
    (local.get $1)
    (call $~lib/staticarray/StaticArray<~lib/string/String>#join
-    (i32.const 7216)
+    (i32.const 7952)
    )
   )
   (loop $for-loop|0
@@ -16979,7 +17118,7 @@
        (i32.const 0)
        (i32.gt_s
         (call $~lib/string/String#get:length
-         (i32.const 7328)
+         (i32.const 8064)
         )
         (local.get $0)
        )
@@ -16987,7 +17126,7 @@
       (block
        (local.set $1
         (call $~lib/string/String#charCodeAt
-         (i32.const 7328)
+         (i32.const 8064)
          (local.get $0)
         )
        )
@@ -17013,14 +17152,14 @@
         )
         (block
          (call $~lib/staticarray/StaticArray<~lib/string/String>#__uset
-          (i32.const 7296)
+          (i32.const 8032)
           (i32.const 1)
-          (i32.const 7328)
+          (i32.const 8064)
          )
          (call $~lib/as-chain/system/check
           (i32.const 0)
           (call $~lib/staticarray/StaticArray<~lib/string/String>#join
-           (i32.const 7296)
+           (i32.const 8032)
           )
          )
          (return
@@ -17394,7 +17533,7 @@
   )
   (call $~lib/rt/common/OBJECT#set:rtId
    (local.get $1)
-   (i32.const 7120)
+   (i32.const 7856)
   )
   (drop
    (i32.load offset=4
@@ -17632,7 +17771,7 @@
           (local.get $2)
          )
         )
-        (i32.const 7376)
+        (i32.const 8112)
        )
       )
      )
@@ -17641,7 +17780,7 @@
      (local.get $2)
     )
    )
-   (i32.const 7440)
+   (i32.const 8176)
   )
   (call $~lib/as-chain/system/check
    (i64.eq
@@ -17660,7 +17799,7 @@
      )
     )
    )
-   (i32.const 5264)
+   (i32.const 6000)
   )
   (call $~lib/as-chain/system/check
    (i64.ge_s
@@ -17676,14 +17815,14 @@
     )
     (i64.const -4611686018427387903)
    )
-   (i32.const 6128)
+   (i32.const 6864)
   )
   (call $~lib/as-chain/system/check
    (i64.le_s
     (local.get $5)
     (i64.const 4611686018427387903)
    )
-   (i32.const 6192)
+   (i32.const 6928)
   )
   (call $~lib/rt/common/OBJECT#set:gcInfo
    (local.get $3)
@@ -17735,7 +17874,7 @@
   (if
    (call $~lib/string/String.__eq
     (local.get $2)
-    (i32.const 5584)
+    (i32.const 6320)
    )
    (block
     (local.set $1
@@ -17759,7 +17898,7 @@
               (local.get $4)
              )
             )
-            (i32.const 7696)
+            (i32.const 8432)
            )
           )
          )
@@ -17772,7 +17911,7 @@
        )
       )
      )
-     (i32.const 5264)
+     (i32.const 6000)
     )
     (call $~lib/as-chain/system/check
      (i64.ge_s
@@ -17788,14 +17927,14 @@
       )
       (i64.const -4611686018427387903)
      )
-     (i32.const 6128)
+     (i32.const 6864)
     )
     (call $~lib/as-chain/system/check
      (i64.le_s
       (local.get $6)
       (i64.const 4611686018427387903)
      )
-     (i32.const 6192)
+     (i32.const 6928)
     )
     (call $~lib/rt/common/OBJECT#set:gcInfo2
      (local.get $2)
@@ -17827,7 +17966,7 @@
        )
       )
      )
-     (i32.const 5264)
+     (i32.const 6000)
     )
     (call $~lib/as-chain/system/check
      (i64.ge_s
@@ -17843,14 +17982,14 @@
       )
       (i64.const -4611686018427387903)
      )
-     (i32.const 5328)
+     (i32.const 6064)
     )
     (call $~lib/as-chain/system/check
      (i64.le_s
       (local.get $6)
       (i64.const 4611686018427387903)
      )
-     (i32.const 5392)
+     (i32.const 6128)
     )
     (call $~lib/rt/common/OBJECT#set:gcInfo
      (local.get $2)
@@ -17892,7 +18031,7 @@
               (local.get $4)
              )
             )
-            (i32.const 7696)
+            (i32.const 8432)
            )
           )
          )
@@ -17905,7 +18044,7 @@
        )
       )
      )
-     (i32.const 5264)
+     (i32.const 6000)
     )
     (call $~lib/as-chain/system/check
      (i64.ge_s
@@ -17921,14 +18060,14 @@
       )
       (i64.const -4611686018427387903)
      )
-     (i32.const 6128)
+     (i32.const 6864)
     )
     (call $~lib/as-chain/system/check
      (i64.le_s
       (local.get $6)
       (i64.const 4611686018427387903)
      )
-     (i32.const 6192)
+     (i32.const 6928)
     )
     (call $~lib/rt/common/OBJECT#set:gcInfo2
      (local.get $1)
@@ -17960,7 +18099,7 @@
        )
       )
      )
-     (i32.const 5264)
+     (i32.const 6000)
     )
     (call $~lib/as-chain/system/check
      (i64.ge_s
@@ -17976,14 +18115,14 @@
       )
       (i64.const -4611686018427387903)
      )
-     (i32.const 5328)
+     (i32.const 6064)
     )
     (call $~lib/as-chain/system/check
      (i64.le_s
       (local.get $6)
       (i64.const 4611686018427387903)
      )
-     (i32.const 5392)
+     (i32.const 6128)
     )
     (call $~lib/rt/common/OBJECT#set:gcInfo
      (local.get $1)
@@ -18035,7 +18174,7 @@
        )
       )
      )
-     (i32.const 7504)
+     (i32.const 8240)
     )
     (i64.eq
      (i64.load
@@ -18055,7 +18194,7 @@
      )
     )
    )
-   (i32.const 7568)
+   (i32.const 8304)
   )
   (call $~lib/as-chain/system/check
    (if (result i32)
@@ -18070,7 +18209,7 @@
     )
     (i32.const 1)
    )
-   (i32.const 7616)
+   (i32.const 8352)
   )
   (local.set $1
    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
@@ -18311,7 +18450,7 @@
    )
   )
  )
- (func $assembly/orderbook/orderbook.contract/pausePairAction#unpack (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/orderbook/orderbook.contract/setPairStatusAction#unpack (param $0 i32) (param $1 i32) (result i32)
   (call $~lib/as-chain/name/Name#set:N
    (local.get $0)
    (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
@@ -19067,7 +19206,7 @@
     (if
      (i64.eq
       (local.get $2)
-      (i64.const -6217917111223189504)
+      (i64.const -4417032211186843648)
      )
      (block
       (call $~lib/as-chain/name/Name#set:N
@@ -19084,12 +19223,12 @@
        (i32.const 2288)
       )
       (drop
-       (call $assembly/orderbook/orderbook.contract/pausePairAction#unpack
+       (call $assembly/orderbook/orderbook.contract/setPairStatusAction#unpack
         (local.get $3)
         (local.get $4)
        )
       )
-      (call $assembly/orderbook/orderbook.contract/orderbook#pausePair
+      (call $assembly/orderbook/orderbook.contract/orderbook#setPairStatus
        (local.get $6)
        (i64.load
         (local.get $3)
@@ -20074,7 +20213,7 @@
                           )
                          )
                          (return
-                          (call $assembly/orderbook/orderbook.contract/pausePairAction#unpack
+                          (call $assembly/orderbook/orderbook.contract/setPairStatusAction#unpack
                            (local.get $0)
                            (local.get $1)
                           )
@@ -20193,7 +20332,7 @@
                (call $~lib/as-chain/asset/Symbol#isValid
                 (local.get $0)
                )
-               (i32.const 7744)
+               (i32.const 8480)
               )
               (return
                (i32.load offset=4
@@ -20259,7 +20398,7 @@
                )
                (i32.const 0)
               )
-              (i32.const 7792)
+              (i32.const 8528)
              )
              (return
               (i32.load offset=4
@@ -21648,7 +21787,7 @@
        (local.get $2)
       )
      )
-     (i32.const 7840)
+     (i32.const 8576)
     )
     (local.set $4
      (call $~lib/array/Array<u64>#__get
@@ -21681,7 +21820,7 @@
      )
      (i32.const 1)
     )
-    (i32.const 7904)
+    (i32.const 8640)
    )
    (call $~lib/as-chain/system/check
     (i32.eq
@@ -21692,7 +21831,7 @@
      )
      (i32.const 2)
     )
-    (i32.const 7904)
+    (i32.const 8640)
    )
    (call $~lib/as-chain/env/db_idx128_update
     (i32.load
@@ -21742,7 +21881,7 @@
        (local.get $2)
       )
      )
-     (i32.const 7968)
+     (i32.const 8704)
     )
     (local.set $5
      (call $~lib/array/Array<u64>#__get
@@ -21787,7 +21926,7 @@
      )
      (i32.const 1)
     )
-    (i32.const 8032)
+    (i32.const 8768)
    )
    (call $~lib/as-chain/system/check
     (i32.eq
@@ -21798,7 +21937,7 @@
      )
      (i32.const 2)
     )
-    (i32.const 7904)
+    (i32.const 8640)
    )
    (drop
     (call $~lib/as-chain/idxdb/SecondaryIterator#constructor
@@ -21830,7 +21969,7 @@
  (func $~start
   (local $0 i32)
   (global.set $~lib/rt/stub/offset
-   (i32.const 8076)
+   (i32.const 8812)
   )
   (call $~lib/as-chain/name/Name#set:N
    (local.tee $0

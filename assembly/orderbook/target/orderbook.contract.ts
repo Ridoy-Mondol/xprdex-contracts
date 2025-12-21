@@ -128,10 +128,27 @@ export class orderbook extends Contract {
       tick_size.symbol.code() == quote_symbol.code(),
       "Tick size must be in quote asset"
     );
+    check(
+      min_order_size.symbol.precision() == base_symbol.precision(),
+      "Min order size precision mismatch"
+    );
+    check(
+      max_order_size.symbol.precision() == base_symbol.precision(),
+      "Max order size precision mismatch"
+    );
+    check(
+      tick_size.symbol.precision() == quote_symbol.precision(),
+      "Tick size precision mismatch"
+    );
 
     check(min_order_size.amount > 0, "Min order size must be positive");
     check(max_order_size.amount > 0, "Max order size must be positive");
     check(tick_size.amount > 0, "Tick size must be positive");
+    check(
+      max_order_size.amount < 10_000_000_000_000,
+      "Max order size too large"
+    );
+    check(tick_size.amount < 1_000_000_000, "Tick size too large");
     check(
       maker_fee_bp >= config.min_maker_fee_bp &&
         maker_fee_bp <= config.max_maker_fee_bp,
@@ -142,6 +159,7 @@ export class orderbook extends Contract {
         taker_fee_bp <= config.max_taker_fee_bp,
       "Taker fee out of range"
     );
+    check(maker_fee_bp <= taker_fee_bp, "Maker fee cannot exceed taker fee");
     check(
       max_order_size.amount > min_order_size.amount,
       "Max order size must be greater than min order size"
@@ -184,13 +202,22 @@ export class orderbook extends Contract {
   /**
    * Pause/Resume trading pair
    */
-  @action("pausepair")
-  pausePair(pair_id: u64, pause: string): void {
+  @action("setstatus")
+  setPairStatus(pair_id: u64, new_status: string): void {
     const config = this.getConfig();
     requireAuth(config.admin);
 
     const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
-    pair.status = pause;
+
+    check(
+      new_status == "active" ||
+        new_status == "paused" ||
+        new_status == "disabled",
+      "Invalid pair status"
+    );
+    check(pair.status != new_status, "Pair already in this state");
+
+    pair.status = new_status;
     this.pairsTable.update(pair, this.receiver);
   }
 
@@ -1324,31 +1351,31 @@ class clearPairAction implements _chain.Packer {
     }
 }
 
-class pausePairAction implements _chain.Packer {
+class setPairStatusAction implements _chain.Packer {
     constructor (
         public pair_id: u64 = 0,
-        public pause: string = "",
+        public new_status: string = "",
     ) {
     }
 
     pack(): u8[] {
         let enc = new _chain.Encoder(this.getSize());
         enc.packNumber<u64>(this.pair_id);
-        enc.packString(this.pause);
+        enc.packString(this.new_status);
         return enc.getBytes();
     }
     
     unpack(data: u8[]): usize {
         let dec = new _chain.Decoder(data);
         this.pair_id = dec.unpackNumber<u64>();
-        this.pause = dec.unpackString();
+        this.new_status = dec.unpackString();
         return dec.getPos();
     }
 
     getSize(): usize {
         let size: usize = 0;
         size += sizeof<u64>();
-        size += _chain.Utils.calcPackedStringLength(this.pause);
+        size += _chain.Utils.calcPackedStringLength(this.new_status);
         return size;
     }
 }
@@ -1758,10 +1785,10 @@ export function apply(receiver: u64, firstReceiver: u64, action: u64): void {
             args.unpack(actionData);
             mycontract.clearPair();
         }
-		if (action == 0xA9B58554CEB80000) {//pausepair
-            const args = new pausePairAction();
+		if (action == 0xC2B38C9B3AC00000) {//setstatus
+            const args = new setPairStatusAction();
             args.unpack(actionData);
-            mycontract.pausePair(args.pair_id,args.pause);
+            mycontract.setPairStatus(args.pair_id,args.new_status);
         }
 		
 		if (action == 0x8BA4ECD2E955C000) {//limitorder

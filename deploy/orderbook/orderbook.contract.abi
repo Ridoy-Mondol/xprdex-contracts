@@ -407,20 +407,6 @@
       ]
     },
     {
-      "name": "pausepair",
-      "base": "",
-      "fields": [
-        {
-          "name": "pair_id",
-          "type": "uint64"
-        },
-        {
-          "name": "pause",
-          "type": "string"
-        }
-      ]
-    },
-    {
       "name": "processlimit",
       "base": "",
       "fields": [
@@ -445,6 +431,20 @@
         {
           "name": "max_orders",
           "type": "uint32"
+        }
+      ]
+    },
+    {
+      "name": "setstatus",
+      "base": "",
+      "fields": [
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "new_status",
+          "type": "string"
         }
       ]
     },
@@ -536,11 +536,6 @@
       "ricardian_contract": ""
     },
     {
-      "name": "pausepair",
-      "type": "pausepair",
-      "ricardian_contract": ""
-    },
-    {
       "name": "processlimit",
       "type": "processlimit",
       "ricardian_contract": ""
@@ -548,6 +543,11 @@
     {
       "name": "processsltpq",
       "type": "processsltpq",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "setstatus",
+      "type": "setstatus",
       "ricardian_contract": ""
     },
     {

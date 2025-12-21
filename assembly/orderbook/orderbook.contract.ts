@@ -153,7 +153,6 @@ export class orderbook extends Contract {
         maker_fee_bp <= config.max_maker_fee_bp,
       "Maker fee out of range"
     );
-    // Dipannita shil puja, arpita
     check(
       taker_fee_bp >= config.min_taker_fee_bp &&
         taker_fee_bp <= config.max_taker_fee_bp,
@@ -202,13 +201,22 @@ export class orderbook extends Contract {
   /**
    * Pause/Resume trading pair
    */
-  @action("pausepair")
-  pausePair(pair_id: u64, pause: string): void {
+  @action("setstatus")
+  setPairStatus(pair_id: u64, new_status: string): void {
     const config = this.getConfig();
     requireAuth(config.admin);
 
     const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
-    pair.status = pause;
+
+    check(
+      new_status == "active" ||
+        new_status == "paused" ||
+        new_status == "disabled",
+      "Invalid pair status"
+    );
+    check(pair.status != new_status, "Pair already in this state");
+
+    pair.status = new_status;
     this.pairsTable.update(pair, this.receiver);
   }
 
