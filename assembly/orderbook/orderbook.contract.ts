@@ -127,20 +127,39 @@ export class orderbook extends Contract {
       tick_size.symbol.code() == quote_symbol.code(),
       "Tick size must be in quote asset"
     );
+    check(
+      min_order_size.symbol.precision() == base_symbol.precision(),
+      "Min order size precision mismatch"
+    );
+    check(
+      max_order_size.symbol.precision() == base_symbol.precision(),
+      "Max order size precision mismatch"
+    );
+    check(
+      tick_size.symbol.precision() == quote_symbol.precision(),
+      "Tick size precision mismatch"
+    );
 
     check(min_order_size.amount > 0, "Min order size must be positive");
     check(max_order_size.amount > 0, "Max order size must be positive");
     check(tick_size.amount > 0, "Tick size must be positive");
     check(
+      max_order_size.amount < 10_000_000_000_000,
+      "Max order size too large"
+    );
+    check(tick_size.amount < 1_000_000_000, "Tick size too large");
+    check(
       maker_fee_bp >= config.min_maker_fee_bp &&
         maker_fee_bp <= config.max_maker_fee_bp,
       "Maker fee out of range"
     );
+    // Dipannita shil puja, arpita
     check(
       taker_fee_bp >= config.min_taker_fee_bp &&
         taker_fee_bp <= config.max_taker_fee_bp,
       "Taker fee out of range"
     );
+    check(maker_fee_bp <= taker_fee_bp, "Maker fee cannot exceed taker fee");
     check(
       max_order_size.amount > min_order_size.amount,
       "Max order size must be greater than min order size"
