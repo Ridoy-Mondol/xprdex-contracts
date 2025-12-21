@@ -226,13 +226,19 @@ export class orderbook extends Contract {
     if (from == this.receiver) return;
     if (memo != "deposit") return;
 
+    check(quantity.amount > 0, "Invalid deposit amount");
     // Auto-deposit all transfers to DEX
     const token_contract = this.firstReceiver;
+
+    this.verifyTokenExist(quantity.symbol, token_contract);
+
     const balancesTable = new TableStore<BalancesTable>(this.receiver, from);
     const symbol_code = quantity.symbol.code();
     const existing = balancesTable.get(symbol_code);
 
     if (existing) {
+      check(existing.balance.symbol == quantity.symbol, "Symbol mismatch");
+
       existing.balance = Asset.add(existing.balance, quantity);
       existing.updated_at = new TimePointSec();
 
@@ -273,17 +279,45 @@ export class orderbook extends Contract {
     const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
     check(pair.status == "active", "Trading paused for this pair");
 
+    // Basic validations
     check(side == "buy" || side == "sell", "Invalid side");
+    check(amount.amount > 0, "Amount must be positive");
+    check(price.amount > 0, "Price must be positive");
+
+    // Symbol & precision validations
+    check(
+      amount.symbol.code() == pair.base_symbol.code(),
+      "Amount must be base asset"
+    );
+    check(
+      price.symbol.code() == pair.quote_symbol.code(),
+      "Price must be quote asset"
+    );
+    check(
+      price.symbol.code() == pair.tick_size.symbol.code(),
+      "Tick size symbol mismatch"
+    );
+    check(
+      amount.symbol.precision() == pair.base_symbol.precision(),
+      "Amount precision mismatch"
+    );
+    check(
+      price.symbol.precision() == pair.quote_symbol.precision(),
+      "Price precision mismatch"
+    );
+
+    // Order size constraints
     check(amount.amount >= pair.min_order_size.amount, "Below min order size");
     check(
       amount.amount <= pair.max_order_size.amount,
       "Exceeds max order size"
     );
-    check(price.amount > 0, "Price must be positive");
 
-    const remainder = price.amount % pair.tick_size.amount;
-
-    check(remainder == 0, "Price must be multiple of tick size");
+    // Tick size enforcement
+    check(
+      price.amount % pair.tick_size.amount == 0,
+      "Price must be multiple of tick size"
+    );
 
     const total_value = this.calculateTotalValue(price, amount, pair);
 
@@ -326,6 +360,19 @@ export class orderbook extends Contract {
 
     check(side == "buy" || side == "sell", "Invalid side");
     check(amount.amount > 0, "Amount must be positive");
+
+    // Symbol validation
+    if (side == "buy") {
+      check(
+        amount.symbol.code() == pair.quote_symbol.code(),
+        "Buy amount must be quote asset"
+      );
+    } else {
+      check(
+        amount.symbol.code() == pair.base_symbol.code(),
+        "Sell amount must be base asset"
+      );
+    }
 
     // For market orders, estimate total value from orderbook
     const estimatedPrice = this.estimateMarketPrice(pair_id, side);
