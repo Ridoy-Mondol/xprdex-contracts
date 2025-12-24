@@ -361,25 +361,69 @@ export class orderbook extends Contract {
     check(side == "buy" || side == "sell", "Invalid side");
     check(amount.amount > 0, "Amount must be positive");
 
-    // Symbol validation
+    let baseAmount: Asset;
+    let quoteAmount: Asset;
+    const estimatedPrice = this.estimateMarketPrice(pair_id, side);
+
+    // ✅ Handle buy and sell differently
     if (side == "buy") {
+      // For BUY: amount is quote currency (how much to spend)
       check(
         amount.symbol.code() == pair.quote_symbol.code(),
         "Buy amount must be quote asset"
       );
+      check(
+        amount.symbol.precision() == pair.quote_symbol.precision(),
+        "Amount precision mismatch"
+      );
+
+      // Calculate base amount we'll receive
+      const base_precision = pair.base_symbol.precision();
+      const calculatedBaseAmount =
+        (amount.amount * u64(Math.pow(10, base_precision))) /
+        estimatedPrice.amount;
+
+      baseAmount = new Asset(calculatedBaseAmount, pair.base_symbol);
+      quoteAmount = amount;
+
+      check(
+        baseAmount.amount >= pair.min_order_size.amount,
+        "Calculated amount below min order size"
+      );
+      check(
+        baseAmount.amount <= pair.max_order_size.amount,
+        "Calculated amount exceeds max order size"
+      );
     } else {
+      // For SELL: amount is base currency (how much to sell)
       check(
         amount.symbol.code() == pair.base_symbol.code(),
         "Sell amount must be base asset"
       );
+      check(
+        amount.symbol.precision() == pair.base_symbol.precision(),
+        "Amount precision mismatch"
+      );
+
+      // Validate against pair limits
+      check(
+        amount.amount >= pair.min_order_size.amount,
+        "Below min order size"
+      );
+      check(
+        amount.amount <= pair.max_order_size.amount,
+        "Exceeds max order size"
+      );
+
+      baseAmount = amount;
+      quoteAmount = this.calculateTotalValue(estimatedPrice, amount, pair);
     }
 
-    // For market orders, estimate total value from orderbook
-    const estimatedPrice = this.estimateMarketPrice(pair_id, side);
-    const total_value = this.calculateTotalValue(estimatedPrice, amount, pair);
-
-    // Lock balance
-    this.lockBalance(user, side, amount, total_value, pair);
+    if (side == "buy") {
+      this.lockBalanceMarket(user, side, quoteAmount, pair);
+    } else {
+      this.lockBalanceMarket(user, side, baseAmount, pair);
+    }
 
     // Create order
     const order_id = this.ordersTable.availablePrimaryKey;
@@ -392,9 +436,9 @@ export class orderbook extends Contract {
       side,
       "market",
       estimatedPrice,
-      amount,
-      new Asset(0, amount.symbol),
-      amount,
+      baseAmount,
+      new Asset(0, baseAmount.symbol),
+      baseAmount,
       new Asset(0, estimatedPrice.symbol),
       false,
       0,
@@ -423,32 +467,79 @@ export class orderbook extends Contract {
     check(pair.status == "active", "Trading paused for this pair");
 
     check(side == "buy" || side == "sell", "Invalid side");
+    check(amount.amount > 0, "Amount must be positive");
+    check(trigger_price.amount > 0, "Trigger price must be positive");
+    check(limit_price.amount > 0, "Limit price must be positive");
+
+    // SYMBOL VALIDATIONS
+    check(
+      amount.symbol.code() == pair.base_symbol.code(),
+      "Amount must be base asset"
+    );
+    check(
+      amount.symbol.precision() == pair.base_symbol.precision(),
+      "Amount precision mismatch"
+    );
+    check(
+      trigger_price.symbol.code() == pair.quote_symbol.code(),
+      "Trigger price must be quote asset"
+    );
+    check(
+      trigger_price.symbol.precision() == pair.quote_symbol.precision(),
+      "Trigger price precision mismatch"
+    );
+    check(
+      limit_price.symbol.code() == pair.quote_symbol.code(),
+      "Limit price must be quote asset"
+    );
+    check(
+      limit_price.symbol.precision() == pair.quote_symbol.precision(),
+      "Limit price precision mismatch"
+    );
+
+    // Order size constraints
     check(amount.amount >= pair.min_order_size.amount, "Below min order size");
     check(
       amount.amount <= pair.max_order_size.amount,
       "Exceeds max order size"
     );
-    check(trigger_price.amount > 0, "Trigger price must be positive");
-    check(limit_price.amount > 0, "Limit price must be positive");
 
+    // ✅ Tick size validation for BOTH prices
+    check(
+      trigger_price.amount % pair.tick_size.amount == 0,
+      "Trigger price must be multiple of tick size"
+    );
+    check(
+      limit_price.amount % pair.tick_size.amount == 0,
+      "Limit price must be multiple of tick size"
+    );
+
+    // ✅ Trigger price validation
     const currentPrice = this.getCurrentMarketPrice(pair_id);
 
-    if (side == "buy") {
-      check(
-        trigger_price.amount >= currentPrice.amount,
-        "Buy stop-loss trigger must be above current price"
-      );
-    } else {
-      check(
-        trigger_price.amount <= currentPrice.amount,
-        "Sell stop-loss trigger must be below current price"
-      );
+    if (currentPrice.amount > 0) {
+      if (side == "buy") {
+        // Buy stop-loss: Trigger ABOVE current (breakout buy)
+        check(
+          trigger_price.amount >= currentPrice.amount,
+          "Buy stop-loss trigger must be >= current price"
+        );
+      } else {
+        // Sell stop-loss: Trigger BELOW current (stop loss sell)
+        check(
+          trigger_price.amount <= currentPrice.amount,
+          "Sell stop-loss trigger must be <= current price"
+        );
+      }
     }
 
+    // Calculate total value to lock
     const total_value = this.calculateTotalValue(limit_price, amount, pair);
 
+    // Lock the appropriate balance
     this.lockBalance(user, side, amount, total_value, pair);
 
+    // Create order
     const order = new OrdersTable(
       this.ordersTable.availablePrimaryKey,
       pair_id,
@@ -739,6 +830,9 @@ export class orderbook extends Contract {
     }
   }
 
+  /**
+   * Verify Token Existence
+   */
   private verifyTokenExist(symbol: Symbol, contract: Name): void {
     const symbolStr = symbol.toString().split(",")[1];
 
@@ -763,6 +857,9 @@ export class orderbook extends Contract {
     );
   }
 
+  /**
+   * Calculate Symbol Code from Symbol String
+   */
   private calculateSymbolCode(symbolStr: string): u64 {
     let value: u64 = 0;
 
@@ -775,6 +872,9 @@ export class orderbook extends Contract {
     return value;
   }
 
+  /**
+   * Estimate Market Price
+   */
   private estimateMarketPrice(pair_id: u64, side: string): Asset {
     let order = this.ordersTable.first();
     let bestPrice: i64 = 0;
@@ -804,17 +904,26 @@ export class orderbook extends Contract {
     return new Asset(bestPrice > 0 ? bestPrice : 1, pair.quote_symbol);
   }
 
+  /**
+   * Calculate Total Value
+   */
   private calculateTotalValue(
     price: Asset,
     amount: Asset,
     pair: PairsTable
   ): Asset {
+    check(price.amount > 0, "Price must be positive for calculation");
+    check(amount.amount > 0, "Amount must be positive for calculation");
+
     const base_precision = pair.base_symbol.precision();
     const value_amount =
       (price.amount * amount.amount) / u64(Math.pow(10, base_precision));
     return new Asset(value_amount, pair.quote_symbol);
   }
 
+  /**
+   * Lock Asset
+   */
   private lockBalance(
     user: Name,
     side: string,
@@ -851,6 +960,49 @@ export class orderbook extends Contract {
     }
   }
 
+  /**
+   * Market order balance locking
+   */
+  private lockBalanceMarket(
+    user: Name,
+    side: string,
+    lockAmount: Asset,
+    pair: PairsTable
+  ): void {
+    const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
+
+    if (side == "buy") {
+      // Lock quote currency
+      const balance = balancesTable.requireGet(
+        pair.quote_symbol.code(),
+        "Insufficient quote token"
+      );
+      check(balance.balance.amount >= lockAmount.amount, "Insufficient funds");
+
+      balance.balance = Asset.sub(balance.balance, lockAmount);
+      balance.locked = Asset.add(balance.locked, lockAmount);
+      balance.updated_at = new TimePointSec();
+
+      balancesTable.update(balance, this.receiver);
+    } else {
+      // Lock base currency
+      const balance = balancesTable.requireGet(
+        pair.base_symbol.code(),
+        "Insufficient base token"
+      );
+      check(balance.balance.amount >= lockAmount.amount, "Insufficient funds");
+
+      balance.balance = Asset.sub(balance.balance, lockAmount);
+      balance.locked = Asset.add(balance.locked, lockAmount);
+      balance.updated_at = new TimePointSec();
+
+      balancesTable.update(balance, this.receiver);
+    }
+  }
+
+  /**
+   * Unlock balance
+   */
   private unlockBalance(
     user: Name,
     side: string,
@@ -890,6 +1042,9 @@ export class orderbook extends Contract {
     }
   }
 
+  /**
+   * Maching Engine
+   */
   private canMatch(order1: OrdersTable, order2: OrdersTable): bool {
     if (order1.side == "buy") {
       return order1.price.amount >= order2.price.amount;
@@ -898,6 +1053,9 @@ export class orderbook extends Contract {
     }
   }
 
+  /**
+   * Stop Loss Order Match
+   */
   private matchStopLossOrder(
     stopLossOrder: OrdersTable,
     pair: PairsTable
@@ -940,6 +1098,9 @@ export class orderbook extends Contract {
     }
   }
 
+  /**
+   * Find Current Market Price
+   */
   private getCurrentMarketPrice(pair_id: u64): Asset {
     let lastTrade: TradesTable | null = null;
     let trade = this.tradesTable.first();
@@ -1022,6 +1183,9 @@ export class orderbook extends Contract {
     return new Asset(bestPrice, priceSymbol);
   }
 
+  /**
+   * Calculate Trade Amount
+   */
   private calculateTradeAmount(
     order1: OrdersTable,
     order2: OrdersTable
@@ -1032,6 +1196,9 @@ export class orderbook extends Contract {
     return new Asset(minAmount, order1.amount.symbol);
   }
 
+  /**
+   * Trade Execution
+   */
   private executeTrade(
     order1: OrdersTable,
     order2: OrdersTable,
@@ -1093,6 +1260,9 @@ export class orderbook extends Contract {
     this.recordFee(pair.pair_id, pair.base_contract, sellerFee, true);
   }
 
+  /**
+   * Update Balance after Trade
+   */
   private updateTradeBalances(
     buyer: Name,
     seller: Name,
@@ -1161,6 +1331,9 @@ export class orderbook extends Contract {
     }
   }
 
+  /**
+   * Update Order after Trade
+   */
   private updateOrderAfterTrade(order: OrdersTable, tradeAmount: Asset): void {
     order.filled_amount = Asset.add(order.filled_amount, tradeAmount);
     order.remaining_amount = Asset.sub(order.remaining_amount, tradeAmount);
@@ -1170,6 +1343,9 @@ export class orderbook extends Contract {
     this.ordersTable.update(order, this.receiver);
   }
 
+  /**
+   * Fee Record
+   */
   private recordFee(
     pair_id: u64,
     token_contract: Name,
@@ -1217,6 +1393,9 @@ export class orderbook extends Contract {
     }
   }
 
+  /**
+   * Composit key for secondary index query
+   */
   private createCompositeKey(pair_id: u64, symbol_code: u64): U128 {
     const high = U128.fromU64(pair_id);
     const shifted = U128.shl(high, 64);
@@ -1224,6 +1403,9 @@ export class orderbook extends Contract {
     return U128.or(shifted, low);
   }
 
+  /**
+   * Transfer Asset
+   */
   private transfer(
     tokenContract: Name,
     from: Name,
