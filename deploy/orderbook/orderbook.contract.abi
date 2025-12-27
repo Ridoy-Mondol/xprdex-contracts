@@ -479,6 +479,28 @@
       ]
     },
     {
+      "name": "updatepair",
+      "base": "",
+      "fields": [
+        {
+          "name": "pair_id",
+          "type": "uint64"
+        },
+        {
+          "name": "min_order_size",
+          "type": "asset"
+        },
+        {
+          "name": "max_order_size",
+          "type": "asset"
+        },
+        {
+          "name": "tick_size",
+          "type": "asset"
+        }
+      ]
+    },
+    {
       "name": "withdraw",
       "base": "",
       "fields": [
@@ -553,6 +575,11 @@
     {
       "name": "stoploss",
       "type": "stoploss",
+      "ricardian_contract": ""
+    },
+    {
+      "name": "updatepair",
+      "type": "updatepair",
       "ricardian_contract": ""
     },
     {

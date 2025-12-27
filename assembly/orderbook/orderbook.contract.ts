@@ -187,6 +187,51 @@ export class orderbook extends Contract {
     this.pairsTable.store(pair, this.receiver);
   }
 
+  @action("updatepair")
+  updatePair(
+    pair_id: u64,
+    min_order_size: Asset,
+    max_order_size: Asset,
+    tick_size: Asset
+  ): void {
+    const config = this.getConfig();
+    requireAuth(config.admin);
+
+    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+
+    // Validate precision matches
+    check(
+      min_order_size.symbol.code() == pair.base_symbol.code(),
+      "Min order size must be base asset"
+    );
+    check(
+      max_order_size.symbol.code() == pair.base_symbol.code(),
+      "Max order size must be base asset"
+    );
+    check(
+      tick_size.symbol.code() == pair.quote_symbol.code(),
+      "Tick size must be quote asset"
+    );
+    check(
+      min_order_size.symbol.precision == pair.base_symbol.precision,
+      "Min order size precision mismatch"
+    );
+    check(
+      max_order_size.symbol.precision == pair.base_symbol.precision,
+      "Max order size precision mismatch"
+    );
+    check(
+      tick_size.symbol.precision == pair.quote_symbol.precision,
+      "Tick size precision mismatch"
+    );
+
+    pair.min_order_size = min_order_size;
+    pair.max_order_size = max_order_size;
+    pair.tick_size = tick_size;
+
+    this.pairsTable.update(pair, this.receiver);
+  }
+
   @action("clrpair")
   clearPair(): void {
     let pair = this.pairsTable.first();
@@ -277,7 +322,10 @@ export class orderbook extends Contract {
     check(!config.paused, "DEX is paused");
 
     const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
-    check(pair.status == "active", "Trading paused for this pair");
+    check(
+      pair.status == "active",
+      "Trading is temporarily unavailable for this pair"
+    );
 
     // Basic validations
     check(side == "buy" || side == "sell", "Invalid side");
@@ -310,7 +358,10 @@ export class orderbook extends Contract {
     check(amount.amount >= pair.min_order_size.amount, "Below min order size");
     check(
       amount.amount <= pair.max_order_size.amount,
-      "Exceeds max order size"
+      "Exceeds max order size: " +
+        amount.toString() +
+        " > " +
+        pair.max_order_size.toString()
     );
 
     // Tick size enforcement
@@ -356,7 +407,10 @@ export class orderbook extends Contract {
     check(!config.paused, "DEX is paused");
 
     const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
-    check(pair.status == "active", "Trading paused");
+    check(
+      pair.status == "active",
+      "Trading is temporarily unavailable for this pair"
+    );
 
     check(side == "buy" || side == "sell", "Invalid side");
     check(amount.amount > 0, "Amount must be positive");
@@ -464,7 +518,10 @@ export class orderbook extends Contract {
     check(!config.paused, "DEX is paused");
 
     const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
-    check(pair.status == "active", "Trading paused for this pair");
+    check(
+      pair.status == "active",
+      "Trading is temporarily unavailable for this pair"
+    );
 
     check(side == "buy" || side == "sell", "Invalid side");
     check(amount.amount > 0, "Amount must be positive");
