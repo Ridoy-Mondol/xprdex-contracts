@@ -6,17 +6,18 @@
  (type $none_=>_i32 (func (result i32)))
  (type $i32_i64_=>_i32 (func (param i32 i64) (result i32)))
  (type $i32_i32_i64_i32_=>_i32 (func (param i32 i32 i64 i32) (result i32)))
- (type $i32_i64_i32_=>_i32 (func (param i32 i64 i32) (result i32)))
  (type $i32_=>_i64 (func (param i32) (result i64)))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i64_i32_=>_none (func (param i32 i64 i32)))
+ (type $i32_i64_i32_=>_i32 (func (param i32 i64 i32) (result i32)))
  (type $i32_i64_=>_none (func (param i32 i64)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32)))
  (type $i64_=>_i32 (func (param i64) (result i32)))
  (type $i32_i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32 i32)))
+ (type $i32_i32_i32_i64_=>_none (func (param i32 i32 i32 i64)))
  (type $i32_i32_i64_=>_none (func (param i32 i32 i64)))
  (type $i32_i64_i32_i32_i32_=>_none (func (param i32 i64 i32 i32 i32)))
  (type $i64_i64_i64_i32_=>_i32 (func (param i64 i64 i64 i32) (result i32)))
@@ -26,8 +27,8 @@
  (type $none_=>_none (func))
  (type $i64_=>_none (func (param i64)))
  (type $i32_i32_i32_i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32 i32 i32 i32)))
+ (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32)))
  (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32)))
- (type $i32_i32_i32_i64_=>_none (func (param i32 i32 i32 i64)))
  (type $i32_i32_i64_i32_i32_=>_none (func (param i32 i32 i64 i32 i32)))
  (type $i32_i32_i64_i32_i32_i32_=>_none (func (param i32 i32 i64 i32 i32 i32)))
  (type $i32_i32_i64_i32_i32_i32_i32_=>_none (func (param i32 i32 i64 i32 i32 i32 i32)))
@@ -269,42 +270,42 @@
  (data (i32.const 8344) "\01\00\00\00\n\00\00\00l\00i\00m\00i\00t")
  (data (i32.const 8364) "L")
  (data (i32.const 8376) "\01\00\00\00<\00\00\00B\00u\00y\00 \00a\00m\00o\00u\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00q\00u\00o\00t\00e\00 \00a\00s\00s\00e\00t")
- (data (i32.const 8444) "\\")
- (data (i32.const 8456) "\01\00\00\00L\00\00\00C\00a\00l\00c\00u\00l\00a\00t\00e\00d\00 \00a\00m\00o\00u\00n\00t\00 \00b\00e\00l\00o\00w\00 \00m\00i\00n\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
- (data (i32.const 8540) "l")
- (data (i32.const 8552) "\01\00\00\00P\00\00\00C\00a\00l\00c\00u\00l\00a\00t\00e\00d\00 \00a\00m\00o\00u\00n\00t\00 \00e\00x\00c\00e\00e\00d\00s\00 \00m\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
- (data (i32.const 8652) "L")
- (data (i32.const 8664) "\01\00\00\00<\00\00\00S\00e\00l\00l\00 \00a\00m\00o\00u\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00a\00s\00e\00 \00a\00s\00s\00e\00t")
- (data (i32.const 8732) "<")
- (data (i32.const 8744) "\01\00\00\00,\00\00\00E\00x\00c\00e\00e\00d\00s\00 \00m\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
- (data (i32.const 8796) "\1c")
- (data (i32.const 8808) "\01\00\00\00\0c\00\00\00m\00a\00r\00k\00e\00t")
- (data (i32.const 8828) "L")
- (data (i32.const 8840) "\01\00\00\00<\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
- (data (i32.const 8908) "L")
- (data (i32.const 8920) "\01\00\00\008\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
- (data (i32.const 8988) "\\")
- (data (i32.const 9000) "\01\00\00\00B\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00q\00u\00o\00t\00e\00 \00a\00s\00s\00e\00t")
- (data (i32.const 9084) "\\")
- (data (i32.const 9096) "\01\00\00\00@\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00p\00r\00e\00c\00i\00s\00i\00o\00n\00 \00m\00i\00s\00m\00a\00t\00c\00h")
- (data (i32.const 9180) "\\")
- (data (i32.const 9192) "\01\00\00\00>\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00q\00u\00o\00t\00e\00 \00a\00s\00s\00e\00t")
- (data (i32.const 9276) "L")
- (data (i32.const 9288) "\01\00\00\00<\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00p\00r\00e\00c\00i\00s\00i\00o\00n\00 \00m\00i\00s\00m\00a\00t\00c\00h")
- (data (i32.const 9356) "l")
- (data (i32.const 9368) "\01\00\00\00V\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00m\00u\00l\00t\00i\00p\00l\00e\00 \00o\00f\00 \00t\00i\00c\00k\00 \00s\00i\00z\00e")
- (data (i32.const 9468) "l")
- (data (i32.const 9480) "\01\00\00\00R\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00m\00u\00l\00t\00i\00p\00l\00e\00 \00o\00f\00 \00t\00i\00c\00k\00 \00s\00i\00z\00e")
- (data (i32.const 9580) "l")
- (data (i32.const 9592) "\01\00\00\00\\\00\00\00B\00u\00y\00 \00s\00t\00o\00p\00-\00l\00o\00s\00s\00 \00t\00r\00i\00g\00g\00e\00r\00 \00m\00u\00s\00t\00 \00b\00e\00 \00>\00=\00 \00c\00u\00r\00r\00e\00n\00t\00 \00p\00r\00i\00c\00e")
- (data (i32.const 9692) "|")
- (data (i32.const 9704) "\01\00\00\00^\00\00\00S\00e\00l\00l\00 \00s\00t\00o\00p\00-\00l\00o\00s\00s\00 \00t\00r\00i\00g\00g\00e\00r\00 \00m\00u\00s\00t\00 \00b\00e\00 \00<\00=\00 \00c\00u\00r\00r\00e\00n\00t\00 \00p\00r\00i\00c\00e")
- (data (i32.const 9820) ",")
- (data (i32.const 9832) "\01\00\00\00\10\00\00\00s\00t\00o\00p\00l\00o\00s\00s")
- (data (i32.const 9868) "<")
- (data (i32.const 9880) "\01\00\00\00&\00\00\00B\00u\00y\00e\00r\00 \00b\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
- (data (i32.const 9932) "<")
- (data (i32.const 9944) "\01\00\00\00(\00\00\00S\00e\00l\00l\00e\00r\00 \00b\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
+ (data (i32.const 8444) "<")
+ (data (i32.const 8456) "\01\00\00\00&\00\00\00B\00u\00y\00e\00r\00 \00b\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
+ (data (i32.const 8508) "<")
+ (data (i32.const 8520) "\01\00\00\00(\00\00\00S\00e\00l\00l\00e\00r\00 \00b\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
+ (data (i32.const 8572) ",")
+ (data (i32.const 8584) "\01\00\00\00\1a\00\00\00B\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
+ (data (i32.const 8620) "\\")
+ (data (i32.const 8632) "\01\00\00\00J\00\00\00N\00o\00 \00l\00i\00q\00u\00i\00d\00i\00t\00y\00 \00a\00v\00a\00i\00l\00a\00b\00l\00e\00 \00f\00o\00r\00 \00m\00a\00r\00k\00e\00t\00 \00b\00u\00y")
+ (data (i32.const 8716) "L")
+ (data (i32.const 8728) "\01\00\00\00<\00\00\00S\00e\00l\00l\00 \00a\00m\00o\00u\00n\00t\00 \00m\00u\00s\00t\00 \00b\00e\00 \00b\00a\00s\00e\00 \00a\00s\00s\00e\00t")
+ (data (i32.const 8796) "<")
+ (data (i32.const 8808) "\01\00\00\00,\00\00\00E\00x\00c\00e\00e\00d\00s\00 \00m\00a\00x\00 \00o\00r\00d\00e\00r\00 \00s\00i\00z\00e")
+ (data (i32.const 8860) "\\")
+ (data (i32.const 8872) "\01\00\00\00L\00\00\00N\00o\00 \00l\00i\00q\00u\00i\00d\00i\00t\00y\00 \00a\00v\00a\00i\00l\00a\00b\00l\00e\00 \00f\00o\00r\00 \00m\00a\00r\00k\00e\00t\00 \00s\00e\00l\00l")
+ (data (i32.const 8956) "L")
+ (data (i32.const 8968) "\01\00\00\00<\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 9036) "L")
+ (data (i32.const 9048) "\01\00\00\008\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00p\00o\00s\00i\00t\00i\00v\00e")
+ (data (i32.const 9116) "\\")
+ (data (i32.const 9128) "\01\00\00\00B\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00q\00u\00o\00t\00e\00 \00a\00s\00s\00e\00t")
+ (data (i32.const 9212) "\\")
+ (data (i32.const 9224) "\01\00\00\00@\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00p\00r\00e\00c\00i\00s\00i\00o\00n\00 \00m\00i\00s\00m\00a\00t\00c\00h")
+ (data (i32.const 9308) "\\")
+ (data (i32.const 9320) "\01\00\00\00>\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00q\00u\00o\00t\00e\00 \00a\00s\00s\00e\00t")
+ (data (i32.const 9404) "L")
+ (data (i32.const 9416) "\01\00\00\00<\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00p\00r\00e\00c\00i\00s\00i\00o\00n\00 \00m\00i\00s\00m\00a\00t\00c\00h")
+ (data (i32.const 9484) "l")
+ (data (i32.const 9496) "\01\00\00\00V\00\00\00T\00r\00i\00g\00g\00e\00r\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00m\00u\00l\00t\00i\00p\00l\00e\00 \00o\00f\00 \00t\00i\00c\00k\00 \00s\00i\00z\00e")
+ (data (i32.const 9596) "l")
+ (data (i32.const 9608) "\01\00\00\00R\00\00\00L\00i\00m\00i\00t\00 \00p\00r\00i\00c\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00m\00u\00l\00t\00i\00p\00l\00e\00 \00o\00f\00 \00t\00i\00c\00k\00 \00s\00i\00z\00e")
+ (data (i32.const 9708) "l")
+ (data (i32.const 9720) "\01\00\00\00\\\00\00\00B\00u\00y\00 \00s\00t\00o\00p\00-\00l\00o\00s\00s\00 \00t\00r\00i\00g\00g\00e\00r\00 \00m\00u\00s\00t\00 \00b\00e\00 \00>\00=\00 \00c\00u\00r\00r\00e\00n\00t\00 \00p\00r\00i\00c\00e")
+ (data (i32.const 9820) "|")
+ (data (i32.const 9832) "\01\00\00\00^\00\00\00S\00e\00l\00l\00 \00s\00t\00o\00p\00-\00l\00o\00s\00s\00 \00t\00r\00i\00g\00g\00e\00r\00 \00m\00u\00s\00t\00 \00b\00e\00 \00<\00=\00 \00c\00u\00r\00r\00e\00n\00t\00 \00p\00r\00i\00c\00e")
+ (data (i32.const 9948) ",")
+ (data (i32.const 9960) "\01\00\00\00\10\00\00\00s\00t\00o\00p\00l\00o\00s\00s")
  (data (i32.const 9996) ",")
  (data (i32.const 10008) "\01\00\00\00\1c\00\00\00D\00E\00X\00 \00w\00i\00t\00h\00d\00r\00a\00w\00a\00l")
  (data (i32.const 10044) ",")
@@ -328,19 +329,17 @@
  (data (i32.const 10492) "L")
  (data (i32.const 10504) "\01\00\00\000\00\00\00C\00a\00n\00n\00o\00t\00 \00c\00a\00n\00c\00e\00l\00 \00t\00h\00i\00s\00 \00o\00r\00d\00e\00r")
  (data (i32.const 10572) ",")
- (data (i32.const 10584) "\01\00\00\00\1a\00\00\00B\00a\00l\00a\00n\00c\00e\00 \00e\00r\00r\00o\00r")
+ (data (i32.const 10584) "\01\00\00\00\1c\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00s\00y\00m\00b\00o\00l")
  (data (i32.const 10620) ",")
- (data (i32.const 10632) "\01\00\00\00\1c\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00s\00y\00m\00b\00o\00l")
- (data (i32.const 10668) ",")
- (data (i32.const 10680) "\01\00\00\00\1a\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00a\00s\00s\00e\00t")
- (data (i32.const 10716) "<")
- (data (i32.const 10728) "\01\00\00\00 \00\00\00i\00d\00x\006\004\00:\00 \00b\00a\00d\00 \00v\00a\00l\00u\00e")
- (data (i32.const 10780) "<")
- (data (i32.const 10792) "\01\00\00\00\"\00\00\00i\00d\00x\001\002\008\00:\00 \00b\00a\00d\00 \00v\00a\00l\00u\00e")
- (data (i32.const 10844) "<")
- (data (i32.const 10856) "\01\00\00\00\1e\00\00\00i\00d\00x\006\004\00:\00 \00b\00a\00d\00 \00t\00y\00p\00e")
- (data (i32.const 10908) "<")
- (data (i32.const 10920) "\01\00\00\00 \00\00\00i\00d\00x\001\002\008\00:\00 \00b\00a\00d\00 \00t\00y\00p\00e")
+ (data (i32.const 10632) "\01\00\00\00\1a\00\00\00i\00n\00v\00a\00l\00i\00d\00 \00a\00s\00s\00e\00t")
+ (data (i32.const 10668) "<")
+ (data (i32.const 10680) "\01\00\00\00 \00\00\00i\00d\00x\006\004\00:\00 \00b\00a\00d\00 \00v\00a\00l\00u\00e")
+ (data (i32.const 10732) "<")
+ (data (i32.const 10744) "\01\00\00\00\"\00\00\00i\00d\00x\001\002\008\00:\00 \00b\00a\00d\00 \00v\00a\00l\00u\00e")
+ (data (i32.const 10796) "<")
+ (data (i32.const 10808) "\01\00\00\00\1e\00\00\00i\00d\00x\006\004\00:\00 \00b\00a\00d\00 \00t\00y\00p\00e")
+ (data (i32.const 10860) "<")
+ (data (i32.const 10872) "\01\00\00\00 \00\00\00i\00d\00x\001\002\008\00:\00 \00b\00a\00d\00 \00t\00y\00p\00e")
  (table $0 3 funcref)
  (elem $0 (i32.const 1) $start:~lib/as-chain/name~anonymous|0 $~lib/as-chain/asset/Symbol#precision)
  (export "orderbook" (global $assembly/orderbook/orderbook.contract/orderbook))
@@ -13099,224 +13098,6 @@
    )
   )
  )
- (func $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/orders.table/OrdersTable>#getValue (param $0 i32) (result i32)
-  (if
-   (i32.eqz
-    (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
-     (local.get $0)
-    )
-   )
-   (return
-    (i32.const 0)
-   )
-  )
-  (call $~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/orders.table/OrdersTable>#getEx
-   (i32.load
-    (local.get $0)
-   )
-   (i32.load offset=4
-    (local.get $0)
-   )
-  )
- )
- (func $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first (param $0 i32) (result i32)
-  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/orders.table/OrdersTable>#getValue
-   (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#begin
-    (i32.load
-     (local.get $0)
-    )
-   )
-  )
- )
- (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#requireFind (param $0 i32) (param $1 i64) (param $2 i32) (result i32)
-  (call $~lib/as-chain/system/check
-   (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
-    (local.tee $0
-     (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#find
-      (local.get $0)
-      (local.get $1)
-     )
-    )
-   )
-   (local.get $2)
-  )
-  (local.get $0)
- )
- (func $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local.set $1
-   (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#requireFind
-    (i32.load
-     (local.get $0)
-    )
-    (i64.load
-     (local.get $1)
-    )
-    (i32.const 1872)
-   )
-  )
-  (local.set $2
-   (i32.load
-    (i32.load
-     (local.get $0)
-    )
-   )
-  )
-  (local.set $0
-   (call $~lib/rt/stub/__alloc
-    (i32.const 8)
-   )
-  )
-  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/orders.table/OrdersTable>#getValue
-   (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/orders.table/OrdersTable>#constructor
-    (local.get $2)
-    (call $~lib/as-chain/env/db_next_i64
-     (i32.load offset=4
-      (local.get $1)
-     )
-     (local.get $0)
-    )
-    (i64.load
-     (local.get $0)
-    )
-    (i32.const 1)
-   )
-  )
- )
- (func $assembly/orderbook/orderbook.contract/orderbook#estimateMarketPrice (param $0 i32) (param $1 i64) (param $2 i32) (result i32)
-  (local $3 i64)
-  (local $4 i32)
-  (local.set $4
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first
-    (i32.load offset=16
-     (local.get $0)
-    )
-   )
-  )
-  (loop $while-continue|0
-   (if
-    (local.get $4)
-    (block
-     (if
-      (if (result i32)
-       (if (result i32)
-        (i64.eq
-         (local.get $1)
-         (i64.load offset=8
-          (local.get $4)
-         )
-        )
-        (call $~lib/string/String.__ne
-         (i32.load offset=20
-          (local.get $4)
-         )
-         (local.get $2)
-        )
-        (i32.const 0)
-       )
-       (if (result i32)
-        (i32.load8_u offset=49
-         (local.get $4)
-        )
-        (i32.eq
-         (i32.load8_u offset=49
-          (local.get $4)
-         )
-         (i32.const 1)
-        )
-        (i32.const 1)
-       )
-       (i32.const 0)
-      )
-      (local.set $3
-       (if (result i64)
-        (i64.eqz
-         (local.get $3)
-        )
-        (i64.load
-         (i32.load offset=28
-          (local.get $4)
-         )
-        )
-        (if (result i64)
-         (if (result i32)
-          (call $~lib/string/String.__eq
-           (local.get $2)
-           (i32.const 6800)
-          )
-          (i64.gt_s
-           (local.get $3)
-           (i64.load
-            (i32.load offset=28
-             (local.get $4)
-            )
-           )
-          )
-          (i32.const 0)
-         )
-         (i64.load
-          (i32.load offset=28
-           (local.get $4)
-          )
-         )
-         (if (result i64)
-          (if (result i32)
-           (call $~lib/string/String.__eq
-            (local.get $2)
-            (i32.const 6832)
-           )
-           (i64.lt_s
-            (local.get $3)
-            (i64.load
-             (i32.load offset=28
-              (local.get $4)
-             )
-            )
-           )
-           (i32.const 0)
-          )
-          (i64.load
-           (i32.load offset=28
-            (local.get $4)
-           )
-          )
-          (local.get $3)
-         )
-        )
-       )
-      )
-     )
-     (local.set $4
-      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next
-       (i32.load offset=16
-        (local.get $0)
-       )
-       (local.get $4)
-      )
-     )
-     (br $while-continue|0)
-    )
-   )
-  )
-  (call $~lib/as-chain/asset/Asset#constructor
-   (select
-    (local.get $3)
-    (i64.const 1)
-    (i64.gt_s
-     (local.get $3)
-     (i64.const 0)
-    )
-   )
-   (i32.load offset=16
-    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
-     (i32.load offset=12
-      (local.get $0)
-     )
-     (local.get $1)
-    )
-   )
-  )
- )
  (func $assembly/orderbook/orderbook.contract/orderbook#lockBalanceMarket (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32)
   (local $5 i64)
   (local $6 i32)
@@ -13488,570 +13269,7 @@
    )
   )
  )
- (func $assembly/orderbook/orderbook.contract/orderbook#marketOrder (param $0 i32) (param $1 i32) (param $2 i64) (param $3 i32) (param $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i64)
-  (call $~lib/as-chain/action/requireAuth
-   (local.get $1)
-  )
-  (call $~lib/as-chain/system/check
-   (i32.eqz
-    (i32.load8_u offset=12
-     (call $assembly/orderbook/orderbook.contract/orderbook#getConfig
-      (local.get $0)
-     )
-    )
-   )
-   (i32.const 6624)
-  )
-  (call $~lib/as-chain/system/check
-   (call $~lib/string/String.__eq
-    (i32.load offset=40
-     (local.tee $6
-      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
-       (i32.load offset=12
-        (local.get $0)
-       )
-       (local.get $2)
-      )
-     )
-    )
-    (i32.const 5488)
-   )
-   (i32.const 6672)
-  )
-  (call $~lib/as-chain/system/check
-   (if (result i32)
-    (call $~lib/string/String.__eq
-     (local.get $3)
-     (i32.const 6800)
-    )
-    (i32.const 1)
-    (call $~lib/string/String.__eq
-     (local.get $3)
-     (i32.const 6832)
-    )
-   )
-   (i32.const 6864)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.gt_s
-    (i64.load
-     (local.get $4)
-    )
-    (i64.const 0)
-   )
-   (i32.const 6912)
-  )
-  (local.set $7
-   (call $assembly/orderbook/orderbook.contract/orderbook#estimateMarketPrice
-    (local.get $0)
-    (local.get $2)
-    (local.get $3)
-   )
-  )
-  (local.set $4
-   (if (result i32)
-    (call $~lib/string/String.__eq
-     (local.get $3)
-     (i32.const 6800)
-    )
-    (block (result i32)
-     (call $~lib/as-chain/system/check
-      (i64.eq
-       (call $~lib/as-chain/asset/Symbol#code
-        (i32.load offset=8
-         (local.get $4)
-        )
-       )
-       (call $~lib/as-chain/asset/Symbol#code
-        (i32.load offset=16
-         (local.get $6)
-        )
-       )
-      )
-      (i32.const 8384)
-     )
-     (call $~lib/as-chain/system/check
-      (i32.eq
-       (i32.and
-        (call $~lib/as-chain/asset/Symbol#precision
-         (i32.load offset=8
-          (local.get $4)
-         )
-        )
-        (i32.const 255)
-       )
-       (i32.and
-        (call $~lib/as-chain/asset/Symbol#precision
-         (i32.load offset=16
-          (local.get $6)
-         )
-        )
-        (i32.const 255)
-       )
-      )
-      (i32.const 7296)
-     )
-     (local.set $5
-      (call $~lib/as-chain/asset/Symbol#precision
-       (i32.load offset=8
-        (local.get $6)
-       )
-      )
-     )
-     (call $~lib/as-chain/system/check
-      (i64.ge_s
-       (i64.load
-        (local.tee $5
-         (call $~lib/as-chain/asset/Asset#constructor
-          (i64.div_s
-           (i64.mul
-            (i64.load
-             (local.get $4)
-            )
-            (i64.trunc_f64_u
-             (call $~lib/math/NativeMath.pow
-              (f64.convert_i32_u
-               (local.get $5)
-              )
-             )
-            )
-           )
-           (i64.load
-            (local.get $7)
-           )
-          )
-          (i32.load offset=8
-           (local.get $6)
-          )
-         )
-        )
-       )
-       (i64.load
-        (i32.load offset=24
-         (local.get $6)
-        )
-       )
-      )
-      (i32.const 8464)
-     )
-     (call $~lib/as-chain/system/check
-      (i64.le_s
-       (i64.load
-        (local.get $5)
-       )
-       (i64.load
-        (i32.load offset=28
-         (local.get $6)
-        )
-       )
-      )
-      (i32.const 8560)
-     )
-     (local.get $4)
-    )
-    (block (result i32)
-     (call $~lib/as-chain/system/check
-      (i64.eq
-       (call $~lib/as-chain/asset/Symbol#code
-        (i32.load offset=8
-         (local.get $4)
-        )
-       )
-       (call $~lib/as-chain/asset/Symbol#code
-        (i32.load offset=8
-         (local.get $6)
-        )
-       )
-      )
-      (i32.const 8672)
-     )
-     (call $~lib/as-chain/system/check
-      (i32.eq
-       (i32.and
-        (call $~lib/as-chain/asset/Symbol#precision
-         (i32.load offset=8
-          (local.get $4)
-         )
-        )
-        (i32.const 255)
-       )
-       (i32.and
-        (call $~lib/as-chain/asset/Symbol#precision
-         (i32.load offset=8
-          (local.get $6)
-         )
-        )
-        (i32.const 255)
-       )
-      )
-      (i32.const 7296)
-     )
-     (call $~lib/as-chain/system/check
-      (i64.ge_s
-       (i64.load
-        (local.get $4)
-       )
-       (i64.load
-        (i32.load offset=24
-         (local.get $6)
-        )
-       )
-      )
-      (i32.const 7456)
-     )
-     (call $~lib/as-chain/system/check
-      (i64.le_s
-       (i64.load
-        (local.get $4)
-       )
-       (i64.load
-        (i32.load offset=28
-         (local.get $6)
-        )
-       )
-      )
-      (i32.const 8752)
-     )
-     (call $assembly/orderbook/orderbook.contract/orderbook#calculateTotalValue
-      (local.get $7)
-      (local.tee $5
-       (local.get $4)
-      )
-      (local.get $6)
-     )
-    )
-   )
-  )
-  (if
-   (call $~lib/string/String.__eq
-    (local.get $3)
-    (i32.const 6800)
-   )
-   (call $assembly/orderbook/orderbook.contract/orderbook#lockBalanceMarket
-    (local.get $0)
-    (local.get $1)
-    (local.get $3)
-    (local.get $4)
-    (local.get $6)
-   )
-   (call $assembly/orderbook/orderbook.contract/orderbook#lockBalanceMarket
-    (local.get $0)
-    (local.get $1)
-    (local.get $3)
-    (local.get $5)
-    (local.get $6)
-   )
-  )
-  (local.set $8
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#get:availablePrimaryKey
-    (i32.load offset=16
-     (local.get $0)
-    )
-   )
-  )
-  (local.set $4
-   (call $~lib/as-chain/time/TimePointSec#constructor)
-  )
-  (local.set $1
-   (call $assembly/orderbook/tables/orders.table/OrdersTable#constructor
-    (local.get $8)
-    (local.get $2)
-    (local.get $1)
-    (local.get $3)
-    (i32.const 8816)
-    (local.get $7)
-    (local.get $5)
-    (call $~lib/as-chain/asset/Asset#constructor
-     (i64.const 0)
-     (i32.load offset=8
-      (local.get $5)
-     )
-    )
-    (local.get $5)
-    (call $~lib/as-chain/asset/Asset#constructor
-     (i64.const 0)
-     (i32.load offset=8
-      (local.get $7)
-     )
-    )
-    (local.get $4)
-    (local.get $4)
-   )
-  )
-  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#store
-   (i32.load offset=16
-    (local.get $0)
-   )
-   (local.get $1)
-   (i32.load
-    (local.get $0)
-   )
-  )
- )
- (func $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor (param $0 i32) (param $1 i32) (param $2 i64) (param $3 i32) (result i32)
-  (local $4 i32)
-  (call $~lib/rt/common/BLOCK#set:mmInfo
-   (local.tee $4
-    (call $~lib/rt/stub/__new
-     (i32.const 24)
-     (i32.const 64)
-    )
-   )
-   (i32.const 0)
-  )
-  (call $~lib/rt/common/OBJECT#set:gcInfo
-   (local.get $4)
-   (i32.const 0)
-  )
-  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#set:validPrimary
-   (local.get $4)
-   (i32.const 0)
-  )
-  (call $~lib/as-chain/idxdb/IDXDB#set:table
-   (local.get $4)
-   (i64.const 0)
-  )
-  (call $~lib/rt/common/BLOCK#set:mmInfo
-   (local.get $4)
-   (local.get $0)
-  )
-  (call $~lib/rt/common/OBJECT#set:gcInfo
-   (local.get $4)
-   (local.get $1)
-  )
-  (call $~lib/as-chain/idxdb/IDXDB#set:table
-   (local.get $4)
-   (local.get $2)
-  )
-  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#set:validPrimary
-   (local.get $4)
-   (local.get $3)
-  )
-  (local.get $4)
- )
- (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#begin (param $0 i32) (result i32)
-  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor
-   (local.tee $0
-    (i32.load
-     (local.get $0)
-    )
-   )
-   (call $~lib/as-chain/env/db_lowerbound_i64
-    (i64.load
-     (local.get $0)
-    )
-    (i64.load offset=8
-     (local.get $0)
-    )
-    (i64.load offset=16
-     (local.get $0)
-    )
-    (i64.const 0)
-   )
-   (i64.const 0)
-   (i32.const 0)
-  )
- )
- (func $assembly/orderbook/tables/trades.table/TradesTable#unpack (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (call $~lib/as-chain/name/Name#set:N
-   (local.get $0)
-   (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
-    (local.tee $1
-     (call $~lib/as-chain/serializer/Decoder#constructor
-      (local.get $1)
-     )
-    )
-   )
-  )
-  (call $~lib/as-chain/idxdb/IDXDB#set:scope
-   (local.get $0)
-   (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
-    (local.get $1)
-   )
-  )
-  (call $~lib/as-chain/idxdb/IDXDB#set:table
-   (local.get $0)
-   (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
-    (local.get $1)
-   )
-  )
-  (call $assembly/orderbook/tables/trades.table/TradesTable#set:sell_order_id
-   (local.get $0)
-   (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
-    (local.get $1)
-   )
-  )
-  (call $~lib/as-chain/name/Name#set:N
-   (local.tee $2
-    (call $~lib/rt/stub/__new
-     (i32.const 8)
-     (i32.const 5)
-    )
-   )
-   (i64.const 0)
-  )
-  (call $~lib/as-chain/name/Name#set:N
-   (local.get $2)
-   (i64.const 0)
-  )
-  (call $~lib/as-chain/serializer/Decoder#unpack
-   (local.get $1)
-   (local.get $2)
-  )
-  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:tick_size
-   (local.get $0)
-   (local.get $2)
-  )
-  (call $~lib/as-chain/name/Name#set:N
-   (local.tee $2
-    (call $~lib/rt/stub/__new
-     (i32.const 8)
-     (i32.const 5)
-    )
-   )
-   (i64.const 0)
-  )
-  (call $~lib/as-chain/name/Name#set:N
-   (local.get $2)
-   (i64.const 0)
-  )
-  (call $~lib/as-chain/serializer/Decoder#unpack
-   (local.get $1)
-   (local.get $2)
-  )
-  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:filled_amount
-   (local.get $0)
-   (local.get $2)
-  )
-  (global.set $~argumentsLength
-   (i32.const 0)
-  )
-  (call $~lib/as-chain/serializer/Decoder#unpack
-   (local.get $1)
-   (local.tee $2
-    (call $~lib/as-chain/asset/Asset#constructor@varargs)
-   )
-  )
-  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:status
-   (local.get $0)
-   (local.get $2)
-  )
-  (global.set $~argumentsLength
-   (i32.const 0)
-  )
-  (call $~lib/as-chain/serializer/Decoder#unpack
-   (local.get $1)
-   (local.tee $2
-    (call $~lib/as-chain/asset/Asset#constructor@varargs)
-   )
-  )
-  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:created_at
-   (local.get $0)
-   (local.get $2)
-  )
-  (global.set $~argumentsLength
-   (i32.const 0)
-  )
-  (call $~lib/as-chain/serializer/Decoder#unpack
-   (local.get $1)
-   (local.tee $2
-    (call $~lib/as-chain/asset/Asset#constructor@varargs)
-   )
-  )
-  (call $assembly/orderbook/tables/trades.table/TradesTable#set:total_value
-   (local.get $0)
-   (local.get $2)
-  )
-  (global.set $~argumentsLength
-   (i32.const 0)
-  )
-  (call $~lib/as-chain/serializer/Decoder#unpack
-   (local.get $1)
-   (local.tee $2
-    (call $~lib/as-chain/asset/Asset#constructor@varargs)
-   )
-  )
-  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:created_at
-   (local.get $0)
-   (local.get $2)
-  )
-  (global.set $~argumentsLength
-   (i32.const 0)
-  )
-  (call $~lib/as-chain/serializer/Decoder#unpack
-   (local.get $1)
-   (local.tee $2
-    (call $~lib/as-chain/asset/Asset#constructor@varargs)
-   )
-  )
-  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:updated_at
-   (local.get $0)
-   (local.get $2)
-  )
-  (call $~lib/as-chain/serializer/Decoder#unpack
-   (local.get $1)
-   (local.tee $2
-    (call $~lib/as-chain/time/TimePointSec#constructor)
-   )
-  )
-  (call $assembly/orderbook/tables/trades.table/TradesTable#set:executed_at
-   (local.get $0)
-   (local.get $2)
-  )
-  (i32.load offset=4
-   (local.get $1)
-  )
- )
- (func $~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/trades.table/TradesTable>#getEx (param $0 i32) (param $1 i32) (result i32)
-  (if
-   (i32.eqz
-    (local.tee $0
-     (call $~lib/as-chain/env/db_get_i64
-      (local.get $1)
-      (i32.const 0)
-      (i32.const 0)
-     )
-    )
-   )
-   (return
-    (i32.const 0)
-   )
-  )
-  (drop
-   (call $~lib/as-chain/env/db_get_i64
-    (local.get $1)
-    (i32.load offset=4
-     (local.tee $1
-      (call $~lib/array/Array<u8>#constructor
-       (local.get $0)
-      )
-     )
-    )
-    (local.get $0)
-   )
-  )
-  (global.set $~argumentsLength
-   (i32.const 0)
-  )
-  (drop
-   (call $assembly/orderbook/tables/trades.table/TradesTable#unpack
-    (local.tee $0
-     (call $assembly/orderbook/tables/trades.table/TradesTable#constructor@varargs
-      (global.get $~lib/as-chain/name/EMPTY_NAME)
-      (global.get $~lib/as-chain/name/EMPTY_NAME)
-     )
-    )
-    (local.get $1)
-   )
-  )
-  (local.get $0)
- )
- (func $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#getValue (param $0 i32) (result i32)
+ (func $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/orders.table/OrdersTable>#getValue (param $0 i32) (result i32)
   (if
    (i32.eqz
     (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
@@ -14062,7 +13280,7 @@
     (i32.const 0)
    )
   )
-  (call $~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/trades.table/TradesTable>#getEx
+  (call $~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/orders.table/OrdersTable>#getEx
    (i32.load
     (local.get $0)
    )
@@ -14071,1260 +13289,28 @@
    )
   )
  )
- (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#find (param $0 i32) (param $1 i64) (result i32)
-  (local $2 i32)
-  (block $__inlined_func$~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/trades.table/TradesTable>#find (result i32)
-   (if
-    (i32.ge_s
-     (local.tee $2
-      (call $~lib/as-chain/env/db_find_i64
-       (i64.load
-        (local.tee $0
-         (i32.load
-          (local.get $0)
-         )
-        )
-       )
-       (i64.load offset=8
-        (local.get $0)
-       )
-       (i64.load offset=16
-        (local.get $0)
-       )
-       (local.get $1)
-      )
-     )
-     (i32.const 0)
-    )
-    (br $__inlined_func$~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/trades.table/TradesTable>#find
-     (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor
-      (local.get $0)
-      (local.get $2)
-      (local.get $1)
-      (i32.const 1)
-     )
-    )
-   )
-   (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor
-    (local.get $0)
-    (local.get $2)
-    (i64.const 0)
-    (i32.const 0)
-   )
-  )
- )
- (func $assembly/orderbook/orderbook.contract/orderbook#getCurrentMarketPrice (param $0 i32) (param $1 i64) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i64)
-  (local.set $4
-   (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#getValue
-    (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#begin
-     (i32.load
-      (i32.load offset=20
-       (local.get $0)
-      )
-     )
-    )
-   )
-  )
-  (loop $while-continue|0
-   (if
-    (local.get $4)
-    (block
-     (if
-      (i64.eq
-       (local.get $1)
-       (i64.load offset=8
-        (local.get $4)
-       )
-      )
-      (local.set $3
-       (select
-        (local.get $4)
-        (local.get $3)
-        (if (result i32)
-         (local.get $3)
-         (i64.gt_u
-          (i64.load
-           (local.get $4)
-          )
-          (i64.load
-           (local.get $3)
-          )
-         )
-         (i32.const 1)
-        )
-       )
-      )
-     )
-     (call $~lib/as-chain/system/check
-      (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
-       (local.tee $5
-        (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#find
-         (i32.load
-          (local.tee $2
-           (i32.load offset=20
-            (local.get $0)
-           )
-          )
-         )
-         (i64.load
-          (local.get $4)
-         )
-        )
-       )
-      )
-      (i32.const 1872)
-     )
-     (local.set $2
-      (i32.load
-       (i32.load
-        (local.get $2)
-       )
-      )
-     )
-     (local.set $4
-      (call $~lib/rt/stub/__alloc
-       (i32.const 8)
-      )
-     )
-     (local.set $4
-      (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#getValue
-       (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor
-        (local.get $2)
-        (call $~lib/as-chain/env/db_next_i64
-         (i32.load offset=4
-          (local.get $5)
-         )
-         (local.get $4)
-        )
-        (i64.load
-         (local.get $4)
-        )
-        (i32.const 1)
-       )
-      )
-     )
-     (br $while-continue|0)
-    )
-   )
-  )
-  (if
-   (local.get $3)
-   (return
-    (i32.load offset=40
-     (local.get $3)
-    )
-   )
-  )
-  (local.set $3
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first
-    (i32.load offset=16
-     (local.get $0)
-    )
-   )
-  )
-  (local.set $2
-   (call $~lib/as-chain/asset/Symbol#constructor)
-  )
-  (loop $while-continue|00
-   (if
-    (local.get $3)
-    (block
-     (if
-      (if (result i32)
-       (if (result i32)
-        (i64.eq
-         (local.get $1)
-         (i64.load offset=8
-          (local.get $3)
-         )
-        )
-        (call $~lib/string/String.__eq
-         (i32.load offset=20
-          (local.get $3)
-         )
-         (i32.const 6800)
-        )
-        (i32.const 0)
-       )
-       (if (result i32)
-        (i32.load8_u offset=49
-         (local.get $3)
-        )
-        (i32.eq
-         (i32.load8_u offset=49
-          (local.get $3)
-         )
-         (i32.const 1)
-        )
-        (i32.const 1)
-       )
-       (i32.const 0)
-      )
-      (if
-       (i64.lt_s
-        (local.get $6)
-        (i64.load
-         (i32.load offset=28
-          (local.get $3)
-         )
-        )
-       )
-       (local.set $2
-        (block (result i32)
-         (local.set $6
-          (i64.load
-           (i32.load offset=28
-            (local.get $3)
-           )
-          )
-         )
-         (i32.load offset=8
-          (i32.load offset=28
-           (local.get $3)
-          )
-         )
-        )
-       )
-      )
-     )
-     (local.set $3
-      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next
-       (i32.load offset=16
-        (local.get $0)
-       )
-       (local.get $3)
-      )
-     )
-     (br $while-continue|00)
-    )
-   )
-  )
-  (local.set $5
-   (call $~lib/as-chain/asset/Asset#constructor
-    (local.get $6)
-    (local.get $2)
-   )
-  )
-  (local.set $6
-   (i64.const 0)
-  )
-  (local.set $3
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first
-    (i32.load offset=16
-     (local.tee $4
-      (local.get $0)
-     )
-    )
-   )
-  )
-  (local.set $0
-   (call $~lib/as-chain/asset/Symbol#constructor)
-  )
-  (loop $while-continue|01
-   (if
-    (local.get $3)
-    (block
-     (if
-      (if (result i32)
-       (if (result i32)
-        (i64.eq
-         (local.get $1)
-         (i64.load offset=8
-          (local.get $3)
-         )
-        )
-        (call $~lib/string/String.__eq
-         (i32.load offset=20
-          (local.get $3)
-         )
-         (i32.const 6832)
-        )
-        (i32.const 0)
-       )
-       (if (result i32)
-        (i32.load8_u offset=49
-         (local.get $3)
-        )
-        (i32.eq
-         (i32.load8_u offset=49
-          (local.get $3)
-         )
-         (i32.const 1)
-        )
-        (i32.const 1)
-       )
-       (i32.const 0)
-      )
-      (if
-       (if (result i32)
-        (i64.eqz
-         (local.get $6)
-        )
-        (i32.const 1)
-        (i64.gt_s
-         (local.get $6)
-         (i64.load
-          (i32.load offset=28
-           (local.get $3)
-          )
-         )
-        )
-       )
-       (local.set $0
-        (block (result i32)
-         (local.set $6
-          (i64.load
-           (i32.load offset=28
-            (local.get $3)
-           )
-          )
-         )
-         (i32.load offset=8
-          (i32.load offset=28
-           (local.get $3)
-          )
-         )
-        )
-       )
-      )
-     )
-     (local.set $3
-      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next
-       (i32.load offset=16
-        (local.get $4)
-       )
-       (local.get $3)
-      )
-     )
-     (br $while-continue|01)
-    )
-   )
-  )
-  (local.set $0
-   (call $~lib/as-chain/asset/Asset#constructor
-    (local.get $6)
-    (local.get $0)
-   )
-  )
-  (if
-   (if (result i32)
-    (i64.gt_s
-     (i64.load
-      (local.get $5)
-     )
-     (i64.const 0)
-    )
-    (i64.gt_s
-     (i64.load
-      (local.get $0)
-     )
-     (i64.const 0)
-    )
-    (i32.const 0)
-   )
-   (return
-    (call $~lib/as-chain/asset/Asset#constructor
-     (i64.div_s
-      (i64.add
-       (i64.load
-        (local.get $5)
-       )
-       (i64.load
-        (local.get $0)
-       )
-      )
-      (i64.const 2)
-     )
-     (i32.load offset=16
-      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
-       (i32.load offset=12
-        (local.get $4)
-       )
-       (local.get $1)
-      )
-     )
-    )
-   )
-  )
-  (call $~lib/as-chain/asset/Asset#constructor
-   (i64.const 0)
-   (i32.load offset=16
-    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
-     (i32.load offset=12
-      (local.get $4)
-     )
-     (local.get $1)
-    )
-   )
-  )
- )
- (func $assembly/orderbook/orderbook.contract/orderbook#stopLossOrder (param $0 i32) (param $1 i32) (param $2 i64) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (call $~lib/as-chain/action/requireAuth
-   (local.get $1)
-  )
-  (call $~lib/as-chain/system/check
-   (i32.eqz
-    (i32.load8_u offset=12
-     (call $assembly/orderbook/orderbook.contract/orderbook#getConfig
-      (local.get $0)
-     )
-    )
-   )
-   (i32.const 6624)
-  )
-  (call $~lib/as-chain/system/check
-   (call $~lib/string/String.__eq
-    (i32.load offset=40
-     (local.tee $7
-      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
-       (i32.load offset=12
-        (local.get $0)
-       )
-       (local.get $2)
-      )
-     )
-    )
-    (i32.const 5488)
-   )
-   (i32.const 6672)
-  )
-  (call $~lib/as-chain/system/check
-   (if (result i32)
-    (call $~lib/string/String.__eq
-     (local.get $3)
-     (i32.const 6800)
-    )
-    (i32.const 1)
-    (call $~lib/string/String.__eq
-     (local.get $3)
-     (i32.const 6832)
-    )
-   )
-   (i32.const 6864)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.gt_s
-    (i64.load
-     (local.get $6)
-    )
-    (i64.const 0)
-   )
-   (i32.const 6912)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.gt_s
-    (i64.load
-     (local.get $4)
-    )
-    (i64.const 0)
-   )
-   (i32.const 8848)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.gt_s
-    (i64.load
-     (local.get $5)
-    )
-    (i64.const 0)
-   )
-   (i32.const 8928)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eq
-    (call $~lib/as-chain/asset/Symbol#code
-     (i32.load offset=8
-      (local.get $6)
-     )
-    )
-    (call $~lib/as-chain/asset/Symbol#code
-     (i32.load offset=8
-      (local.get $7)
-     )
-    )
-   )
-   (i32.const 7056)
-  )
-  (call $~lib/as-chain/system/check
-   (i32.eq
-    (i32.and
-     (call $~lib/as-chain/asset/Symbol#precision
-      (i32.load offset=8
-       (local.get $6)
-      )
-     )
-     (i32.const 255)
-    )
-    (i32.and
-     (call $~lib/as-chain/asset/Symbol#precision
-      (i32.load offset=8
-       (local.get $7)
-      )
-     )
-     (i32.const 255)
-    )
-   )
-   (i32.const 7296)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eq
-    (call $~lib/as-chain/asset/Symbol#code
-     (i32.load offset=8
-      (local.get $4)
-     )
-    )
-    (call $~lib/as-chain/asset/Symbol#code
-     (i32.load offset=16
-      (local.get $7)
-     )
-    )
-   )
-   (i32.const 9008)
-  )
-  (call $~lib/as-chain/system/check
-   (i32.eq
-    (i32.and
-     (call $~lib/as-chain/asset/Symbol#precision
-      (i32.load offset=8
-       (local.get $4)
-      )
-     )
-     (i32.const 255)
-    )
-    (i32.and
-     (call $~lib/as-chain/asset/Symbol#precision
-      (i32.load offset=16
-       (local.get $7)
-      )
-     )
-     (i32.const 255)
-    )
-   )
-   (i32.const 9104)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eq
-    (call $~lib/as-chain/asset/Symbol#code
-     (i32.load offset=8
-      (local.get $5)
-     )
-    )
-    (call $~lib/as-chain/asset/Symbol#code
-     (i32.load offset=16
-      (local.get $7)
-     )
-    )
-   )
-   (i32.const 9200)
-  )
-  (call $~lib/as-chain/system/check
-   (i32.eq
-    (i32.and
-     (call $~lib/as-chain/asset/Symbol#precision
-      (i32.load offset=8
-       (local.get $5)
-      )
-     )
-     (i32.const 255)
-    )
-    (i32.and
-     (call $~lib/as-chain/asset/Symbol#precision
-      (i32.load offset=16
-       (local.get $7)
-      )
-     )
-     (i32.const 255)
-    )
-   )
-   (i32.const 9296)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.ge_s
-    (i64.load
-     (local.get $6)
-    )
-    (i64.load
-     (i32.load offset=24
-      (local.get $7)
-     )
-    )
-   )
-   (i32.const 7456)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.le_s
-    (i64.load
-     (local.get $6)
-    )
-    (i64.load
-     (i32.load offset=28
-      (local.get $7)
-     )
-    )
-   )
-   (i32.const 8752)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eqz
-    (i64.rem_s
-     (i64.load
-      (local.get $4)
-     )
-     (i64.load
-      (i32.load offset=32
-       (local.get $7)
-      )
-     )
-    )
-   )
-   (i32.const 9376)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eqz
-    (i64.rem_s
-     (i64.load
-      (local.get $5)
-     )
-     (i64.load
-      (i32.load offset=32
-       (local.get $7)
-      )
-     )
-    )
-   )
-   (i32.const 9488)
-  )
-  (if
-   (i64.gt_s
-    (i64.load
-     (local.tee $8
-      (call $assembly/orderbook/orderbook.contract/orderbook#getCurrentMarketPrice
-       (local.get $0)
-       (local.get $2)
-      )
-     )
-    )
-    (i64.const 0)
-   )
-   (if
-    (call $~lib/string/String.__eq
-     (local.get $3)
-     (i32.const 6800)
-    )
-    (call $~lib/as-chain/system/check
-     (i64.ge_s
-      (i64.load
-       (local.get $4)
-      )
-      (i64.load
-       (local.get $8)
-      )
-     )
-     (i32.const 9600)
-    )
-    (call $~lib/as-chain/system/check
-     (i64.le_s
-      (i64.load
-       (local.get $4)
-      )
-      (i64.load
-       (local.get $8)
-      )
-     )
-     (i32.const 9712)
-    )
-   )
-  )
-  (call $assembly/orderbook/orderbook.contract/orderbook#lockBalance
-   (local.get $0)
-   (local.get $1)
-   (local.get $3)
-   (local.get $6)
-   (call $assembly/orderbook/orderbook.contract/orderbook#calculateTotalValue
-    (local.get $5)
-    (local.get $6)
-    (local.get $7)
-   )
-   (local.get $7)
-  )
-  (local.set $1
-   (call $assembly/orderbook/tables/orders.table/OrdersTable#constructor
-    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#get:availablePrimaryKey
-     (i32.load offset=16
-      (local.get $0)
-     )
-    )
-    (local.get $2)
-    (local.get $1)
-    (local.get $3)
-    (i32.const 9840)
-    (local.get $5)
-    (local.get $6)
-    (call $~lib/as-chain/asset/Asset#constructor
-     (i64.const 0)
-     (i32.load offset=8
-      (local.get $6)
-     )
-    )
-    (local.get $6)
-    (local.get $4)
-    (call $~lib/as-chain/time/TimePointSec#constructor)
-    (call $~lib/as-chain/time/TimePointSec#constructor)
-   )
-  )
-  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#store
-   (i32.load offset=16
-    (local.get $0)
-   )
-   (local.get $1)
-   (i32.load
-    (local.get $0)
-   )
-  )
- )
- (func $assembly/orderbook/orderbook.contract/orderbook#canMatch (param $0 i32) (param $1 i32) (result i32)
-  (if (result i32)
-   (call $~lib/string/String.__eq
-    (i32.load offset=20
-     (local.get $0)
-    )
-    (i32.const 6800)
-   )
-   (i64.ge_s
-    (i64.load
-     (i32.load offset=28
-      (local.get $0)
-     )
-    )
-    (i64.load
-     (i32.load offset=28
-      (local.get $1)
-     )
-    )
-   )
-   (i64.le_s
-    (i64.load
-     (i32.load offset=28
-      (local.get $0)
-     )
-    )
-    (i64.load
-     (i32.load offset=28
-      (local.get $1)
-     )
-    )
-   )
-  )
- )
- (func $assembly/orderbook/orderbook.contract/orderbook#calculateTradeAmount (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i64)
-  (local $3 i64)
-  (call $~lib/as-chain/asset/Asset#constructor
-   (select
-    (local.tee $2
-     (i64.load
-      (i32.load offset=40
-       (local.get $0)
-      )
-     )
-    )
-    (local.tee $3
-     (i64.load
-      (i32.load offset=40
-       (local.get $1)
-      )
-     )
-    )
-    (i64.lt_s
-     (local.get $2)
-     (local.get $3)
-    )
-   )
-   (i32.load offset=8
-    (i32.load offset=32
-     (local.get $0)
-    )
-   )
-  )
- )
- (func $assembly/orderbook/orderbook.contract/orderbook#updateTradeBalances (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32) (param $7 i32)
-  (local $8 i64)
-  (local $9 i32)
-  (local $10 i32)
-  (local.set $1
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#constructor
-    (i32.load
-     (local.get $0)
-    )
-    (local.get $1)
-   )
-  )
-  (local.set $2
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#constructor
-    (i32.load
-     (local.get $0)
-    )
-    (local.get $2)
-   )
-  )
-  (if
-   (local.tee $9
-    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#get
-     (local.get $1)
-     (call $~lib/as-chain/asset/Symbol#code
-      (i32.load offset=8
-       (local.get $7)
-      )
-     )
-    )
-   )
-   (block
-    (call $~lib/as-chain/system/check
-     (i64.eq
-      (i64.load
-       (i32.load offset=8
-        (local.tee $10
-         (i32.load offset=4
-          (local.get $9)
-         )
-        )
-       )
-      )
-      (i64.load
-       (i32.load offset=8
-        (local.get $3)
-       )
-      )
-     )
-     (i32.const 6432)
-    )
-    (call $~lib/as-chain/system/check
-     (i64.ge_s
-      (local.tee $8
-       (i64.add
-        (i64.load
-         (local.get $10)
-        )
-        (i64.load
-         (local.get $3)
-        )
-       )
-      )
-      (i64.const -4611686018427387903)
-     )
-     (i32.const 6496)
-    )
-    (call $~lib/as-chain/system/check
-     (i64.le_s
-      (local.get $8)
-      (i64.const 4611686018427387903)
-     )
-     (i32.const 6560)
-    )
-    (call $~lib/rt/common/OBJECT#set:gcInfo
-     (local.get $9)
-     (call $~lib/as-chain/asset/Asset#constructor
-      (local.get $8)
-      (call $~lib/as-chain/asset/Symbol.fromU64
-       (i64.load
-        (i32.load offset=8
-         (local.get $10)
-        )
-       )
-      )
-     )
-    )
-    (call $~lib/rt/common/OBJECT#set:rtId
-     (local.get $9)
-     (call $~lib/as-chain/time/TimePointSec#constructor)
-    )
-    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
-     (local.get $1)
-     (local.get $9)
-     (i32.load
-      (local.get $0)
-     )
-    )
-   )
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#store
-    (local.get $1)
-    (call $assembly/orderbook/tables/balances.table/BalancesTable#constructor
-     (i32.load offset=12
-      (local.get $7)
-     )
-     (local.get $3)
-     (call $~lib/as-chain/asset/Asset#constructor
-      (i64.const 0)
-      (i32.load offset=8
-       (local.get $3)
-      )
-     )
-     (call $~lib/as-chain/time/TimePointSec#constructor)
-    )
+ (func $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first (param $0 i32) (result i32)
+  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/orders.table/OrdersTable>#getValue
+   (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#begin
     (i32.load
      (local.get $0)
     )
    )
   )
-  (local.set $9
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#requireGet
-    (local.get $1)
-    (call $~lib/as-chain/asset/Symbol#code
-     (i32.load offset=16
-      (local.get $7)
-     )
-    )
-    (i32.const 9888)
-   )
-  )
+ )
+ (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#requireFind (param $0 i32) (param $1 i64) (param $2 i32) (result i32)
   (call $~lib/as-chain/system/check
-   (i64.eq
-    (i64.load
-     (i32.load offset=8
-      (local.get $4)
-     )
-    )
-    (i64.load
-     (i32.load offset=8
-      (local.get $5)
+   (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
+    (local.tee $0
+     (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#find
+      (local.get $0)
+      (local.get $1)
      )
     )
    )
-   (i32.const 6432)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.ge_s
-    (local.tee $8
-     (i64.add
-      (i64.load
-       (local.get $4)
-      )
-      (i64.load
-       (local.get $5)
-      )
-     )
-    )
-    (i64.const -4611686018427387903)
-   )
-   (i32.const 6496)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.le_s
-    (local.get $8)
-    (i64.const 4611686018427387903)
-   )
-   (i32.const 6560)
-  )
-  (local.set $5
-   (call $~lib/as-chain/asset/Asset#constructor
-    (local.get $8)
-    (call $~lib/as-chain/asset/Symbol.fromU64
-     (i64.load
-      (i32.load offset=8
-       (local.get $4)
-      )
-     )
-    )
-   )
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eq
-    (i64.load
-     (i32.load offset=8
-      (local.tee $10
-       (i32.load offset=8
-        (local.get $9)
-       )
-      )
-     )
-    )
-    (i64.load
-     (i32.load offset=8
-      (local.get $5)
-     )
-    )
-   )
-   (i32.const 6432)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.ge_s
-    (local.tee $8
-     (i64.sub
-      (i64.load
-       (local.get $10)
-      )
-      (i64.load
-       (local.get $5)
-      )
-     )
-    )
-    (i64.const -4611686018427387903)
-   )
-   (i32.const 8144)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.le_s
-    (local.get $8)
-    (i64.const 4611686018427387903)
-   )
-   (i32.const 8208)
-  )
-  (call $~lib/rt/common/OBJECT#set:gcInfo2
-   (local.get $9)
-   (call $~lib/as-chain/asset/Asset#constructor
-    (local.get $8)
-    (call $~lib/as-chain/asset/Symbol.fromU64
-     (i64.load
-      (i32.load offset=8
-       (local.get $10)
-      )
-     )
-    )
-   )
-  )
-  (call $~lib/rt/common/OBJECT#set:rtId
-   (local.get $9)
-   (call $~lib/as-chain/time/TimePointSec#constructor)
-  )
-  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
-   (local.get $1)
-   (local.get $9)
-   (i32.load
-    (local.get $0)
-   )
-  )
-  (local.set $1
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#requireGet
-    (local.get $2)
-    (call $~lib/as-chain/asset/Symbol#code
-     (i32.load offset=8
-      (local.get $7)
-     )
-    )
-    (i32.const 9952)
-   )
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eq
-    (i64.load
-     (i32.load offset=8
-      (local.get $3)
-     )
-    )
-    (i64.load
-     (i32.load offset=8
-      (local.get $6)
-     )
-    )
-   )
-   (i32.const 6432)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.ge_s
-    (local.tee $8
-     (i64.add
-      (i64.load
-       (local.get $3)
-      )
-      (i64.load
-       (local.get $6)
-      )
-     )
-    )
-    (i64.const -4611686018427387903)
-   )
-   (i32.const 6496)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.le_s
-    (local.get $8)
-    (i64.const 4611686018427387903)
-   )
-   (i32.const 6560)
-  )
-  (local.set $3
-   (call $~lib/as-chain/asset/Asset#constructor
-    (local.get $8)
-    (call $~lib/as-chain/asset/Symbol.fromU64
-     (i64.load
-      (i32.load offset=8
-       (local.get $3)
-      )
-     )
-    )
-   )
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eq
-    (i64.load
-     (i32.load offset=8
-      (local.tee $5
-       (i32.load offset=8
-        (local.get $1)
-       )
-      )
-     )
-    )
-    (i64.load
-     (i32.load offset=8
-      (local.get $3)
-     )
-    )
-   )
-   (i32.const 6432)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.ge_s
-    (local.tee $8
-     (i64.sub
-      (i64.load
-       (local.get $5)
-      )
-      (i64.load
-       (local.get $3)
-      )
-     )
-    )
-    (i64.const -4611686018427387903)
-   )
-   (i32.const 8144)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.le_s
-    (local.get $8)
-    (i64.const 4611686018427387903)
-   )
-   (i32.const 8208)
-  )
-  (call $~lib/rt/common/OBJECT#set:gcInfo2
-   (local.get $1)
-   (call $~lib/as-chain/asset/Asset#constructor
-    (local.get $8)
-    (call $~lib/as-chain/asset/Symbol.fromU64
-     (i64.load
-      (i32.load offset=8
-       (local.get $5)
-      )
-     )
-    )
-   )
-  )
-  (call $~lib/rt/common/OBJECT#set:rtId
-   (local.get $1)
-   (call $~lib/as-chain/time/TimePointSec#constructor)
-  )
-  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
    (local.get $2)
-   (local.get $1)
-   (i32.load
-    (local.get $0)
-   )
   )
-  (if
-   (local.tee $1
-    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#get
-     (local.get $2)
-     (call $~lib/as-chain/asset/Symbol#code
-      (i32.load offset=16
-       (local.get $7)
-      )
-     )
-    )
-   )
-   (block
-    (call $~lib/as-chain/system/check
-     (i64.eq
-      (i64.load
-       (i32.load offset=8
-        (local.tee $3
-         (i32.load offset=4
-          (local.get $1)
-         )
-        )
-       )
-      )
-      (i64.load
-       (i32.load offset=8
-        (local.get $4)
-       )
-      )
-     )
-     (i32.const 6432)
-    )
-    (call $~lib/as-chain/system/check
-     (i64.ge_s
-      (local.tee $8
-       (i64.add
-        (i64.load
-         (local.get $3)
-        )
-        (i64.load
-         (local.get $4)
-        )
-       )
-      )
-      (i64.const -4611686018427387903)
-     )
-     (i32.const 6496)
-    )
-    (call $~lib/as-chain/system/check
-     (i64.le_s
-      (local.get $8)
-      (i64.const 4611686018427387903)
-     )
-     (i32.const 6560)
-    )
-    (call $~lib/rt/common/OBJECT#set:gcInfo
-     (local.get $1)
-     (call $~lib/as-chain/asset/Asset#constructor
-      (local.get $8)
-      (call $~lib/as-chain/asset/Symbol.fromU64
-       (i64.load
-        (i32.load offset=8
-         (local.get $3)
-        )
-       )
-      )
-     )
-    )
-    (call $~lib/rt/common/OBJECT#set:rtId
-     (local.get $1)
-     (call $~lib/as-chain/time/TimePointSec#constructor)
-    )
-    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
-     (local.get $2)
-     (local.get $1)
-     (i32.load
-      (local.get $0)
-     )
-    )
-   )
-   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#store
-    (local.get $2)
-    (call $assembly/orderbook/tables/balances.table/BalancesTable#constructor
-     (i32.load offset=20
-      (local.get $7)
-     )
-     (local.get $4)
-     (call $~lib/as-chain/asset/Asset#constructor
-      (i64.const 0)
-      (i32.load offset=8
-       (local.get $4)
-      )
-     )
-     (call $~lib/as-chain/time/TimePointSec#constructor)
-    )
-    (i32.load
-     (local.get $0)
-    )
-   )
-  )
+  (local.get $0)
  )
  (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#update (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32)
   (local $4 i32)
@@ -15546,145 +13532,68 @@
    (local.get $2)
   )
  )
- (func $assembly/orderbook/orderbook.contract/orderbook#updateOrderAfterTrade (param $0 i32) (param $1 i32) (param $2 i32)
-  (local $3 i32)
-  (local $4 i64)
-  (call $~lib/as-chain/system/check
-   (i64.eq
+ (func $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor (param $0 i32) (param $1 i32) (param $2 i64) (param $3 i32) (result i32)
+  (local $4 i32)
+  (call $~lib/rt/common/BLOCK#set:mmInfo
+   (local.tee $4
+    (call $~lib/rt/stub/__new
+     (i32.const 24)
+     (i32.const 64)
+    )
+   )
+   (i32.const 0)
+  )
+  (call $~lib/rt/common/OBJECT#set:gcInfo
+   (local.get $4)
+   (i32.const 0)
+  )
+  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#set:validPrimary
+   (local.get $4)
+   (i32.const 0)
+  )
+  (call $~lib/as-chain/idxdb/IDXDB#set:table
+   (local.get $4)
+   (i64.const 0)
+  )
+  (call $~lib/rt/common/BLOCK#set:mmInfo
+   (local.get $4)
+   (local.get $0)
+  )
+  (call $~lib/rt/common/OBJECT#set:gcInfo
+   (local.get $4)
+   (local.get $1)
+  )
+  (call $~lib/as-chain/idxdb/IDXDB#set:table
+   (local.get $4)
+   (local.get $2)
+  )
+  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#set:validPrimary
+   (local.get $4)
+   (local.get $3)
+  )
+  (local.get $4)
+ )
+ (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#begin (param $0 i32) (result i32)
+  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor
+   (local.tee $0
+    (i32.load
+     (local.get $0)
+    )
+   )
+   (call $~lib/as-chain/env/db_lowerbound_i64
     (i64.load
-     (i32.load offset=8
-      (local.tee $3
-       (i32.load offset=36
-        (local.get $1)
-       )
-      )
-     )
+     (local.get $0)
     )
-    (i64.load
-     (i32.load offset=8
-      (local.get $2)
-     )
+    (i64.load offset=8
+     (local.get $0)
     )
-   )
-   (i32.const 6432)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.ge_s
-    (local.tee $4
-     (i64.add
-      (i64.load
-       (local.get $3)
-      )
-      (i64.load
-       (local.get $2)
-      )
-     )
+    (i64.load offset=16
+     (local.get $0)
     )
-    (i64.const -4611686018427387903)
+    (i64.const 0)
    )
-   (i32.const 6496)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.le_s
-    (local.get $4)
-    (i64.const 4611686018427387903)
-   )
-   (i32.const 6560)
-  )
-  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:filled_amount
-   (local.get $1)
-   (call $~lib/as-chain/asset/Asset#constructor
-    (local.get $4)
-    (call $~lib/as-chain/asset/Symbol.fromU64
-     (i64.load
-      (i32.load offset=8
-       (local.get $3)
-      )
-     )
-    )
-   )
-  )
-  (call $~lib/as-chain/system/check
-   (i64.eq
-    (i64.load
-     (i32.load offset=8
-      (local.tee $3
-       (i32.load offset=40
-        (local.get $1)
-       )
-      )
-     )
-    )
-    (i64.load
-     (i32.load offset=8
-      (local.get $2)
-     )
-    )
-   )
-   (i32.const 6432)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.ge_s
-    (local.tee $4
-     (i64.sub
-      (i64.load
-       (local.get $3)
-      )
-      (i64.load
-       (local.get $2)
-      )
-     )
-    )
-    (i64.const -4611686018427387903)
-   )
-   (i32.const 8144)
-  )
-  (call $~lib/as-chain/system/check
-   (i64.le_s
-    (local.get $4)
-    (i64.const 4611686018427387903)
-   )
-   (i32.const 8208)
-  )
-  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:status
-   (local.get $1)
-   (call $~lib/as-chain/asset/Asset#constructor
-    (local.get $4)
-    (call $~lib/as-chain/asset/Symbol.fromU64
-     (i64.load
-      (i32.load offset=8
-       (local.get $3)
-      )
-     )
-    )
-   )
-  )
-  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:status
-   (local.get $1)
-   (select
-    (i32.const 2)
-    (i32.const 1)
-    (i64.eqz
-     (i64.load
-      (i32.load offset=40
-       (local.get $1)
-      )
-     )
-    )
-   )
-  )
-  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:updated_at
-   (local.get $1)
-   (call $~lib/as-chain/time/TimePointSec#constructor)
-  )
-  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#update
-   (i32.load offset=16
-    (local.get $0)
-   )
-   (local.get $1)
-   (i32.load
-    (local.get $0)
-   )
+   (i64.const 0)
+   (i32.const 0)
   )
  )
  (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#end (param $0 i32) (result i32)
@@ -15708,6 +13617,201 @@
    (i64.const 0)
    (i32.const 0)
   )
+ )
+ (func $assembly/orderbook/tables/trades.table/TradesTable#unpack (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (call $~lib/as-chain/name/Name#set:N
+   (local.get $0)
+   (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
+    (local.tee $1
+     (call $~lib/as-chain/serializer/Decoder#constructor
+      (local.get $1)
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/idxdb/IDXDB#set:scope
+   (local.get $0)
+   (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
+    (local.get $1)
+   )
+  )
+  (call $~lib/as-chain/idxdb/IDXDB#set:table
+   (local.get $0)
+   (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
+    (local.get $1)
+   )
+  )
+  (call $assembly/orderbook/tables/trades.table/TradesTable#set:sell_order_id
+   (local.get $0)
+   (call $~lib/as-chain/serializer/Decoder#unpackNumber<u64>
+    (local.get $1)
+   )
+  )
+  (call $~lib/as-chain/name/Name#set:N
+   (local.tee $2
+    (call $~lib/rt/stub/__new
+     (i32.const 8)
+     (i32.const 5)
+    )
+   )
+   (i64.const 0)
+  )
+  (call $~lib/as-chain/name/Name#set:N
+   (local.get $2)
+   (i64.const 0)
+  )
+  (call $~lib/as-chain/serializer/Decoder#unpack
+   (local.get $1)
+   (local.get $2)
+  )
+  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:tick_size
+   (local.get $0)
+   (local.get $2)
+  )
+  (call $~lib/as-chain/name/Name#set:N
+   (local.tee $2
+    (call $~lib/rt/stub/__new
+     (i32.const 8)
+     (i32.const 5)
+    )
+   )
+   (i64.const 0)
+  )
+  (call $~lib/as-chain/name/Name#set:N
+   (local.get $2)
+   (i64.const 0)
+  )
+  (call $~lib/as-chain/serializer/Decoder#unpack
+   (local.get $1)
+   (local.get $2)
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:filled_amount
+   (local.get $0)
+   (local.get $2)
+  )
+  (global.set $~argumentsLength
+   (i32.const 0)
+  )
+  (call $~lib/as-chain/serializer/Decoder#unpack
+   (local.get $1)
+   (local.tee $2
+    (call $~lib/as-chain/asset/Asset#constructor@varargs)
+   )
+  )
+  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:status
+   (local.get $0)
+   (local.get $2)
+  )
+  (global.set $~argumentsLength
+   (i32.const 0)
+  )
+  (call $~lib/as-chain/serializer/Decoder#unpack
+   (local.get $1)
+   (local.tee $2
+    (call $~lib/as-chain/asset/Asset#constructor@varargs)
+   )
+  )
+  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:created_at
+   (local.get $0)
+   (local.get $2)
+  )
+  (global.set $~argumentsLength
+   (i32.const 0)
+  )
+  (call $~lib/as-chain/serializer/Decoder#unpack
+   (local.get $1)
+   (local.tee $2
+    (call $~lib/as-chain/asset/Asset#constructor@varargs)
+   )
+  )
+  (call $assembly/orderbook/tables/trades.table/TradesTable#set:total_value
+   (local.get $0)
+   (local.get $2)
+  )
+  (global.set $~argumentsLength
+   (i32.const 0)
+  )
+  (call $~lib/as-chain/serializer/Decoder#unpack
+   (local.get $1)
+   (local.tee $2
+    (call $~lib/as-chain/asset/Asset#constructor@varargs)
+   )
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:created_at
+   (local.get $0)
+   (local.get $2)
+  )
+  (global.set $~argumentsLength
+   (i32.const 0)
+  )
+  (call $~lib/as-chain/serializer/Decoder#unpack
+   (local.get $1)
+   (local.tee $2
+    (call $~lib/as-chain/asset/Asset#constructor@varargs)
+   )
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:updated_at
+   (local.get $0)
+   (local.get $2)
+  )
+  (call $~lib/as-chain/serializer/Decoder#unpack
+   (local.get $1)
+   (local.tee $2
+    (call $~lib/as-chain/time/TimePointSec#constructor)
+   )
+  )
+  (call $assembly/orderbook/tables/trades.table/TradesTable#set:executed_at
+   (local.get $0)
+   (local.get $2)
+  )
+  (i32.load offset=4
+   (local.get $1)
+  )
+ )
+ (func $~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/trades.table/TradesTable>#getEx (param $0 i32) (param $1 i32) (result i32)
+  (if
+   (i32.eqz
+    (local.tee $0
+     (call $~lib/as-chain/env/db_get_i64
+      (local.get $1)
+      (i32.const 0)
+      (i32.const 0)
+     )
+    )
+   )
+   (return
+    (i32.const 0)
+   )
+  )
+  (drop
+   (call $~lib/as-chain/env/db_get_i64
+    (local.get $1)
+    (i32.load offset=4
+     (local.tee $1
+      (call $~lib/array/Array<u8>#constructor
+       (local.get $0)
+      )
+     )
+    )
+    (local.get $0)
+   )
+  )
+  (global.set $~argumentsLength
+   (i32.const 0)
+  )
+  (drop
+   (call $assembly/orderbook/tables/trades.table/TradesTable#unpack
+    (local.tee $0
+     (call $assembly/orderbook/tables/trades.table/TradesTable#constructor@varargs
+      (global.get $~lib/as-chain/name/EMPTY_NAME)
+      (global.get $~lib/as-chain/name/EMPTY_NAME)
+     )
+    )
+    (local.get $1)
+   )
+  )
+  (local.get $0)
  )
  (func $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/trades.table/TradesTable>#get:availablePrimaryKey (param $0 i32) (result i64)
   (local $1 i32)
@@ -15854,6 +13958,48 @@
   )
   (i64.load offset=8
    (local.get $0)
+  )
+ )
+ (func $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#find (param $0 i32) (param $1 i64) (result i32)
+  (local $2 i32)
+  (block $__inlined_func$~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/trades.table/TradesTable>#find (result i32)
+   (if
+    (i32.ge_s
+     (local.tee $2
+      (call $~lib/as-chain/env/db_find_i64
+       (i64.load
+        (local.tee $0
+         (i32.load
+          (local.get $0)
+         )
+        )
+       )
+       (i64.load offset=8
+        (local.get $0)
+       )
+       (i64.load offset=16
+        (local.get $0)
+       )
+       (local.get $1)
+      )
+     )
+     (i32.const 0)
+    )
+    (br $__inlined_func$~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/trades.table/TradesTable>#find
+     (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor
+      (local.get $0)
+      (local.get $2)
+      (local.get $1)
+      (i32.const 1)
+     )
+    )
+   )
+   (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor
+    (local.get $0)
+    (local.get $2)
+    (i64.const 0)
+    (i32.const 0)
+   )
   )
  )
  (func $assembly/orderbook/tables/trades.table/TradesTable#pack (param $0 i32) (result i32)
@@ -16144,6 +14290,55 @@
       (local.get $1)
      )
     )
+    (i64.load offset=8
+     (local.get $0)
+    )
+   )
+   (call $~lib/as-chain/idxdb/IDXDB#set:scope
+    (local.get $0)
+    (select
+     (i64.const -2)
+     (i64.add
+      (local.get $3)
+      (i64.const 1)
+     )
+     (i64.ge_u
+      (local.get $3)
+      (i64.const -2)
+     )
+    )
+   )
+  )
+ )
+ (func $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/trades.table/TradesTable>#store (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i64)
+  (call $~lib/as-chain/system/check
+   (i32.eqz
+    (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
+     (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#find
+      (i32.load
+       (local.get $0)
+      )
+      (local.tee $3
+       (i64.load
+        (local.get $1)
+       )
+      )
+     )
+    )
+   )
+   (i32.const 1200)
+  )
+  (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#store
+   (i32.load
+    (local.get $0)
+   )
+   (local.get $1)
+   (local.get $2)
+  )
+  (if
+   (i64.ge_u
+    (local.get $3)
     (i64.load offset=8
      (local.get $0)
     )
@@ -17555,13 +15750,3021 @@
    )
   )
  )
- (func $assembly/orderbook/orderbook.contract/orderbook#executeTrade (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32)
+ (func $assembly/orderbook/orderbook.contract/orderbook#executeMarketTrade (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32) (param $7 i32) (param $8 i32)
+  (local $9 i64)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
+  (local $15 i32)
+  (local $16 i32)
+  (local.set $14
+   (call $~lib/as-chain/asset/Asset#constructor
+    (i64.div_s
+     (i64.mul
+      (i64.load
+       (local.get $6)
+      )
+      (i64.extend_i32_u
+       (i32.load16_u offset=38
+        (local.get $7)
+       )
+      )
+     )
+     (i64.const 10000)
+    )
+    (i32.load offset=16
+     (local.get $7)
+    )
+   )
+  )
+  (local.set $15
+   (call $~lib/as-chain/asset/Asset#constructor
+    (i64.div_s
+     (i64.mul
+      (i64.load
+       (local.get $5)
+      )
+      (i64.extend_i32_u
+       (i32.load16_u offset=36
+        (local.get $7)
+       )
+      )
+     )
+     (i64.const 10000)
+    )
+    (i32.load offset=8
+     (local.get $7)
+    )
+   )
+  )
+  (local.set $10
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#constructor
+    (i32.load
+     (local.get $0)
+    )
+    (local.get $1)
+   )
+  )
+  (local.set $13
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#constructor
+    (i32.load
+     (local.get $0)
+    )
+    (local.get $2)
+   )
+  )
+  (if
+   (local.tee $11
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#get
+     (local.get $10)
+     (call $~lib/as-chain/asset/Symbol#code
+      (i32.load offset=8
+       (local.get $7)
+      )
+     )
+    )
+   )
+   (block
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (i64.load
+       (i32.load offset=8
+        (local.tee $12
+         (i32.load offset=4
+          (local.get $11)
+         )
+        )
+       )
+      )
+      (i64.load
+       (i32.load offset=8
+        (local.get $5)
+       )
+      )
+     )
+     (i32.const 6432)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (local.tee $9
+       (i64.add
+        (i64.load
+         (local.get $12)
+        )
+        (i64.load
+         (local.get $5)
+        )
+       )
+      )
+      (i64.const -4611686018427387903)
+     )
+     (i32.const 6496)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (local.get $9)
+      (i64.const 4611686018427387903)
+     )
+     (i32.const 6560)
+    )
+    (call $~lib/rt/common/OBJECT#set:gcInfo
+     (local.get $11)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $9)
+      (call $~lib/as-chain/asset/Symbol.fromU64
+       (i64.load
+        (i32.load offset=8
+         (local.get $12)
+        )
+       )
+      )
+     )
+    )
+    (call $~lib/rt/common/OBJECT#set:rtId
+     (local.get $11)
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+     (local.get $10)
+     (local.get $11)
+     (i32.load
+      (local.get $0)
+     )
+    )
+   )
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#store
+    (local.get $10)
+    (call $assembly/orderbook/tables/balances.table/BalancesTable#constructor
+     (i32.load offset=12
+      (local.get $7)
+     )
+     (local.get $5)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (i64.const 0)
+      (i32.load offset=8
+       (local.get $5)
+      )
+     )
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (i32.load
+     (local.get $0)
+    )
+   )
+  )
+  (local.set $11
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#requireGet
+    (local.get $10)
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=16
+      (local.get $7)
+     )
+    )
+    (i32.const 8464)
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.get $6)
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $14)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $9
+     (i64.add
+      (i64.load
+       (local.get $6)
+      )
+      (i64.load
+       (local.get $14)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 6496)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $9)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 6560)
+  )
+  (local.set $12
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $9)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $6)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.tee $16
+       (i32.load offset=8
+        (local.get $11)
+       )
+      )
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $12)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $9
+     (i64.sub
+      (i64.load
+       (local.get $16)
+      )
+      (i64.load
+       (local.get $12)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 8144)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $9)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 8208)
+  )
+  (call $~lib/rt/common/OBJECT#set:gcInfo2
+   (local.get $11)
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $9)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $16)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/rt/common/OBJECT#set:rtId
+   (local.get $11)
+   (call $~lib/as-chain/time/TimePointSec#constructor)
+  )
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+   (local.get $10)
+   (local.get $11)
+   (i32.load
+    (local.get $0)
+   )
+  )
+  (local.set $10
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#requireGet
+    (local.get $13)
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=8
+      (local.get $7)
+     )
+    )
+    (i32.const 8528)
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.get $5)
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $15)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $9
+     (i64.add
+      (i64.load
+       (local.get $5)
+      )
+      (i64.load
+       (local.get $15)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 6496)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $9)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 6560)
+  )
+  (local.set $11
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $9)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $5)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.tee $12
+       (i32.load offset=8
+        (local.get $10)
+       )
+      )
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $11)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $9
+     (i64.sub
+      (i64.load
+       (local.get $12)
+      )
+      (i64.load
+       (local.get $11)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 8144)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $9)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 8208)
+  )
+  (call $~lib/rt/common/OBJECT#set:gcInfo2
+   (local.get $10)
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $9)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $12)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/rt/common/OBJECT#set:rtId
+   (local.get $10)
+   (call $~lib/as-chain/time/TimePointSec#constructor)
+  )
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+   (local.get $13)
+   (local.get $10)
+   (i32.load
+    (local.get $0)
+   )
+  )
+  (if
+   (local.tee $10
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#get
+     (local.get $13)
+     (call $~lib/as-chain/asset/Symbol#code
+      (i32.load offset=16
+       (local.get $7)
+      )
+     )
+    )
+   )
+   (block
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (i64.load
+       (i32.load offset=8
+        (local.tee $11
+         (i32.load offset=4
+          (local.get $10)
+         )
+        )
+       )
+      )
+      (i64.load
+       (i32.load offset=8
+        (local.get $6)
+       )
+      )
+     )
+     (i32.const 6432)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (local.tee $9
+       (i64.add
+        (i64.load
+         (local.get $11)
+        )
+        (i64.load
+         (local.get $6)
+        )
+       )
+      )
+      (i64.const -4611686018427387903)
+     )
+     (i32.const 6496)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (local.get $9)
+      (i64.const 4611686018427387903)
+     )
+     (i32.const 6560)
+    )
+    (call $~lib/rt/common/OBJECT#set:gcInfo
+     (local.get $10)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $9)
+      (call $~lib/as-chain/asset/Symbol.fromU64
+       (i64.load
+        (i32.load offset=8
+         (local.get $11)
+        )
+       )
+      )
+     )
+    )
+    (call $~lib/rt/common/OBJECT#set:rtId
+     (local.get $10)
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+     (local.get $13)
+     (local.get $10)
+     (i32.load
+      (local.get $0)
+     )
+    )
+   )
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#store
+    (local.get $13)
+    (call $assembly/orderbook/tables/balances.table/BalancesTable#constructor
+     (i32.load offset=20
+      (local.get $7)
+     )
+     (local.get $6)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (i64.const 0)
+      (i32.load offset=8
+       (local.get $6)
+      )
+     )
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (i32.load
+     (local.get $0)
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.tee $10
+       (i32.load offset=36
+        (local.get $3)
+       )
+      )
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $5)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $9
+     (i64.add
+      (i64.load
+       (local.get $10)
+      )
+      (i64.load
+       (local.get $5)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 6496)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $9)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 6560)
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:filled_amount
+   (local.get $3)
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $9)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $10)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.tee $10
+       (i32.load offset=40
+        (local.get $3)
+       )
+      )
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $5)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $9
+     (i64.sub
+      (i64.load
+       (local.get $10)
+      )
+      (i64.load
+       (local.get $5)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 8144)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $9)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 8208)
+  )
+  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:status
+   (local.get $3)
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $9)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $10)
+      )
+     )
+    )
+   )
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:status
+   (local.get $3)
+   (select
+    (i32.const 2)
+    (i32.const 1)
+    (i64.eqz
+     (i64.load
+      (i32.load offset=40
+       (local.get $3)
+      )
+     )
+    )
+   )
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:updated_at
+   (local.get $3)
+   (call $~lib/as-chain/time/TimePointSec#constructor)
+  )
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#update
+   (i32.load offset=16
+    (local.get $0)
+   )
+   (local.get $3)
+   (i32.load
+    (local.get $0)
+   )
+  )
+  (local.set $1
+   (call $assembly/orderbook/tables/trades.table/TradesTable#constructor
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/trades.table/TradesTable>#get:availablePrimaryKey
+     (i32.load offset=20
+      (local.get $0)
+     )
+    )
+    (i64.load
+     (local.get $7)
+    )
+    (if (result i64)
+     (call $~lib/string/String.__eq
+      (local.get $8)
+      (i32.const 6800)
+     )
+     (i64.const -1)
+     (i64.load
+      (local.get $3)
+     )
+    )
+    (if (result i64)
+     (call $~lib/string/String.__eq
+      (local.get $8)
+      (i32.const 6832)
+     )
+     (i64.const -1)
+     (i64.load
+      (local.get $3)
+     )
+    )
+    (local.get $1)
+    (local.get $2)
+    (local.get $4)
+    (local.get $5)
+    (local.get $6)
+    (local.get $14)
+    (local.get $15)
+    (call $~lib/as-chain/time/TimePointSec#constructor)
+   )
+  )
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/trades.table/TradesTable>#store
+   (i32.load offset=20
+    (local.get $0)
+   )
+   (local.get $1)
+   (i32.load
+    (local.get $0)
+   )
+  )
+  (call $assembly/orderbook/orderbook.contract/orderbook#recordFee
+   (local.get $0)
+   (i64.load
+    (local.get $7)
+   )
+   (i32.load offset=20
+    (local.get $7)
+   )
+   (local.get $14)
+   (i32.const 0)
+  )
+  (call $assembly/orderbook/orderbook.contract/orderbook#recordFee
+   (local.get $0)
+   (i64.load
+    (local.get $7)
+   )
+   (i32.load offset=12
+    (local.get $7)
+   )
+   (local.get $15)
+   (i32.const 1)
+  )
+ )
+ (func $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local.set $1
+   (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/orders.table/OrdersTable>#requireFind
+    (i32.load
+     (local.get $0)
+    )
+    (i64.load
+     (local.get $1)
+    )
+    (i32.const 1872)
+   )
+  )
+  (local.set $2
+   (i32.load
+    (i32.load
+     (local.get $0)
+    )
+   )
+  )
+  (local.set $0
+   (call $~lib/rt/stub/__alloc
+    (i32.const 8)
+   )
+  )
+  (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/orders.table/OrdersTable>#getValue
+   (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/orders.table/OrdersTable>#constructor
+    (local.get $2)
+    (call $~lib/as-chain/env/db_next_i64
+     (i32.load offset=4
+      (local.get $1)
+     )
+     (local.get $0)
+    )
+    (i64.load
+     (local.get $0)
+    )
+    (i32.const 1)
+   )
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#executeMarketBuy (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i64)
+  (local $4 i64)
+  (local $5 i32)
   (local $6 i32)
   (local $7 i64)
+  (local $8 i64)
+  (local $9 i32)
+  (local.set $4
+   (local.get $3)
+  )
+  (local.set $5
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first
+    (i32.load offset=16
+     (local.get $0)
+    )
+   )
+  )
+  (loop $while-continue|0
+   (if
+    (select
+     (i64.gt_s
+      (local.get $4)
+      (i64.const 0)
+     )
+     (i32.const 0)
+     (local.get $5)
+    )
+    (block
+     (if
+      (if (result i32)
+       (if (result i32)
+        (if (result i32)
+         (if (result i32)
+          (i64.eq
+           (i64.load offset=8
+            (local.get $5)
+           )
+           (i64.load
+            (local.get $2)
+           )
+          )
+          (call $~lib/string/String.__eq
+           (i32.load offset=20
+            (local.get $5)
+           )
+           (i32.const 6832)
+          )
+          (i32.const 0)
+         )
+         (call $~lib/string/String.__eq
+          (i32.load offset=24
+           (local.get $5)
+          )
+          (i32.const 8352)
+         )
+         (i32.const 0)
+        )
+        (if (result i32)
+         (i32.load8_u offset=49
+          (local.get $5)
+         )
+         (i32.eq
+          (i32.load8_u offset=49
+           (local.get $5)
+          )
+          (i32.const 1)
+         )
+         (i32.const 1)
+        )
+        (i32.const 0)
+       )
+       (i64.ne
+        (i64.load
+         (i32.load offset=16
+          (local.get $5)
+         )
+        )
+        (i64.load
+         (local.get $1)
+        )
+       )
+       (i32.const 0)
+      )
+      (local.set $4
+       (block (result i64)
+        (local.set $7
+         (if (result i64)
+          (i64.ge_s
+           (local.get $4)
+           (i64.load
+            (local.tee $6
+             (call $assembly/orderbook/orderbook.contract/orderbook#calculateTotalValue
+              (i32.load offset=28
+               (local.get $5)
+              )
+              (i32.load offset=40
+               (local.get $5)
+              )
+              (local.get $2)
+             )
+            )
+           )
+          )
+          (block (result i64)
+           (local.set $8
+            (i64.load
+             (i32.load offset=40
+              (local.get $5)
+             )
+            )
+           )
+           (i64.load
+            (local.get $6)
+           )
+          )
+          (block (result i64)
+           (local.set $8
+            (i64.div_s
+             (i64.mul
+              (local.get $4)
+              (i64.trunc_f64_u
+               (call $~lib/math/NativeMath.pow
+                (f64.convert_i32_u
+                 (call $~lib/as-chain/asset/Symbol#precision
+                  (i32.load offset=8
+                   (local.get $2)
+                  )
+                 )
+                )
+               )
+              )
+             )
+             (i64.load
+              (i32.load offset=28
+               (local.get $5)
+              )
+             )
+            )
+           )
+           (local.get $4)
+          )
+         )
+        )
+        (local.set $9
+         (call $~lib/as-chain/asset/Asset#constructor
+          (local.get $8)
+          (i32.load offset=8
+           (local.get $2)
+          )
+         )
+        )
+        (local.set $6
+         (call $~lib/as-chain/asset/Asset#constructor
+          (local.get $7)
+          (i32.load offset=16
+           (local.get $2)
+          )
+         )
+        )
+        (call $assembly/orderbook/orderbook.contract/orderbook#executeMarketTrade
+         (local.get $0)
+         (local.get $1)
+         (i32.load offset=16
+          (local.get $5)
+         )
+         (local.get $5)
+         (i32.load offset=28
+          (local.get $5)
+         )
+         (local.get $9)
+         (local.get $6)
+         (local.get $2)
+         (i32.const 6800)
+        )
+        (i64.sub
+         (local.get $4)
+         (local.get $7)
+        )
+       )
+      )
+     )
+     (local.set $5
+      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next
+       (i32.load offset=16
+        (local.get $0)
+       )
+       (local.get $5)
+      )
+     )
+     (br $while-continue|0)
+    )
+   )
+  )
+  (if
+   (i64.gt_s
+    (local.get $4)
+    (i64.const 0)
+   )
+   (block
+    (local.set $5
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $4)
+      (i32.load offset=16
+       (local.get $2)
+      )
+     )
+    )
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (i64.load
+       (i32.load offset=8
+        (local.tee $2
+         (i32.load offset=8
+          (local.tee $6
+           (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#requireGet
+            (local.tee $1
+             (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#constructor
+              (i32.load
+               (local.get $0)
+              )
+              (local.get $1)
+             )
+            )
+            (call $~lib/as-chain/asset/Symbol#code
+             (i32.load offset=16
+              (local.get $2)
+             )
+            )
+            (i32.const 8592)
+           )
+          )
+         )
+        )
+       )
+      )
+      (i64.load
+       (i32.load offset=8
+        (local.get $5)
+       )
+      )
+     )
+     (i32.const 6432)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (local.tee $7
+       (i64.sub
+        (i64.load
+         (local.get $2)
+        )
+        (i64.load
+         (local.get $5)
+        )
+       )
+      )
+      (i64.const -4611686018427387903)
+     )
+     (i32.const 8144)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (local.get $7)
+      (i64.const 4611686018427387903)
+     )
+     (i32.const 8208)
+    )
+    (call $~lib/rt/common/OBJECT#set:gcInfo2
+     (local.get $6)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $7)
+      (call $~lib/as-chain/asset/Symbol.fromU64
+       (i64.load
+        (i32.load offset=8
+         (local.get $2)
+        )
+       )
+      )
+     )
+    )
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (i64.load
+       (i32.load offset=8
+        (local.tee $2
+         (i32.load offset=4
+          (local.get $6)
+         )
+        )
+       )
+      )
+      (i64.load
+       (i32.load offset=8
+        (local.get $5)
+       )
+      )
+     )
+     (i32.const 6432)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (local.tee $7
+       (i64.add
+        (i64.load
+         (local.get $2)
+        )
+        (i64.load
+         (local.get $5)
+        )
+       )
+      )
+      (i64.const -4611686018427387903)
+     )
+     (i32.const 6496)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (local.get $7)
+      (i64.const 4611686018427387903)
+     )
+     (i32.const 6560)
+    )
+    (call $~lib/rt/common/OBJECT#set:gcInfo
+     (local.get $6)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $7)
+      (call $~lib/as-chain/asset/Symbol.fromU64
+       (i64.load
+        (i32.load offset=8
+         (local.get $2)
+        )
+       )
+      )
+     )
+    )
+    (call $~lib/rt/common/OBJECT#set:rtId
+     (local.get $6)
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+     (local.get $1)
+     (local.get $6)
+     (i32.load
+      (local.get $0)
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.gt_s
+    (i64.sub
+     (local.get $3)
+     (local.get $4)
+    )
+    (i64.const 0)
+   )
+   (i32.const 8640)
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#executeMarketSell (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i64)
+  (local $4 i64)
+  (local $5 i64)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local.set $4
+   (local.get $3)
+  )
+  (local.set $6
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first
+    (i32.load offset=16
+     (local.get $0)
+    )
+   )
+  )
+  (loop $while-continue|0
+   (if
+    (select
+     (i64.gt_s
+      (local.get $4)
+      (i64.const 0)
+     )
+     (i32.const 0)
+     (local.get $6)
+    )
+    (block
+     (if
+      (if (result i32)
+       (if (result i32)
+        (if (result i32)
+         (if (result i32)
+          (i64.eq
+           (i64.load offset=8
+            (local.get $6)
+           )
+           (i64.load
+            (local.get $2)
+           )
+          )
+          (call $~lib/string/String.__eq
+           (i32.load offset=20
+            (local.get $6)
+           )
+           (i32.const 6800)
+          )
+          (i32.const 0)
+         )
+         (call $~lib/string/String.__eq
+          (i32.load offset=24
+           (local.get $6)
+          )
+          (i32.const 8352)
+         )
+         (i32.const 0)
+        )
+        (if (result i32)
+         (i32.load8_u offset=49
+          (local.get $6)
+         )
+         (i32.eq
+          (i32.load8_u offset=49
+           (local.get $6)
+          )
+          (i32.const 1)
+         )
+         (i32.const 1)
+        )
+        (i32.const 0)
+       )
+       (i64.ne
+        (i64.load
+         (i32.load offset=16
+          (local.get $6)
+         )
+        )
+        (i64.load
+         (local.get $1)
+        )
+       )
+       (i32.const 0)
+      )
+      (local.set $4
+       (block (result i64)
+        (local.set $8
+         (call $~lib/as-chain/asset/Asset#constructor
+          (local.tee $5
+           (if (result i64)
+            (i64.ge_s
+             (local.get $4)
+             (i64.load
+              (i32.load offset=40
+               (local.get $6)
+              )
+             )
+            )
+            (i64.load
+             (i32.load offset=40
+              (local.get $6)
+             )
+            )
+            (local.get $4)
+           )
+          )
+          (i32.load offset=8
+           (local.get $2)
+          )
+         )
+        )
+        (local.set $7
+         (call $assembly/orderbook/orderbook.contract/orderbook#calculateTotalValue
+          (i32.load offset=28
+           (local.get $6)
+          )
+          (local.get $8)
+          (local.get $2)
+         )
+        )
+        (call $assembly/orderbook/orderbook.contract/orderbook#executeMarketTrade
+         (local.get $0)
+         (i32.load offset=16
+          (local.get $6)
+         )
+         (local.get $1)
+         (local.get $6)
+         (i32.load offset=28
+          (local.get $6)
+         )
+         (local.get $8)
+         (local.get $7)
+         (local.get $2)
+         (i32.const 6832)
+        )
+        (i64.sub
+         (local.get $4)
+         (local.get $5)
+        )
+       )
+      )
+     )
+     (local.set $6
+      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next
+       (i32.load offset=16
+        (local.get $0)
+       )
+       (local.get $6)
+      )
+     )
+     (br $while-continue|0)
+    )
+   )
+  )
+  (if
+   (i64.gt_s
+    (local.get $4)
+    (i64.const 0)
+   )
+   (block
+    (local.set $6
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $4)
+      (i32.load offset=8
+       (local.get $2)
+      )
+     )
+    )
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (i64.load
+       (i32.load offset=8
+        (local.tee $2
+         (i32.load offset=8
+          (local.tee $7
+           (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#requireGet
+            (local.tee $1
+             (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#constructor
+              (i32.load
+               (local.get $0)
+              )
+              (local.get $1)
+             )
+            )
+            (call $~lib/as-chain/asset/Symbol#code
+             (i32.load offset=8
+              (local.get $2)
+             )
+            )
+            (i32.const 8592)
+           )
+          )
+         )
+        )
+       )
+      )
+      (i64.load
+       (i32.load offset=8
+        (local.get $6)
+       )
+      )
+     )
+     (i32.const 6432)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (local.tee $5
+       (i64.sub
+        (i64.load
+         (local.get $2)
+        )
+        (i64.load
+         (local.get $6)
+        )
+       )
+      )
+      (i64.const -4611686018427387903)
+     )
+     (i32.const 8144)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (local.get $5)
+      (i64.const 4611686018427387903)
+     )
+     (i32.const 8208)
+    )
+    (call $~lib/rt/common/OBJECT#set:gcInfo2
+     (local.get $7)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $5)
+      (call $~lib/as-chain/asset/Symbol.fromU64
+       (i64.load
+        (i32.load offset=8
+         (local.get $2)
+        )
+       )
+      )
+     )
+    )
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (i64.load
+       (i32.load offset=8
+        (local.tee $2
+         (i32.load offset=4
+          (local.get $7)
+         )
+        )
+       )
+      )
+      (i64.load
+       (i32.load offset=8
+        (local.get $6)
+       )
+      )
+     )
+     (i32.const 6432)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (local.tee $5
+       (i64.add
+        (i64.load
+         (local.get $2)
+        )
+        (i64.load
+         (local.get $6)
+        )
+       )
+      )
+      (i64.const -4611686018427387903)
+     )
+     (i32.const 6496)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (local.get $5)
+      (i64.const 4611686018427387903)
+     )
+     (i32.const 6560)
+    )
+    (call $~lib/rt/common/OBJECT#set:gcInfo
+     (local.get $7)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $5)
+      (call $~lib/as-chain/asset/Symbol.fromU64
+       (i64.load
+        (i32.load offset=8
+         (local.get $2)
+        )
+       )
+      )
+     )
+    )
+    (call $~lib/rt/common/OBJECT#set:rtId
+     (local.get $7)
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+     (local.get $1)
+     (local.get $7)
+     (i32.load
+      (local.get $0)
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.gt_s
+    (i64.sub
+     (local.get $3)
+     (local.get $4)
+    )
+    (i64.const 0)
+   )
+   (i32.const 8880)
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#marketOrder (param $0 i32) (param $1 i32) (param $2 i64) (param $3 i32) (param $4 i32)
+  (local $5 i32)
+  (call $~lib/as-chain/action/requireAuth
+   (local.get $1)
+  )
+  (call $~lib/as-chain/system/check
+   (i32.eqz
+    (i32.load8_u offset=12
+     (call $assembly/orderbook/orderbook.contract/orderbook#getConfig
+      (local.get $0)
+     )
+    )
+   )
+   (i32.const 6624)
+  )
+  (call $~lib/as-chain/system/check
+   (call $~lib/string/String.__eq
+    (i32.load offset=40
+     (local.tee $5
+      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
+       (i32.load offset=12
+        (local.get $0)
+       )
+       (local.get $2)
+      )
+     )
+    )
+    (i32.const 5488)
+   )
+   (i32.const 6672)
+  )
+  (call $~lib/as-chain/system/check
+   (if (result i32)
+    (call $~lib/string/String.__eq
+     (local.get $3)
+     (i32.const 6800)
+    )
+    (i32.const 1)
+    (call $~lib/string/String.__eq
+     (local.get $3)
+     (i32.const 6832)
+    )
+   )
+   (i32.const 6864)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.gt_s
+    (i64.load
+     (local.get $4)
+    )
+    (i64.const 0)
+   )
+   (i32.const 6912)
+  )
+  (if
+   (call $~lib/string/String.__eq
+    (local.get $3)
+    (i32.const 6800)
+   )
+   (block
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (call $~lib/as-chain/asset/Symbol#code
+       (i32.load offset=8
+        (local.get $4)
+       )
+      )
+      (call $~lib/as-chain/asset/Symbol#code
+       (i32.load offset=16
+        (local.get $5)
+       )
+      )
+     )
+     (i32.const 8384)
+    )
+    (call $~lib/as-chain/system/check
+     (i32.eq
+      (i32.and
+       (call $~lib/as-chain/asset/Symbol#precision
+        (i32.load offset=8
+         (local.get $4)
+        )
+       )
+       (i32.const 255)
+      )
+      (i32.and
+       (call $~lib/as-chain/asset/Symbol#precision
+        (i32.load offset=16
+         (local.get $5)
+        )
+       )
+       (i32.const 255)
+      )
+     )
+     (i32.const 7296)
+    )
+    (call $assembly/orderbook/orderbook.contract/orderbook#lockBalanceMarket
+     (local.get $0)
+     (local.get $1)
+     (local.get $3)
+     (local.get $4)
+     (local.get $5)
+    )
+    (call $assembly/orderbook/orderbook.contract/orderbook#executeMarketBuy
+     (local.get $0)
+     (local.get $1)
+     (local.get $5)
+     (i64.load
+      (local.get $4)
+     )
+    )
+   )
+   (block
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (call $~lib/as-chain/asset/Symbol#code
+       (i32.load offset=8
+        (local.get $4)
+       )
+      )
+      (call $~lib/as-chain/asset/Symbol#code
+       (i32.load offset=8
+        (local.get $5)
+       )
+      )
+     )
+     (i32.const 8736)
+    )
+    (call $~lib/as-chain/system/check
+     (i32.eq
+      (i32.and
+       (call $~lib/as-chain/asset/Symbol#precision
+        (i32.load offset=8
+         (local.get $4)
+        )
+       )
+       (i32.const 255)
+      )
+      (i32.and
+       (call $~lib/as-chain/asset/Symbol#precision
+        (i32.load offset=8
+         (local.get $5)
+        )
+       )
+       (i32.const 255)
+      )
+     )
+     (i32.const 7296)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (i64.load
+       (local.get $4)
+      )
+      (i64.load
+       (i32.load offset=24
+        (local.get $5)
+       )
+      )
+     )
+     (i32.const 7456)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (i64.load
+       (local.get $4)
+      )
+      (i64.load
+       (i32.load offset=28
+        (local.get $5)
+       )
+      )
+     )
+     (i32.const 8816)
+    )
+    (call $assembly/orderbook/orderbook.contract/orderbook#lockBalanceMarket
+     (local.get $0)
+     (local.get $1)
+     (local.get $3)
+     (local.get $4)
+     (local.get $5)
+    )
+    (call $assembly/orderbook/orderbook.contract/orderbook#executeMarketSell
+     (local.get $0)
+     (local.get $1)
+     (local.get $5)
+     (i64.load
+      (local.get $4)
+     )
+    )
+   )
+  )
+ )
+ (func $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#getValue (param $0 i32) (result i32)
+  (if
+   (i32.eqz
+    (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
+     (local.get $0)
+    )
+   )
+   (return
+    (i32.const 0)
+   )
+  )
+  (call $~lib/as-chain/dbi64/DBI64<assembly/orderbook/tables/trades.table/TradesTable>#getEx
+   (i32.load
+    (local.get $0)
+   )
+   (i32.load offset=4
+    (local.get $0)
+   )
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#getCurrentMarketPrice (param $0 i32) (param $1 i64) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i64)
+  (local.set $4
+   (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#getValue
+    (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#begin
+     (i32.load
+      (i32.load offset=20
+       (local.get $0)
+      )
+     )
+    )
+   )
+  )
+  (loop $while-continue|0
+   (if
+    (local.get $4)
+    (block
+     (if
+      (i64.eq
+       (local.get $1)
+       (i64.load offset=8
+        (local.get $4)
+       )
+      )
+      (local.set $3
+       (select
+        (local.get $4)
+        (local.get $3)
+        (if (result i32)
+         (local.get $3)
+         (i64.gt_u
+          (i64.load
+           (local.get $4)
+          )
+          (i64.load
+           (local.get $3)
+          )
+         )
+         (i32.const 1)
+        )
+       )
+      )
+     )
+     (call $~lib/as-chain/system/check
+      (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
+       (local.tee $5
+        (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#find
+         (i32.load
+          (local.tee $2
+           (i32.load offset=20
+            (local.get $0)
+           )
+          )
+         )
+         (i64.load
+          (local.get $4)
+         )
+        )
+       )
+      )
+      (i32.const 1872)
+     )
+     (local.set $2
+      (i32.load
+       (i32.load
+        (local.get $2)
+       )
+      )
+     )
+     (local.set $4
+      (call $~lib/rt/stub/__alloc
+       (i32.const 8)
+      )
+     )
+     (local.set $4
+      (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#getValue
+       (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/trades.table/TradesTable>#constructor
+        (local.get $2)
+        (call $~lib/as-chain/env/db_next_i64
+         (i32.load offset=4
+          (local.get $5)
+         )
+         (local.get $4)
+        )
+        (i64.load
+         (local.get $4)
+        )
+        (i32.const 1)
+       )
+      )
+     )
+     (br $while-continue|0)
+    )
+   )
+  )
+  (if
+   (local.get $3)
+   (return
+    (i32.load offset=40
+     (local.get $3)
+    )
+   )
+  )
+  (local.set $3
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first
+    (i32.load offset=16
+     (local.get $0)
+    )
+   )
+  )
+  (local.set $2
+   (call $~lib/as-chain/asset/Symbol#constructor)
+  )
+  (loop $while-continue|00
+   (if
+    (local.get $3)
+    (block
+     (if
+      (if (result i32)
+       (if (result i32)
+        (i64.eq
+         (local.get $1)
+         (i64.load offset=8
+          (local.get $3)
+         )
+        )
+        (call $~lib/string/String.__eq
+         (i32.load offset=20
+          (local.get $3)
+         )
+         (i32.const 6800)
+        )
+        (i32.const 0)
+       )
+       (if (result i32)
+        (i32.load8_u offset=49
+         (local.get $3)
+        )
+        (i32.eq
+         (i32.load8_u offset=49
+          (local.get $3)
+         )
+         (i32.const 1)
+        )
+        (i32.const 1)
+       )
+       (i32.const 0)
+      )
+      (if
+       (i64.lt_s
+        (local.get $6)
+        (i64.load
+         (i32.load offset=28
+          (local.get $3)
+         )
+        )
+       )
+       (local.set $2
+        (block (result i32)
+         (local.set $6
+          (i64.load
+           (i32.load offset=28
+            (local.get $3)
+           )
+          )
+         )
+         (i32.load offset=8
+          (i32.load offset=28
+           (local.get $3)
+          )
+         )
+        )
+       )
+      )
+     )
+     (local.set $3
+      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next
+       (i32.load offset=16
+        (local.get $0)
+       )
+       (local.get $3)
+      )
+     )
+     (br $while-continue|00)
+    )
+   )
+  )
+  (local.set $5
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $6)
+    (local.get $2)
+   )
+  )
+  (local.set $6
+   (i64.const 0)
+  )
+  (local.set $3
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#first
+    (i32.load offset=16
+     (local.tee $4
+      (local.get $0)
+     )
+    )
+   )
+  )
+  (local.set $0
+   (call $~lib/as-chain/asset/Symbol#constructor)
+  )
+  (loop $while-continue|01
+   (if
+    (local.get $3)
+    (block
+     (if
+      (if (result i32)
+       (if (result i32)
+        (i64.eq
+         (local.get $1)
+         (i64.load offset=8
+          (local.get $3)
+         )
+        )
+        (call $~lib/string/String.__eq
+         (i32.load offset=20
+          (local.get $3)
+         )
+         (i32.const 6832)
+        )
+        (i32.const 0)
+       )
+       (if (result i32)
+        (i32.load8_u offset=49
+         (local.get $3)
+        )
+        (i32.eq
+         (i32.load8_u offset=49
+          (local.get $3)
+         )
+         (i32.const 1)
+        )
+        (i32.const 1)
+       )
+       (i32.const 0)
+      )
+      (if
+       (if (result i32)
+        (i64.eqz
+         (local.get $6)
+        )
+        (i32.const 1)
+        (i64.gt_s
+         (local.get $6)
+         (i64.load
+          (i32.load offset=28
+           (local.get $3)
+          )
+         )
+        )
+       )
+       (local.set $0
+        (block (result i32)
+         (local.set $6
+          (i64.load
+           (i32.load offset=28
+            (local.get $3)
+           )
+          )
+         )
+         (i32.load offset=8
+          (i32.load offset=28
+           (local.get $3)
+          )
+         )
+        )
+       )
+      )
+     )
+     (local.set $3
+      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#next
+       (i32.load offset=16
+        (local.get $4)
+       )
+       (local.get $3)
+      )
+     )
+     (br $while-continue|01)
+    )
+   )
+  )
+  (local.set $0
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $6)
+    (local.get $0)
+   )
+  )
+  (if
+   (if (result i32)
+    (i64.gt_s
+     (i64.load
+      (local.get $5)
+     )
+     (i64.const 0)
+    )
+    (i64.gt_s
+     (i64.load
+      (local.get $0)
+     )
+     (i64.const 0)
+    )
+    (i32.const 0)
+   )
+   (return
+    (call $~lib/as-chain/asset/Asset#constructor
+     (i64.div_s
+      (i64.add
+       (i64.load
+        (local.get $5)
+       )
+       (i64.load
+        (local.get $0)
+       )
+      )
+      (i64.const 2)
+     )
+     (i32.load offset=16
+      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
+       (i32.load offset=12
+        (local.get $4)
+       )
+       (local.get $1)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/asset/Asset#constructor
+   (i64.const 0)
+   (i32.load offset=16
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
+     (i32.load offset=12
+      (local.get $4)
+     )
+     (local.get $1)
+    )
+   )
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#stopLossOrder (param $0 i32) (param $1 i32) (param $2 i64) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (call $~lib/as-chain/action/requireAuth
+   (local.get $1)
+  )
+  (call $~lib/as-chain/system/check
+   (i32.eqz
+    (i32.load8_u offset=12
+     (call $assembly/orderbook/orderbook.contract/orderbook#getConfig
+      (local.get $0)
+     )
+    )
+   )
+   (i32.const 6624)
+  )
+  (call $~lib/as-chain/system/check
+   (call $~lib/string/String.__eq
+    (i32.load offset=40
+     (local.tee $7
+      (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/pairs.table/PairsTable>#requireGet
+       (i32.load offset=12
+        (local.get $0)
+       )
+       (local.get $2)
+      )
+     )
+    )
+    (i32.const 5488)
+   )
+   (i32.const 6672)
+  )
+  (call $~lib/as-chain/system/check
+   (if (result i32)
+    (call $~lib/string/String.__eq
+     (local.get $3)
+     (i32.const 6800)
+    )
+    (i32.const 1)
+    (call $~lib/string/String.__eq
+     (local.get $3)
+     (i32.const 6832)
+    )
+   )
+   (i32.const 6864)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.gt_s
+    (i64.load
+     (local.get $6)
+    )
+    (i64.const 0)
+   )
+   (i32.const 6912)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.gt_s
+    (i64.load
+     (local.get $4)
+    )
+    (i64.const 0)
+   )
+   (i32.const 8976)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.gt_s
+    (i64.load
+     (local.get $5)
+    )
+    (i64.const 0)
+   )
+   (i32.const 9056)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=8
+      (local.get $6)
+     )
+    )
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=8
+      (local.get $7)
+     )
+    )
+   )
+   (i32.const 7056)
+  )
+  (call $~lib/as-chain/system/check
+   (i32.eq
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=8
+       (local.get $6)
+      )
+     )
+     (i32.const 255)
+    )
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=8
+       (local.get $7)
+      )
+     )
+     (i32.const 255)
+    )
+   )
+   (i32.const 7296)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=8
+      (local.get $4)
+     )
+    )
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=16
+      (local.get $7)
+     )
+    )
+   )
+   (i32.const 9136)
+  )
+  (call $~lib/as-chain/system/check
+   (i32.eq
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=8
+       (local.get $4)
+      )
+     )
+     (i32.const 255)
+    )
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=16
+       (local.get $7)
+      )
+     )
+     (i32.const 255)
+    )
+   )
+   (i32.const 9232)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=8
+      (local.get $5)
+     )
+    )
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=16
+      (local.get $7)
+     )
+    )
+   )
+   (i32.const 9328)
+  )
+  (call $~lib/as-chain/system/check
+   (i32.eq
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=8
+       (local.get $5)
+      )
+     )
+     (i32.const 255)
+    )
+    (i32.and
+     (call $~lib/as-chain/asset/Symbol#precision
+      (i32.load offset=16
+       (local.get $7)
+      )
+     )
+     (i32.const 255)
+    )
+   )
+   (i32.const 9424)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (i64.load
+     (local.get $6)
+    )
+    (i64.load
+     (i32.load offset=24
+      (local.get $7)
+     )
+    )
+   )
+   (i32.const 7456)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (i64.load
+     (local.get $6)
+    )
+    (i64.load
+     (i32.load offset=28
+      (local.get $7)
+     )
+    )
+   )
+   (i32.const 8816)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eqz
+    (i64.rem_s
+     (i64.load
+      (local.get $4)
+     )
+     (i64.load
+      (i32.load offset=32
+       (local.get $7)
+      )
+     )
+    )
+   )
+   (i32.const 9504)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eqz
+    (i64.rem_s
+     (i64.load
+      (local.get $5)
+     )
+     (i64.load
+      (i32.load offset=32
+       (local.get $7)
+      )
+     )
+    )
+   )
+   (i32.const 9616)
+  )
+  (if
+   (i64.gt_s
+    (i64.load
+     (local.tee $8
+      (call $assembly/orderbook/orderbook.contract/orderbook#getCurrentMarketPrice
+       (local.get $0)
+       (local.get $2)
+      )
+     )
+    )
+    (i64.const 0)
+   )
+   (if
+    (call $~lib/string/String.__eq
+     (local.get $3)
+     (i32.const 6800)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (i64.load
+       (local.get $4)
+      )
+      (i64.load
+       (local.get $8)
+      )
+     )
+     (i32.const 9728)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (i64.load
+       (local.get $4)
+      )
+      (i64.load
+       (local.get $8)
+      )
+     )
+     (i32.const 9840)
+    )
+   )
+  )
+  (call $assembly/orderbook/orderbook.contract/orderbook#lockBalance
+   (local.get $0)
+   (local.get $1)
+   (local.get $3)
+   (local.get $6)
+   (call $assembly/orderbook/orderbook.contract/orderbook#calculateTotalValue
+    (local.get $5)
+    (local.get $6)
+    (local.get $7)
+   )
+   (local.get $7)
+  )
+  (local.set $1
+   (call $assembly/orderbook/tables/orders.table/OrdersTable#constructor
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#get:availablePrimaryKey
+     (i32.load offset=16
+      (local.get $0)
+     )
+    )
+    (local.get $2)
+    (local.get $1)
+    (local.get $3)
+    (i32.const 9968)
+    (local.get $5)
+    (local.get $6)
+    (call $~lib/as-chain/asset/Asset#constructor
+     (i64.const 0)
+     (i32.load offset=8
+      (local.get $6)
+     )
+    )
+    (local.get $6)
+    (local.get $4)
+    (call $~lib/as-chain/time/TimePointSec#constructor)
+    (call $~lib/as-chain/time/TimePointSec#constructor)
+   )
+  )
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#store
+   (i32.load offset=16
+    (local.get $0)
+   )
+   (local.get $1)
+   (i32.load
+    (local.get $0)
+   )
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#canMatch (param $0 i32) (param $1 i32) (result i32)
+  (if (result i32)
+   (call $~lib/string/String.__eq
+    (i32.load offset=20
+     (local.get $0)
+    )
+    (i32.const 6800)
+   )
+   (i64.ge_s
+    (i64.load
+     (i32.load offset=28
+      (local.get $0)
+     )
+    )
+    (i64.load
+     (i32.load offset=28
+      (local.get $1)
+     )
+    )
+   )
+   (i64.le_s
+    (i64.load
+     (i32.load offset=28
+      (local.get $0)
+     )
+    )
+    (i64.load
+     (i32.load offset=28
+      (local.get $1)
+     )
+    )
+   )
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#calculateTradeAmount (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i64)
+  (local $3 i64)
+  (call $~lib/as-chain/asset/Asset#constructor
+   (select
+    (local.tee $2
+     (i64.load
+      (i32.load offset=40
+       (local.get $0)
+      )
+     )
+    )
+    (local.tee $3
+     (i64.load
+      (i32.load offset=40
+       (local.get $1)
+      )
+     )
+    )
+    (i64.lt_s
+     (local.get $2)
+     (local.get $3)
+    )
+   )
+   (i32.load offset=8
+    (i32.load offset=32
+     (local.get $0)
+    )
+   )
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#updateTradeBalances (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32) (param $6 i32) (param $7 i32)
+  (local $8 i64)
+  (local $9 i32)
+  (local $10 i32)
+  (local.set $1
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#constructor
+    (i32.load
+     (local.get $0)
+    )
+    (local.get $1)
+   )
+  )
+  (local.set $2
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#constructor
+    (i32.load
+     (local.get $0)
+    )
+    (local.get $2)
+   )
+  )
+  (if
+   (local.tee $9
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#get
+     (local.get $1)
+     (call $~lib/as-chain/asset/Symbol#code
+      (i32.load offset=8
+       (local.get $7)
+      )
+     )
+    )
+   )
+   (block
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (i64.load
+       (i32.load offset=8
+        (local.tee $10
+         (i32.load offset=4
+          (local.get $9)
+         )
+        )
+       )
+      )
+      (i64.load
+       (i32.load offset=8
+        (local.get $3)
+       )
+      )
+     )
+     (i32.const 6432)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (local.tee $8
+       (i64.add
+        (i64.load
+         (local.get $10)
+        )
+        (i64.load
+         (local.get $3)
+        )
+       )
+      )
+      (i64.const -4611686018427387903)
+     )
+     (i32.const 6496)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (local.get $8)
+      (i64.const 4611686018427387903)
+     )
+     (i32.const 6560)
+    )
+    (call $~lib/rt/common/OBJECT#set:gcInfo
+     (local.get $9)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $8)
+      (call $~lib/as-chain/asset/Symbol.fromU64
+       (i64.load
+        (i32.load offset=8
+         (local.get $10)
+        )
+       )
+      )
+     )
+    )
+    (call $~lib/rt/common/OBJECT#set:rtId
+     (local.get $9)
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+     (local.get $1)
+     (local.get $9)
+     (i32.load
+      (local.get $0)
+     )
+    )
+   )
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#store
+    (local.get $1)
+    (call $assembly/orderbook/tables/balances.table/BalancesTable#constructor
+     (i32.load offset=12
+      (local.get $7)
+     )
+     (local.get $3)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (i64.const 0)
+      (i32.load offset=8
+       (local.get $3)
+      )
+     )
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (i32.load
+     (local.get $0)
+    )
+   )
+  )
+  (local.set $9
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#requireGet
+    (local.get $1)
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=16
+      (local.get $7)
+     )
+    )
+    (i32.const 8464)
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.get $4)
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $5)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $8
+     (i64.add
+      (i64.load
+       (local.get $4)
+      )
+      (i64.load
+       (local.get $5)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 6496)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $8)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 6560)
+  )
+  (local.set $5
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $8)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $4)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.tee $10
+       (i32.load offset=8
+        (local.get $9)
+       )
+      )
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $5)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $8
+     (i64.sub
+      (i64.load
+       (local.get $10)
+      )
+      (i64.load
+       (local.get $5)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 8144)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $8)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 8208)
+  )
+  (call $~lib/rt/common/OBJECT#set:gcInfo2
+   (local.get $9)
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $8)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $10)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/rt/common/OBJECT#set:rtId
+   (local.get $9)
+   (call $~lib/as-chain/time/TimePointSec#constructor)
+  )
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+   (local.get $1)
+   (local.get $9)
+   (i32.load
+    (local.get $0)
+   )
+  )
+  (local.set $1
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#requireGet
+    (local.get $2)
+    (call $~lib/as-chain/asset/Symbol#code
+     (i32.load offset=8
+      (local.get $7)
+     )
+    )
+    (i32.const 8528)
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.get $3)
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $6)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $8
+     (i64.add
+      (i64.load
+       (local.get $3)
+      )
+      (i64.load
+       (local.get $6)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 6496)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $8)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 6560)
+  )
+  (local.set $3
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $8)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $3)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.tee $5
+       (i32.load offset=8
+        (local.get $1)
+       )
+      )
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $3)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $8
+     (i64.sub
+      (i64.load
+       (local.get $5)
+      )
+      (i64.load
+       (local.get $3)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 8144)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $8)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 8208)
+  )
+  (call $~lib/rt/common/OBJECT#set:gcInfo2
+   (local.get $1)
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $8)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $5)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/rt/common/OBJECT#set:rtId
+   (local.get $1)
+   (call $~lib/as-chain/time/TimePointSec#constructor)
+  )
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+   (local.get $2)
+   (local.get $1)
+   (i32.load
+    (local.get $0)
+   )
+  )
+  (if
+   (local.tee $1
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#get
+     (local.get $2)
+     (call $~lib/as-chain/asset/Symbol#code
+      (i32.load offset=16
+       (local.get $7)
+      )
+     )
+    )
+   )
+   (block
+    (call $~lib/as-chain/system/check
+     (i64.eq
+      (i64.load
+       (i32.load offset=8
+        (local.tee $3
+         (i32.load offset=4
+          (local.get $1)
+         )
+        )
+       )
+      )
+      (i64.load
+       (i32.load offset=8
+        (local.get $4)
+       )
+      )
+     )
+     (i32.const 6432)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.ge_s
+      (local.tee $8
+       (i64.add
+        (i64.load
+         (local.get $3)
+        )
+        (i64.load
+         (local.get $4)
+        )
+       )
+      )
+      (i64.const -4611686018427387903)
+     )
+     (i32.const 6496)
+    )
+    (call $~lib/as-chain/system/check
+     (i64.le_s
+      (local.get $8)
+      (i64.const 4611686018427387903)
+     )
+     (i32.const 6560)
+    )
+    (call $~lib/rt/common/OBJECT#set:gcInfo
+     (local.get $1)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (local.get $8)
+      (call $~lib/as-chain/asset/Symbol.fromU64
+       (i64.load
+        (i32.load offset=8
+         (local.get $3)
+        )
+       )
+      )
+     )
+    )
+    (call $~lib/rt/common/OBJECT#set:rtId
+     (local.get $1)
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#update
+     (local.get $2)
+     (local.get $1)
+     (i32.load
+      (local.get $0)
+     )
+    )
+   )
+   (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/balances.table/BalancesTable>#store
+    (local.get $2)
+    (call $assembly/orderbook/tables/balances.table/BalancesTable#constructor
+     (i32.load offset=20
+      (local.get $7)
+     )
+     (local.get $4)
+     (call $~lib/as-chain/asset/Asset#constructor
+      (i64.const 0)
+      (i32.load offset=8
+       (local.get $4)
+      )
+     )
+     (call $~lib/as-chain/time/TimePointSec#constructor)
+    )
+    (i32.load
+     (local.get $0)
+    )
+   )
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#updateOrderAfterTrade (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i64)
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.tee $3
+       (i32.load offset=36
+        (local.get $1)
+       )
+      )
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $2)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $4
+     (i64.add
+      (i64.load
+       (local.get $3)
+      )
+      (i64.load
+       (local.get $2)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 6496)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $4)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 6560)
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:filled_amount
+   (local.get $1)
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $4)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $3)
+      )
+     )
+    )
+   )
+  )
+  (call $~lib/as-chain/system/check
+   (i64.eq
+    (i64.load
+     (i32.load offset=8
+      (local.tee $3
+       (i32.load offset=40
+        (local.get $1)
+       )
+      )
+     )
+    )
+    (i64.load
+     (i32.load offset=8
+      (local.get $2)
+     )
+    )
+   )
+   (i32.const 6432)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.ge_s
+    (local.tee $4
+     (i64.sub
+      (i64.load
+       (local.get $3)
+      )
+      (i64.load
+       (local.get $2)
+      )
+     )
+    )
+    (i64.const -4611686018427387903)
+   )
+   (i32.const 8144)
+  )
+  (call $~lib/as-chain/system/check
+   (i64.le_s
+    (local.get $4)
+    (i64.const 4611686018427387903)
+   )
+   (i32.const 8208)
+  )
+  (call $assembly/orderbook/tables/pairs.table/PairsTable#set:status
+   (local.get $1)
+   (call $~lib/as-chain/asset/Asset#constructor
+    (local.get $4)
+    (call $~lib/as-chain/asset/Symbol.fromU64
+     (i64.load
+      (i32.load offset=8
+       (local.get $3)
+      )
+     )
+    )
+   )
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:status
+   (local.get $1)
+   (select
+    (i32.const 2)
+    (i32.const 1)
+    (i64.eqz
+     (i64.load
+      (i32.load offset=40
+       (local.get $1)
+      )
+     )
+    )
+   )
+  )
+  (call $assembly/orderbook/tables/orders.table/OrdersTable#set:updated_at
+   (local.get $1)
+   (call $~lib/as-chain/time/TimePointSec#constructor)
+  )
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/orders.table/OrdersTable>#update
+   (i32.load offset=16
+    (local.get $0)
+   )
+   (local.get $1)
+   (i32.load
+    (local.get $0)
+   )
+  )
+ )
+ (func $assembly/orderbook/orderbook.contract/orderbook#executeTrade (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (param $5 i32)
+  (local $6 i32)
+  (local $7 i32)
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
-  (local $11 i32)
   (local.set $6
    (select
     (local.get $1)
@@ -17586,12 +18789,12 @@
     )
    )
   )
-  (local.set $8
+  (local.set $7
    (i32.load offset=16
     (local.get $6)
    )
   )
-  (local.set $9
+  (local.set $8
    (i32.load offset=16
     (local.get $1)
    )
@@ -17601,7 +18804,7 @@
     (i64.div_s
      (i64.mul
       (i64.load
-       (local.tee $10
+       (local.tee $9
         (call $assembly/orderbook/orderbook.contract/orderbook#calculateTotalValue
          (local.get $3)
          (local.get $4)
@@ -17624,12 +18827,12 @@
   )
   (call $assembly/orderbook/orderbook.contract/orderbook#updateTradeBalances
    (local.get $0)
+   (local.get $7)
    (local.get $8)
-   (local.get $9)
    (local.get $4)
-   (local.get $10)
+   (local.get $9)
    (local.get $2)
-   (local.tee $11
+   (local.tee $10
     (call $~lib/as-chain/asset/Asset#constructor
      (i64.div_s
       (i64.mul
@@ -17661,7 +18864,7 @@
    (local.get $1)
    (local.get $4)
   )
-  (local.set $3
+  (local.set $1
    (call $assembly/orderbook/tables/trades.table/TradesTable#constructor
     (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/trades.table/TradesTable>#get:availablePrimaryKey
      (i32.load offset=20
@@ -17677,69 +18880,23 @@
     (i64.load
      (local.get $1)
     )
+    (local.get $7)
     (local.get $8)
-    (local.get $9)
     (local.get $3)
     (local.get $4)
-    (local.get $10)
+    (local.get $9)
     (local.get $2)
-    (local.get $11)
+    (local.get $10)
     (call $~lib/as-chain/time/TimePointSec#constructor)
    )
   )
-  (local.set $4
-   (i32.load
+  (call $~lib/proton-tsc/modules/store/store/TableStore<assembly/orderbook/tables/trades.table/TradesTable>#store
+   (i32.load offset=20
     (local.get $0)
    )
-  )
-  (call $~lib/as-chain/system/check
-   (i32.eqz
-    (call $~lib/as-chain/dbi64/PrimaryIterator<assembly/orderbook/tables/config.table/ConfigTable>#isOk
-     (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#find
-      (i32.load
-       (local.tee $1
-        (i32.load offset=20
-         (local.get $0)
-        )
-       )
-      )
-      (local.tee $7
-       (i64.load
-        (local.get $3)
-       )
-      )
-     )
-    )
-   )
-   (i32.const 1200)
-  )
-  (call $~lib/as-chain/mi/MultiIndex<assembly/orderbook/tables/trades.table/TradesTable>#store
+   (local.get $1)
    (i32.load
-    (local.get $1)
-   )
-   (local.get $3)
-   (local.get $4)
-  )
-  (if
-   (i64.ge_u
-    (local.get $7)
-    (i64.load offset=8
-     (local.get $1)
-    )
-   )
-   (call $~lib/as-chain/idxdb/IDXDB#set:scope
-    (local.get $1)
-    (select
-     (i64.const -2)
-     (i64.add
-      (local.get $7)
-      (i64.const 1)
-     )
-     (i64.ge_u
-      (local.get $7)
-      (i64.const -2)
-     )
-    )
+    (local.get $0)
    )
   )
   (call $assembly/orderbook/orderbook.contract/orderbook#recordFee
@@ -17761,7 +18918,7 @@
    (i32.load offset=12
     (local.get $5)
    )
-   (local.get $11)
+   (local.get $10)
    (i32.const 1)
   )
  )
@@ -17878,53 +19035,83 @@
          )
          (block $while-break|1
           (if
-           (i64.ne
-            (i64.load
-             (local.get $3)
+           (if (result i32)
+            (i64.ne
+             (i64.load
+              (local.get $3)
+             )
+             (i64.load
+              (local.get $4)
+             )
             )
-            (i64.load
-             (local.get $4)
+            (i64.ne
+             (i64.load
+              (i32.load offset=16
+               (local.get $3)
+              )
+             )
+             (i64.load
+              (i32.load offset=16
+               (local.get $4)
+              )
+             )
             )
+            (i32.const 0)
            )
            (if
             (if (result i32)
              (if (result i32)
               (if (result i32)
                (if (result i32)
-                (i64.eq
-                 (local.get $1)
-                 (i64.load offset=8
-                  (local.get $4)
+                (if (result i32)
+                 (i64.eq
+                  (local.get $1)
+                  (i64.load offset=8
+                   (local.get $4)
+                  )
                  )
-                )
-                (call $~lib/string/String.__eq
-                 (i32.load offset=24
-                  (local.get $4)
+                 (call $~lib/string/String.__eq
+                  (i32.load offset=24
+                   (local.get $4)
+                  )
+                  (i32.const 8352)
                  )
-                 (i32.const 8352)
+                 (i32.const 0)
                 )
-                (i32.const 0)
-               )
-               (if (result i32)
-                (i32.load8_u offset=49
-                 (local.get $4)
-                )
-                (i32.eq
+                (if (result i32)
                  (i32.load8_u offset=49
                   (local.get $4)
                  )
+                 (i32.eq
+                  (i32.load8_u offset=49
+                   (local.get $4)
+                  )
+                  (i32.const 1)
+                 )
                  (i32.const 1)
                 )
-                (i32.const 1)
+                (i32.const 0)
+               )
+               (call $~lib/string/String.__ne
+                (i32.load offset=20
+                 (local.get $3)
+                )
+                (i32.load offset=20
+                 (local.get $4)
+                )
                )
                (i32.const 0)
               )
-              (call $~lib/string/String.__ne
-               (i32.load offset=20
-                (local.get $3)
+              (i64.ne
+               (i64.load
+                (i32.load offset=16
+                 (local.get $3)
+                )
                )
-               (i32.load offset=20
-                (local.get $4)
+               (i64.load
+                (i32.load offset=16
+                 (local.get $4)
+                )
                )
               )
               (i32.const 0)
@@ -18057,7 +19244,7 @@
              (i32.load offset=24
               (local.get $3)
              )
-             (i32.const 9840)
+             (i32.const 9968)
             )
            )
            (i32.const 0)
@@ -18197,7 +19384,7 @@
           (i32.load offset=24
            (local.get $4)
           )
-          (i32.const 9840)
+          (i32.const 9968)
          )
          (i32.const 0)
         )
@@ -19123,7 +20310,7 @@
               (local.get $4)
              )
             )
-            (i32.const 10592)
+            (i32.const 8592)
            )
           )
          )
@@ -19256,7 +20443,7 @@
               (local.get $4)
              )
             )
-            (i32.const 10592)
+            (i32.const 8592)
            )
           )
          )
@@ -20896,7 +22083,7 @@
     (if
      (i64.eq
       (local.get $2)
-      (i64.const -5915331449890903200)
+      (i64.const -5915331450004214784)
      )
      (block
       (call $~lib/as-chain/name/Name#set:N
@@ -21697,7 +22884,7 @@
                (call $~lib/as-chain/asset/Symbol#isValid
                 (local.get $0)
                )
-               (i32.const 10640)
+               (i32.const 10592)
               )
               (return
                (i32.load offset=4
@@ -21763,7 +22950,7 @@
                )
                (i32.const 0)
               )
-              (i32.const 10688)
+              (i32.const 10640)
              )
              (return
               (i32.load offset=4
@@ -23229,7 +24416,7 @@
        (local.get $2)
       )
      )
-     (i32.const 10736)
+     (i32.const 10688)
     )
     (local.set $4
      (call $~lib/array/Array<u64>#__get
@@ -23262,7 +24449,7 @@
      )
      (i32.const 1)
     )
-    (i32.const 10800)
+    (i32.const 10752)
    )
    (call $~lib/as-chain/system/check
     (i32.eq
@@ -23273,7 +24460,7 @@
      )
      (i32.const 2)
     )
-    (i32.const 10800)
+    (i32.const 10752)
    )
    (call $~lib/as-chain/env/db_idx128_update
     (i32.load
@@ -23323,7 +24510,7 @@
        (local.get $2)
       )
      )
-     (i32.const 10864)
+     (i32.const 10816)
     )
     (local.set $5
      (call $~lib/array/Array<u64>#__get
@@ -23368,7 +24555,7 @@
      )
      (i32.const 1)
     )
-    (i32.const 10928)
+    (i32.const 10880)
    )
    (call $~lib/as-chain/system/check
     (i32.eq
@@ -23379,7 +24566,7 @@
      )
      (i32.const 2)
     )
-    (i32.const 10800)
+    (i32.const 10752)
    )
    (drop
     (call $~lib/as-chain/idxdb/SecondaryIterator#constructor
@@ -23411,7 +24598,7 @@
  (func $~start
   (local $0 i32)
   (global.set $~lib/rt/stub/offset
-   (i32.const 10972)
+   (i32.const 10924)
   )
   (call $~lib/as-chain/name/Name#set:N
    (local.tee $0

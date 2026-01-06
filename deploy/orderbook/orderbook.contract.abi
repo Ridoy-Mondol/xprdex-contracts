@@ -421,7 +421,7 @@
       ]
     },
     {
-      "name": "processsltpq",
+      "name": "processltpq",
       "base": "",
       "fields": [
         {
@@ -563,8 +563,8 @@
       "ricardian_contract": ""
     },
     {
-      "name": "processsltpq",
-      "type": "processsltpq",
+      "name": "processltpq",
+      "type": "processltpq",
       "ricardian_contract": ""
     },
     {

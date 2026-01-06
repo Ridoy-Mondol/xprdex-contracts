@@ -416,10 +416,6 @@ export class orderbook extends Contract {
     check(side == "buy" || side == "sell", "Invalid side");
     check(amount.amount > 0, "Amount must be positive");
 
-    let baseAmount: Asset;
-    let quoteAmount: Asset;
-    const estimatedPrice = this.estimateMarketPrice(pair_id, side);
-
     // ✅ Handle buy and sell differently
     if (side == "buy") {
       // For BUY: amount is quote currency (how much to spend)
@@ -432,23 +428,11 @@ export class orderbook extends Contract {
         "Amount precision mismatch"
       );
 
-      // Calculate base amount we'll receive
-      const base_precision = pair.base_symbol.precision();
-      const calculatedBaseAmount =
-        (amount.amount * u64(Math.pow(10, base_precision))) /
-        estimatedPrice.amount;
+      // Lock quote currency
+      this.lockBalanceMarket(user, side, amount, pair);
 
-      baseAmount = new Asset(calculatedBaseAmount, pair.base_symbol);
-      quoteAmount = amount;
-
-      check(
-        baseAmount.amount >= pair.min_order_size.amount,
-        "Calculated amount below min order size"
-      );
-      check(
-        baseAmount.amount <= pair.max_order_size.amount,
-        "Calculated amount exceeds max order size"
-      );
+      // Execute market buy immediately
+      this.executeMarketBuy(user, pair, amount.amount);
     } else {
       // For SELL: amount is base currency (how much to sell)
       check(
@@ -470,38 +454,12 @@ export class orderbook extends Contract {
         "Exceeds max order size"
       );
 
-      baseAmount = amount;
-      quoteAmount = this.calculateTotalValue(estimatedPrice, amount, pair);
+      // Lock base currency
+      this.lockBalanceMarket(user, side, amount, pair);
+
+      // Execute market sell immediately
+      this.executeMarketSell(user, pair, amount.amount);
     }
-
-    if (side == "buy") {
-      this.lockBalanceMarket(user, side, quoteAmount, pair);
-    } else {
-      this.lockBalanceMarket(user, side, baseAmount, pair);
-    }
-
-    // Create order
-    const order_id = this.ordersTable.availablePrimaryKey;
-    const now = new TimePointSec();
-
-    const order = new OrdersTable(
-      order_id,
-      pair_id,
-      user,
-      side,
-      "market",
-      estimatedPrice,
-      baseAmount,
-      new Asset(0, baseAmount.symbol),
-      baseAmount,
-      new Asset(0, estimatedPrice.symbol),
-      false,
-      0,
-      now,
-      now
-    );
-
-    this.ordersTable.store(order, this.receiver);
   }
 
   @action("stoploss")
@@ -634,6 +592,7 @@ export class orderbook extends Contract {
     let processed: u32 = 0;
 
     let order = this.ordersTable.first();
+
     while (order != null && processed < max_orders) {
       const currentOrder = order;
 
@@ -647,13 +606,17 @@ export class orderbook extends Contract {
         while (matchOrder != null && processed < max_orders) {
           const currentMatch = matchOrder;
 
-          // Skip same order
-          if (currentOrder.order_id != currentMatch.order_id) {
+          // Skip same order and same user (self-trading prevention)
+          if (
+            currentOrder.order_id != currentMatch.order_id &&
+            currentOrder.user != currentMatch.user
+          ) {
             if (
               currentMatch.pair_id == pair_id &&
               currentMatch.order_type == "limit" &&
               (currentMatch.status == 0 || currentMatch.status == 1) &&
               currentOrder.side != currentMatch.side &&
+              currentOrder.user != currentMatch.user &&
               this.canMatch(currentOrder, currentMatch)
             ) {
               const tradeAmount = this.calculateTradeAmount(
@@ -691,7 +654,7 @@ export class orderbook extends Contract {
    * Checks if trigger conditions are met and activates orders
    */
 
-  @action("processsltpq")
+  @action("processltpq")
   processStopLossTakeProfit(pair_id: u64, max_orders: u32): void {
     const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
 
@@ -977,6 +940,178 @@ export class orderbook extends Contract {
     const value_amount =
       (price.amount * amount.amount) / u64(Math.pow(10, base_precision));
     return new Asset(value_amount, pair.quote_symbol);
+  }
+
+  /**
+   * Execute market buy order immediately
+   */
+  private executeMarketBuy(
+    user: Name,
+    pair: PairsTable,
+    quoteToSpend: i64
+  ): void {
+    let remainingQuote = quoteToSpend;
+
+    let order = this.ordersTable.first();
+
+    while (order != null && remainingQuote > 0) {
+      const currentOrder = order;
+
+      // Match against sell limit orders only
+      if (
+        currentOrder.pair_id == pair.pair_id &&
+        currentOrder.side == "sell" &&
+        currentOrder.order_type == "limit" &&
+        (currentOrder.status == 0 || currentOrder.status == 1) &&
+        currentOrder.user != user
+      ) {
+        // Calculate how much we can buy from this order
+        const orderTotalValue = this.calculateTotalValue(
+          currentOrder.price,
+          currentOrder.remaining_amount,
+          pair
+        );
+
+        let tradeQuoteAmount: i64;
+        let tradeBaseAmount: i64;
+
+        if (orderTotalValue.amount <= remainingQuote) {
+          // Can fill entire sell order
+          tradeBaseAmount = currentOrder.remaining_amount.amount;
+          tradeQuoteAmount = orderTotalValue.amount;
+        } else {
+          // Partial fill - use all remaining quote
+          tradeQuoteAmount = remainingQuote;
+
+          // Calculate base amount: (quote * base_precision) / price
+          const base_precision = pair.base_symbol.precision();
+          tradeBaseAmount =
+            (tradeQuoteAmount * u64(Math.pow(10, base_precision))) /
+            currentOrder.price.amount;
+        }
+
+        const tradeBase = new Asset(tradeBaseAmount, pair.base_symbol);
+        const tradeQuote = new Asset(tradeQuoteAmount, pair.quote_symbol);
+
+        // Execute the trade
+        this.executeMarketTrade(
+          user,
+          currentOrder.user,
+          currentOrder,
+          currentOrder.price,
+          tradeBase,
+          tradeQuote,
+          pair,
+          "buy"
+        );
+
+        remainingQuote -= tradeQuoteAmount;
+      }
+
+      order = this.ordersTable.next(currentOrder);
+    }
+
+    // Unlock any remaining quote currency
+    if (remainingQuote > 0) {
+      const refund = new Asset(remainingQuote, pair.quote_symbol);
+      const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
+      const balance = balancesTable.requireGet(
+        pair.quote_symbol.code(),
+        "Balance error"
+      );
+
+      balance.locked = Asset.sub(balance.locked, refund);
+      balance.balance = Asset.add(balance.balance, refund);
+      balance.updated_at = new TimePointSec();
+
+      balancesTable.update(balance, this.receiver);
+    }
+
+    check(
+      quoteToSpend - remainingQuote > 0,
+      "No liquidity available for market buy"
+    );
+  }
+
+  /**
+   * Execute market sell order immediately
+   */
+  private executeMarketSell(
+    user: Name,
+    pair: PairsTable,
+    baseToSell: i64
+  ): void {
+    let remainingBase = baseToSell;
+
+    let order = this.ordersTable.first();
+
+    while (order != null && remainingBase > 0) {
+      const currentOrder = order;
+
+      // Match against buy limit orders only
+      if (
+        currentOrder.pair_id == pair.pair_id &&
+        currentOrder.side == "buy" &&
+        currentOrder.order_type == "limit" &&
+        (currentOrder.status == 0 || currentOrder.status == 1) &&
+        currentOrder.user != user
+      ) {
+        let tradeBaseAmount: i64;
+
+        if (currentOrder.remaining_amount.amount <= remainingBase) {
+          // Can fill entire buy order
+          tradeBaseAmount = currentOrder.remaining_amount.amount;
+        } else {
+          // Partial fill
+          tradeBaseAmount = remainingBase;
+        }
+
+        const tradeBase = new Asset(tradeBaseAmount, pair.base_symbol);
+
+        const tradeQuote = this.calculateTotalValue(
+          currentOrder.price,
+          tradeBase,
+          pair
+        );
+
+        // Execute the trade
+        this.executeMarketTrade(
+          currentOrder.user,
+          user,
+          currentOrder,
+          currentOrder.price,
+          tradeBase,
+          tradeQuote,
+          pair,
+          "sell"
+        );
+
+        remainingBase -= tradeBaseAmount;
+      }
+
+      order = this.ordersTable.next(currentOrder);
+    }
+
+    // Unlock any remaining base currency
+    if (remainingBase > 0) {
+      const refund = new Asset(remainingBase, pair.base_symbol);
+      const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
+      const balance = balancesTable.requireGet(
+        pair.base_symbol.code(),
+        "Balance error"
+      );
+
+      balance.locked = Asset.sub(balance.locked, refund);
+      balance.balance = Asset.add(balance.balance, refund);
+      balance.updated_at = new TimePointSec();
+
+      balancesTable.update(balance, this.receiver);
+    }
+
+    check(
+      baseToSell - remainingBase > 0,
+      "No liquidity available for market sell"
+    );
   }
 
   /**
@@ -1316,6 +1451,116 @@ export class orderbook extends Contract {
 
     this.recordFee(pair.pair_id, pair.quote_contract, buyerFee, false);
     this.recordFee(pair.pair_id, pair.base_contract, sellerFee, true);
+  }
+
+  /**
+   * Execute a single market trade
+   */
+  private executeMarketTrade(
+    buyer: Name,
+    seller: Name,
+    limitorder: OrdersTable,
+    price: Asset,
+    tradeBase: Asset,
+    tradeQuote: Asset,
+    pair: PairsTable,
+    marketSide: string
+  ): void {
+    // Calculate fees
+    const takerFeeAmount = (tradeQuote.amount * u64(pair.taker_fee_bp)) / 10000;
+    const takerFee = new Asset(takerFeeAmount, pair.quote_symbol);
+
+    const makerFeeAmount = (tradeBase.amount * u64(pair.maker_fee_bp)) / 10000;
+    const makerFee = new Asset(makerFeeAmount, pair.base_symbol);
+
+    // Update balances
+    const buyerBalances = new TableStore<BalancesTable>(this.receiver, buyer);
+    const sellerBalances = new TableStore<BalancesTable>(this.receiver, seller);
+
+    // Buyer receives base currency
+    const buyerBase = buyerBalances.get(pair.base_symbol.code());
+    if (buyerBase) {
+      buyerBase.balance = Asset.add(buyerBase.balance, tradeBase);
+      buyerBase.updated_at = new TimePointSec();
+      buyerBalances.update(buyerBase, this.receiver);
+    } else {
+      const balance = new BalancesTable(
+        pair.base_contract,
+        tradeBase,
+        new Asset(0, tradeBase.symbol),
+        new TimePointSec()
+      );
+      buyerBalances.store(balance, this.receiver);
+    }
+
+    // Buyer pays quote currency + taker fee
+    const buyerQuote = buyerBalances.requireGet(
+      pair.quote_symbol.code(),
+      "Buyer balance error"
+    );
+    const buyerTotal = Asset.add(tradeQuote, takerFee);
+    buyerQuote.locked = Asset.sub(buyerQuote.locked, buyerTotal);
+    buyerQuote.updated_at = new TimePointSec();
+    buyerBalances.update(buyerQuote, this.receiver);
+
+    // Seller pays base currency + maker fee
+    const sellerBase = sellerBalances.requireGet(
+      pair.base_symbol.code(),
+      "Seller balance error"
+    );
+    const sellerTotal = Asset.add(tradeBase, makerFee);
+    sellerBase.locked = Asset.sub(sellerBase.locked, sellerTotal);
+    sellerBase.updated_at = new TimePointSec();
+    sellerBalances.update(sellerBase, this.receiver);
+
+    // Seller receives quote currency
+    const sellerQuote = sellerBalances.get(pair.quote_symbol.code());
+    if (sellerQuote) {
+      sellerQuote.balance = Asset.add(sellerQuote.balance, tradeQuote);
+      sellerQuote.updated_at = new TimePointSec();
+      sellerBalances.update(sellerQuote, this.receiver);
+    } else {
+      const balance = new BalancesTable(
+        pair.quote_contract,
+        tradeQuote,
+        new Asset(0, tradeQuote.symbol),
+        new TimePointSec()
+      );
+      sellerBalances.store(balance, this.receiver);
+    }
+
+    // Update the limit order that was matched
+    limitorder.filled_amount = Asset.add(limitorder.filled_amount, tradeBase);
+    limitorder.remaining_amount = Asset.sub(
+      limitorder.remaining_amount,
+      tradeBase
+    );
+    limitorder.status = limitorder.remaining_amount.amount == 0 ? 2 : 1;
+    limitorder.updated_at = new TimePointSec();
+    this.ordersTable.update(limitorder, this.receiver);
+
+    // Record trade (market order has no order_id, so use MAX u64 for market orders that will never conflict)
+    const MARKET_ORDER_ID: u64 = 18446744073709551615;
+    const trade = new TradesTable(
+      this.tradesTable.availablePrimaryKey,
+      pair.pair_id,
+      marketSide == "buy" ? MARKET_ORDER_ID : limitorder.order_id,
+      marketSide == "sell" ? MARKET_ORDER_ID : limitorder.order_id,
+      buyer,
+      seller,
+      price,
+      tradeBase,
+      tradeQuote,
+      takerFee,
+      makerFee,
+      new TimePointSec()
+    );
+
+    this.tradesTable.store(trade, this.receiver);
+
+    // Record fees
+    this.recordFee(pair.pair_id, pair.quote_contract, takerFee, false);
+    this.recordFee(pair.pair_id, pair.base_contract, makerFee, true);
   }
 
   /**
@@ -2154,7 +2399,7 @@ export function apply(receiver: u64, firstReceiver: u64, action: u64): void {
             args.unpack(actionData);
             mycontract.processLimit(args.pair_id,args.max_orders);
         }
-		if (action == 0xADE88563188E6B60) {//processsltpq
+		if (action == 0xADE8856311CD6C00) {//processltpq
             const args = new processStopLossTakeProfitAction();
             args.unpack(actionData);
             mycontract.processStopLossTakeProfit(args.pair_id,args.max_orders);
