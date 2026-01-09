@@ -723,13 +723,14 @@ export class orderbook extends Contract {
     while (balance != null) {
       const current = balance;
 
+      // ✅ Only withdraw available balance (not locked)
       if (current.balance.amount > 0) {
         this.transfer(
           current.token_contract,
           this.receiver,
           user,
           current.balance,
-          "DEX withdrawal"
+          `Refund: ${current.balance.toString()} unused/excess`
         );
 
         current.balance = new Asset(0, current.balance.symbol);
@@ -896,34 +897,34 @@ export class orderbook extends Contract {
   /**
    * Estimate Market Price
    */
-  private estimateMarketPrice(pair_id: u64, side: string): Asset {
-    let order = this.ordersTable.first();
-    let bestPrice: i64 = 0;
+  // private estimateMarketPrice(pair_id: u64, side: string): Asset {
+  //   let order = this.ordersTable.first();
+  //   let bestPrice: i64 = 0;
 
-    while (order != null) {
-      if (
-        order.pair_id == pair_id &&
-        order.side != side &&
-        (order.status == 0 || order.status == 1)
-      ) {
-        if (bestPrice == 0) {
-          bestPrice = order.price.amount;
-        } else if (side == "buy" && order.price.amount < bestPrice) {
-          // Buy → want lowest ask
-          bestPrice = order.price.amount;
-        } else if (side == "sell" && order.price.amount > bestPrice) {
-          // Sell → want highest bid
-          bestPrice = order.price.amount;
-        }
-      }
+  //   while (order != null) {
+  //     if (
+  //       order.pair_id == pair_id &&
+  //       order.side != side &&
+  //       (order.status == 0 || order.status == 1)
+  //     ) {
+  //       if (bestPrice == 0) {
+  //         bestPrice = order.price.amount;
+  //       } else if (side == "buy" && order.price.amount < bestPrice) {
+  //         // Buy → want lowest ask
+  //         bestPrice = order.price.amount;
+  //       } else if (side == "sell" && order.price.amount > bestPrice) {
+  //         // Sell → want highest bid
+  //         bestPrice = order.price.amount;
+  //       }
+  //     }
 
-      order = this.ordersTable.next(order);
-    }
+  //     order = this.ordersTable.next(order);
+  //   }
 
-    const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
+  //   const pair = this.pairsTable.requireGet(pair_id, "Pair not found");
 
-    return new Asset(bestPrice > 0 ? bestPrice : 1, pair.quote_symbol);
-  }
+  //   return new Asset(bestPrice > 0 ? bestPrice : 1, pair.quote_symbol);
+  // }
 
   /**
    * Calculate Total Value
@@ -1011,13 +1012,18 @@ export class orderbook extends Contract {
       order = this.ordersTable.next(currentOrder);
     }
 
-    // Unlock any remaining quote currency
+    // ✅ Move remaining locked to available balance (for withdrawall to refund)
     if (remainingQuote > 0) {
       const refund = new Asset(remainingQuote, pair.quote_symbol);
       const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
       const balance = balancesTable.requireGet(
         pair.quote_symbol.code(),
         "Balance error"
+      );
+
+      check(
+        balance.locked.amount >= refund.amount,
+        "Insufficient locked balance"
       );
 
       balance.locked = Asset.sub(balance.locked, refund);
@@ -1092,13 +1098,18 @@ export class orderbook extends Contract {
       order = this.ordersTable.next(currentOrder);
     }
 
-    // Unlock any remaining base currency
+    // ✅ Move remaining locked to available balance
     if (remainingBase > 0) {
       const refund = new Asset(remainingBase, pair.base_symbol);
       const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
       const balance = balancesTable.requireGet(
         pair.base_symbol.code(),
         "Balance error"
+      );
+
+      check(
+        balance.locked.amount >= refund.amount,
+        "Insufficient locked balance"
       );
 
       balance.locked = Asset.sub(balance.locked, refund);
@@ -1127,18 +1138,25 @@ export class orderbook extends Contract {
     const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
 
     if (side == "buy") {
+      // ✅ Calculate taker fee and lock total_value + fee
+      const takerFeeAmount =
+        (total_value.amount * u64(pair.taker_fee_bp)) / 10000;
+      const takerFee = new Asset(takerFeeAmount, pair.quote_symbol);
+      const totalLock = Asset.add(total_value, takerFee); // ✅ Lock value + fee
+
       const balance = balancesTable.requireGet(
         pair.quote_symbol.code(),
         "Insufficient quote token"
       );
-      check(balance.balance.amount >= total_value.amount, "Insufficient funds");
+      check(balance.balance.amount >= totalLock.amount, "Insufficient funds");
 
-      balance.balance = Asset.sub(balance.balance, total_value);
-      balance.locked = Asset.add(balance.locked, total_value);
+      balance.balance = Asset.sub(balance.balance, totalLock);
+      balance.locked = Asset.add(balance.locked, totalLock);
       balance.updated_at = new TimePointSec();
 
       balancesTable.update(balance, this.receiver);
     } else {
+      // ✅ Seller only locks base amount (fee taken from proceeds)
       const balance = balancesTable.requireGet(
         pair.base_symbol.code(),
         "Insufficient base token"
@@ -1194,7 +1212,7 @@ export class orderbook extends Contract {
   }
 
   /**
-   * Unlock balance
+   * Unlock balance when order is cancelled
    */
   private unlockBalance(
     user: Name,
@@ -1206,18 +1224,29 @@ export class orderbook extends Contract {
     const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
 
     if (side == "buy") {
+      // ✅ Calculate what was locked (value + taker fee)
       const locked_value = this.calculateTotalValue(
         price,
         remaining_amount,
         pair
       );
+      const takerFeeAmount =
+        (locked_value.amount * u64(pair.taker_fee_bp)) / 10000;
+      const takerFee = new Asset(takerFeeAmount, pair.quote_symbol);
+      const totalLocked = Asset.add(locked_value, takerFee);
+
       const balance = balancesTable.requireGet(
         pair.quote_symbol.code(),
         "Balance error"
       );
 
-      balance.locked = Asset.sub(balance.locked, locked_value);
-      balance.balance = Asset.add(balance.balance, locked_value);
+      check(
+        balance.locked.amount >= totalLocked.amount,
+        "Insufficient locked balance"
+      );
+
+      balance.locked = Asset.sub(balance.locked, totalLocked);
+      balance.balance = Asset.add(balance.balance, totalLocked);
       balance.updated_at = new TimePointSec();
 
       balancesTable.update(balance, this.receiver);
@@ -1225,6 +1254,11 @@ export class orderbook extends Contract {
       const balance = balancesTable.requireGet(
         pair.base_symbol.code(),
         "Balance error"
+      );
+
+      check(
+        balance.locked.amount >= remaining_amount.amount,
+        "Insufficient locked balance"
       );
 
       balance.locked = Asset.sub(balance.locked, remaining_amount);
@@ -1258,7 +1292,10 @@ export class orderbook extends Contract {
     while (matchOrder != null) {
       const currentMatch = matchOrder;
 
-      if (stopLossOrder.order_id != currentMatch.order_id) {
+      if (
+        stopLossOrder.order_id != currentMatch.order_id &&
+        stopLossOrder.user != currentMatch.user
+      ) {
         if (
           currentMatch.pair_id == pair.pair_id &&
           (currentMatch.order_type == "limit" ||
@@ -1415,22 +1452,72 @@ export class orderbook extends Contract {
     const buyerFee = new Asset(buyerFeeAmount, pair.quote_symbol);
 
     const sellerFeeAmount =
-      (tradeAmount.amount * u64(pair.maker_fee_bp)) / 10000;
-    const sellerFee = new Asset(sellerFeeAmount, pair.base_symbol);
+      (totalValue.amount * u64(pair.maker_fee_bp)) / 10000;
+    const sellerFee = new Asset(sellerFeeAmount, pair.quote_symbol);
 
-    this.updateTradeBalances(
-      buyer,
-      seller,
-      tradeAmount,
-      totalValue,
-      buyerFee,
-      sellerFee,
-      pair
+    // Update balances
+    const buyerBalances = new TableStore<BalancesTable>(this.receiver, buyer);
+    const sellerBalances = new TableStore<BalancesTable>(this.receiver, seller);
+
+    // Buyer pays quote currency + taker fee from locked balance
+    const buyerQuote = buyerBalances.requireGet(
+      pair.quote_symbol.code(),
+      "Buyer balance error"
+    );
+    const buyerTotal = Asset.add(totalValue, buyerFee);
+
+    check(
+      buyerQuote.locked.amount >= buyerTotal.amount,
+      "Insufficient locked balance"
     );
 
+    buyerQuote.locked = Asset.sub(buyerQuote.locked, buyerTotal);
+    buyerQuote.updated_at = new TimePointSec();
+    buyerBalances.update(buyerQuote, this.receiver);
+
+    // ✅ Seller pays base currency (no fee) + maker fee paid separately from quote proceeds
+    const sellerBase = sellerBalances.requireGet(
+      pair.base_symbol.code(),
+      "Seller balance error"
+    );
+
+    check(
+      sellerBase.locked.amount >= tradeAmount.amount,
+      "Insufficient locked balance"
+    );
+
+    sellerBase.locked = Asset.sub(sellerBase.locked, tradeAmount);
+    sellerBase.updated_at = new TimePointSec();
+    sellerBalances.update(sellerBase, this.receiver);
+
+    // Send base token to buyer
+    this.transfer(
+      pair.base_contract,
+      this.receiver,
+      buyer,
+      tradeAmount,
+      `Limit order #${
+        buyOrder.order_id
+      }: bought ${tradeAmount.toString()} @ ${executionPrice.toString()}`
+    );
+
+    // Send quote token to seller
+    const sellerNetProceeds = Asset.sub(totalValue, sellerFee); // ✅ Deduct maker fee
+    this.transfer(
+      pair.quote_contract,
+      this.receiver,
+      seller,
+      sellerNetProceeds,
+      `Limit order #${
+        sellOrder.order_id
+      }: sold ${tradeAmount.toString()} @ ${executionPrice.toString()}`
+    );
+
+    // Update orders
     this.updateOrderAfterTrade(buyOrder, tradeAmount);
     this.updateOrderAfterTrade(sellOrder, tradeAmount);
 
+    // Record trade
     const tradeId = this.tradesTable.availablePrimaryKey;
     const trade = new TradesTable(
       tradeId,
@@ -1450,7 +1537,7 @@ export class orderbook extends Contract {
     this.tradesTable.store(trade, this.receiver);
 
     this.recordFee(pair.pair_id, pair.quote_contract, buyerFee, false);
-    this.recordFee(pair.pair_id, pair.base_contract, sellerFee, true);
+    this.recordFee(pair.pair_id, pair.quote_contract, sellerFee, true);
   }
 
   /**
@@ -1459,7 +1546,7 @@ export class orderbook extends Contract {
   private executeMarketTrade(
     buyer: Name,
     seller: Name,
-    limitorder: OrdersTable,
+    limitOrder: OrdersTable,
     price: Asset,
     tradeBase: Asset,
     tradeQuote: Asset,
@@ -1470,82 +1557,82 @@ export class orderbook extends Contract {
     const takerFeeAmount = (tradeQuote.amount * u64(pair.taker_fee_bp)) / 10000;
     const takerFee = new Asset(takerFeeAmount, pair.quote_symbol);
 
-    const makerFeeAmount = (tradeBase.amount * u64(pair.maker_fee_bp)) / 10000;
-    const makerFee = new Asset(makerFeeAmount, pair.base_symbol);
+    const makerFeeAmount = (tradeQuote.amount * u64(pair.maker_fee_bp)) / 10000;
+    const makerFee = new Asset(makerFeeAmount, pair.quote_symbol);
 
     // Update balances
     const buyerBalances = new TableStore<BalancesTable>(this.receiver, buyer);
     const sellerBalances = new TableStore<BalancesTable>(this.receiver, seller);
 
-    // Buyer receives base currency
-    const buyerBase = buyerBalances.get(pair.base_symbol.code());
-    if (buyerBase) {
-      buyerBase.balance = Asset.add(buyerBase.balance, tradeBase);
-      buyerBase.updated_at = new TimePointSec();
-      buyerBalances.update(buyerBase, this.receiver);
-    } else {
-      const balance = new BalancesTable(
-        pair.base_contract,
-        tradeBase,
-        new Asset(0, tradeBase.symbol),
-        new TimePointSec()
-      );
-      buyerBalances.store(balance, this.receiver);
-    }
-
-    // Buyer pays quote currency + taker fee
+    // Buyer pays quote currency + taker fee from locked balance
     const buyerQuote = buyerBalances.requireGet(
       pair.quote_symbol.code(),
       "Buyer balance error"
     );
     const buyerTotal = Asset.add(tradeQuote, takerFee);
+
+    check(
+      buyerQuote.locked.amount >= buyerTotal.amount,
+      "Insufficient locked balance"
+    );
+
     buyerQuote.locked = Asset.sub(buyerQuote.locked, buyerTotal);
     buyerQuote.updated_at = new TimePointSec();
     buyerBalances.update(buyerQuote, this.receiver);
 
-    // Seller pays base currency + maker fee
+    // Seller pays base currency + maker fee from locked balance
     const sellerBase = sellerBalances.requireGet(
       pair.base_symbol.code(),
       "Seller balance error"
     );
-    const sellerTotal = Asset.add(tradeBase, makerFee);
-    sellerBase.locked = Asset.sub(sellerBase.locked, sellerTotal);
+
+    check(
+      sellerBase.locked.amount >= tradeBase.amount,
+      "Insufficient locked balance"
+    );
+
+    sellerBase.locked = Asset.sub(sellerBase.locked, tradeBase);
     sellerBase.updated_at = new TimePointSec();
     sellerBalances.update(sellerBase, this.receiver);
 
-    // Seller receives quote currency
-    const sellerQuote = sellerBalances.get(pair.quote_symbol.code());
-    if (sellerQuote) {
-      sellerQuote.balance = Asset.add(sellerQuote.balance, tradeQuote);
-      sellerQuote.updated_at = new TimePointSec();
-      sellerBalances.update(sellerQuote, this.receiver);
-    } else {
-      const balance = new BalancesTable(
-        pair.quote_contract,
-        tradeQuote,
-        new Asset(0, tradeQuote.symbol),
-        new TimePointSec()
-      );
-      sellerBalances.store(balance, this.receiver);
-    }
+    // ✅ SEND TOKENS IMMEDIATELY TO BOTH PARTIES
+
+    // Send base token to buyer
+    this.transfer(
+      pair.base_contract,
+      this.receiver,
+      buyer,
+      tradeBase,
+      `Market ${marketSide}: bought ${tradeBase.toString()} @ ${price.toString()}`
+    );
+
+    // Send quote token to seller
+    const sellerNetProceeds = Asset.sub(tradeQuote, makerFee); // ✅ Deduct maker fee
+    this.transfer(
+      pair.quote_contract,
+      this.receiver,
+      seller,
+      sellerNetProceeds,
+      `Market trade: sold ${tradeBase.toString()} @ ${price.toString()}`
+    );
 
     // Update the limit order that was matched
-    limitorder.filled_amount = Asset.add(limitorder.filled_amount, tradeBase);
-    limitorder.remaining_amount = Asset.sub(
-      limitorder.remaining_amount,
+    limitOrder.filled_amount = Asset.add(limitOrder.filled_amount, tradeBase);
+    limitOrder.remaining_amount = Asset.sub(
+      limitOrder.remaining_amount,
       tradeBase
     );
-    limitorder.status = limitorder.remaining_amount.amount == 0 ? 2 : 1;
-    limitorder.updated_at = new TimePointSec();
-    this.ordersTable.update(limitorder, this.receiver);
+    limitOrder.status = limitOrder.remaining_amount.amount == 0 ? 2 : 1;
+    limitOrder.updated_at = new TimePointSec();
+    this.ordersTable.update(limitOrder, this.receiver);
 
-    // Record trade (market order has no order_id, so use MAX u64 for market orders that will never conflict)
+    // Record trade
     const MARKET_ORDER_ID: u64 = 18446744073709551615;
     const trade = new TradesTable(
       this.tradesTable.availablePrimaryKey,
       pair.pair_id,
-      marketSide == "buy" ? MARKET_ORDER_ID : limitorder.order_id,
-      marketSide == "sell" ? MARKET_ORDER_ID : limitorder.order_id,
+      marketSide == "buy" ? MARKET_ORDER_ID : limitOrder.order_id,
+      marketSide == "sell" ? MARKET_ORDER_ID : limitOrder.order_id,
       buyer,
       seller,
       price,
@@ -1560,78 +1647,7 @@ export class orderbook extends Contract {
 
     // Record fees
     this.recordFee(pair.pair_id, pair.quote_contract, takerFee, false);
-    this.recordFee(pair.pair_id, pair.base_contract, makerFee, true);
-  }
-
-  /**
-   * Update Balance after Trade
-   */
-  private updateTradeBalances(
-    buyer: Name,
-    seller: Name,
-    tradeAmount: Asset,
-    totalValue: Asset,
-    buyerFee: Asset,
-    sellerFee: Asset,
-    pair: PairsTable
-  ): void {
-    const buyerBalances = new TableStore<BalancesTable>(this.receiver, buyer);
-    const sellerBalances = new TableStore<BalancesTable>(this.receiver, seller);
-
-    const buyerBase = buyerBalances.get(pair.base_symbol.code());
-    if (buyerBase) {
-      buyerBase.balance = Asset.add(buyerBase.balance, tradeAmount);
-      buyerBase.updated_at = new TimePointSec();
-
-      buyerBalances.update(buyerBase, this.receiver);
-    } else {
-      const balance = new BalancesTable(
-        pair.base_contract,
-        tradeAmount,
-        new Asset(0, tradeAmount.symbol),
-        new TimePointSec()
-      );
-
-      buyerBalances.store(balance, this.receiver);
-    }
-
-    const buyerQuote = buyerBalances.requireGet(
-      pair.quote_symbol.code(),
-      "Buyer balance error"
-    );
-    const buyerTotal = Asset.add(totalValue, buyerFee);
-    buyerQuote.locked = Asset.sub(buyerQuote.locked, buyerTotal);
-    buyerQuote.updated_at = new TimePointSec();
-
-    buyerBalances.update(buyerQuote, this.receiver);
-
-    const sellerBase = sellerBalances.requireGet(
-      pair.base_symbol.code(),
-      "Seller balance error"
-    );
-    const sellerTotal = Asset.add(tradeAmount, sellerFee);
-
-    sellerBase.locked = Asset.sub(sellerBase.locked, sellerTotal);
-    sellerBase.updated_at = new TimePointSec();
-
-    sellerBalances.update(sellerBase, this.receiver);
-
-    const sellerQuote = sellerBalances.get(pair.quote_symbol.code());
-    if (sellerQuote) {
-      sellerQuote.balance = Asset.add(sellerQuote.balance, totalValue);
-      sellerQuote.updated_at = new TimePointSec();
-
-      sellerBalances.update(sellerQuote, this.receiver);
-    } else {
-      const balance = new BalancesTable(
-        pair.quote_contract,
-        totalValue,
-        new Asset(0, totalValue.symbol),
-        new TimePointSec()
-      );
-
-      sellerBalances.store(balance, this.receiver);
-    }
+    this.recordFee(pair.pair_id, pair.quote_contract, makerFee, true);
   }
 
   /**
