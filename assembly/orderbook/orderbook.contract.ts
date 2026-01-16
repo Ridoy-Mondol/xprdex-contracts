@@ -27,27 +27,27 @@ import { TokenTransfer } from "./orderbook.inline";
 export class orderbook extends Contract {
   private pairsTable: TableStore<PairsTable> = new TableStore<PairsTable>(
     this.receiver,
-    this.receiver
+    this.receiver,
   );
 
   private ordersTable: TableStore<OrdersTable> = new TableStore<OrdersTable>(
     this.receiver,
-    this.receiver
+    this.receiver,
   );
 
   private tradesTable: TableStore<TradesTable> = new TableStore<TradesTable>(
     this.receiver,
-    this.receiver
+    this.receiver,
   );
 
   private configTable: TableStore<ConfigTable> = new TableStore<ConfigTable>(
     this.receiver,
-    this.receiver
+    this.receiver,
   );
 
   private feesTable: TableStore<FeesTable> = new TableStore<FeesTable>(
     this.receiver,
-    this.receiver
+    this.receiver,
   );
 
   private readonly MAX_FEE_BP: u16 = 500;
@@ -75,7 +75,7 @@ export class orderbook extends Contract {
         100,
         1,
         100,
-        fee_recipient
+        fee_recipient,
       );
 
       this.configTable.store(config, this.receiver);
@@ -98,7 +98,7 @@ export class orderbook extends Contract {
     max_order_size: Asset,
     tick_size: Asset,
     maker_fee_bp: u16,
-    taker_fee_bp: u16
+    taker_fee_bp: u16,
   ): void {
     const config = this.getConfig();
     requireAuth(config.admin);
@@ -111,31 +111,31 @@ export class orderbook extends Contract {
 
     check(
       base_symbol.code() != quote_symbol.code(),
-      "Base and quote cannot be the same"
+      "Base and quote cannot be the same",
     );
     check(
       min_order_size.symbol.code() == base_symbol.code(),
-      "Min order size must be in base asset"
+      "Min order size must be in base asset",
     );
     check(
       max_order_size.symbol.code() == base_symbol.code(),
-      "Max order size must be in base asset"
+      "Max order size must be in base asset",
     );
     check(
       tick_size.symbol.code() == quote_symbol.code(),
-      "Tick size must be in quote asset"
+      "Tick size must be in quote asset",
     );
     check(
       min_order_size.symbol.precision() == base_symbol.precision(),
-      "Min order size precision mismatch"
+      "Min order size precision mismatch",
     );
     check(
       max_order_size.symbol.precision() == base_symbol.precision(),
-      "Max order size precision mismatch"
+      "Max order size precision mismatch",
     );
     check(
       tick_size.symbol.precision() == quote_symbol.precision(),
-      "Tick size precision mismatch"
+      "Tick size precision mismatch",
     );
 
     check(min_order_size.amount > 0, "Min order size must be positive");
@@ -143,7 +143,7 @@ export class orderbook extends Contract {
     check(tick_size.amount > 0, "Tick size must be positive");
     check(
       max_order_size.amount < 10_000_000_000_000,
-      "Max order size too large"
+      "Max order size too large",
     );
     check(tick_size.amount < 1_000_000_000, "Tick size too large");
 
@@ -153,19 +153,19 @@ export class orderbook extends Contract {
     check(
       maker_fee_bp >= config.min_maker_fee_bp &&
         maker_fee_bp <= config.max_maker_fee_bp,
-      "Maker fee out of range"
+      "Maker fee out of range",
     );
     check(
       taker_fee_bp >= config.min_taker_fee_bp &&
         taker_fee_bp <= config.max_taker_fee_bp,
-      "Taker fee out of range"
+      "Taker fee out of range",
     );
 
     check(maker_fee_bp <= taker_fee_bp, "Maker fee cannot exceed taker fee");
 
     check(
       max_order_size.amount > min_order_size.amount,
-      "Max order size must be greater than min order size"
+      "Max order size must be greater than min order size",
     );
 
     this.isPairExists(base_symbol, base_contract, quote_symbol, quote_contract);
@@ -184,7 +184,7 @@ export class orderbook extends Contract {
       maker_fee_bp,
       taker_fee_bp,
       "active",
-      new TimePointSec()
+      new TimePointSec(),
     );
 
     this.pairsTable.store(pair, this.receiver);
@@ -195,7 +195,7 @@ export class orderbook extends Contract {
     pair_id: u64,
     min_order_size: Asset,
     max_order_size: Asset,
-    tick_size: Asset
+    tick_size: Asset,
   ): void {
     const config = this.getConfig();
     requireAuth(config.admin);
@@ -204,39 +204,39 @@ export class orderbook extends Contract {
 
     check(
       min_order_size.symbol.code() == pair.base_symbol.code(),
-      "Min order size must be base asset"
+      "Min order size must be base asset",
     );
     check(
       max_order_size.symbol.code() == pair.base_symbol.code(),
-      "Max order size must be base asset"
+      "Max order size must be base asset",
     );
     check(
       tick_size.symbol.code() == pair.quote_symbol.code(),
-      "Tick size must be quote asset"
+      "Tick size must be quote asset",
     );
     check(
       min_order_size.symbol.precision == pair.base_symbol.precision,
-      "Min order size precision mismatch"
+      "Min order size precision mismatch",
     );
     check(
       max_order_size.symbol.precision == pair.base_symbol.precision,
-      "Max order size precision mismatch"
+      "Max order size precision mismatch",
     );
     check(
       tick_size.symbol.precision == pair.quote_symbol.precision,
-      "Tick size precision mismatch"
+      "Tick size precision mismatch",
     );
     check(min_order_size.amount > 0, "Min order size must be positive");
     check(max_order_size.amount > 0, "Max order size must be positive");
     check(tick_size.amount > 0, "Tick size must be positive");
     check(
       max_order_size.amount < 10_000_000_000_000,
-      "Max order size too large"
+      "Max order size too large",
     );
     check(tick_size.amount < 1_000_000_000, "Tick size too large");
     check(
       max_order_size.amount > min_order_size.amount,
-      "Max order size must be greater than min order size"
+      "Max order size must be greater than min order size",
     );
 
     pair.min_order_size = min_order_size;
@@ -268,7 +268,7 @@ export class orderbook extends Contract {
       new_status == "active" ||
         new_status == "paused" ||
         new_status == "disabled",
-      "Invalid pair status"
+      "Invalid pair status",
     );
     check(pair.status != new_status, "Pair already in this state");
 
@@ -304,7 +304,7 @@ export class orderbook extends Contract {
         token_contract,
         quantity,
         new Asset(0, quantity.symbol),
-        new TimePointSec()
+        new TimePointSec(),
       );
       balancesTable.store(newBalance, this.receiver);
     }
@@ -322,7 +322,7 @@ export class orderbook extends Contract {
     pair_id: u64,
     side: string,
     price: Asset,
-    amount: Asset
+    amount: Asset,
   ): void {
     requireAuth(user);
 
@@ -338,30 +338,30 @@ export class orderbook extends Contract {
 
     check(
       amount.symbol.code() == pair.base_symbol.code(),
-      "Amount must be base asset"
+      "Amount must be base asset",
     );
     check(
       price.symbol.code() == pair.quote_symbol.code(),
-      "Price must be quote asset"
+      "Price must be quote asset",
     );
     check(
       amount.symbol.precision() == pair.base_symbol.precision(),
-      "Amount precision mismatch"
+      "Amount precision mismatch",
     );
     check(
       price.symbol.precision() == pair.quote_symbol.precision(),
-      "Price precision mismatch"
+      "Price precision mismatch",
     );
 
     check(amount.amount >= pair.min_order_size.amount, "Below min order size");
     check(
       amount.amount <= pair.max_order_size.amount,
-      "Exceeds max order size"
+      "Exceeds max order size",
     );
 
     check(
       price.amount % pair.tick_size.amount == 0,
-      "Price must be multiple of tick size"
+      "Price must be multiple of tick size",
     );
 
     this.validateReasonablePrice(pair_id, price);
@@ -386,7 +386,7 @@ export class orderbook extends Contract {
       false,
       0,
       new TimePointSec(),
-      new TimePointSec()
+      new TimePointSec(),
     );
 
     this.ordersTable.store(order, this.receiver);
@@ -398,7 +398,7 @@ export class orderbook extends Contract {
     pair_id: u64,
     side: string,
     amount: Asset,
-    max_slippage_bp: u16
+    max_slippage_bp: u16,
   ): void {
     requireAuth(user);
 
@@ -415,11 +415,11 @@ export class orderbook extends Contract {
     if (side == "buy") {
       check(
         amount.symbol.code() == pair.quote_symbol.code(),
-        "Buy amount must be quote asset"
+        "Buy amount must be quote asset",
       );
       check(
         amount.symbol.precision() == pair.quote_symbol.precision(),
-        "Amount precision mismatch"
+        "Amount precision mismatch",
       );
 
       this.lockBalanceMarket(user, side, amount, pair);
@@ -427,20 +427,20 @@ export class orderbook extends Contract {
     } else {
       check(
         amount.symbol.code() == pair.base_symbol.code(),
-        "Sell amount must be base asset"
+        "Sell amount must be base asset",
       );
       check(
         amount.symbol.precision() == pair.base_symbol.precision(),
-        "Amount precision mismatch"
+        "Amount precision mismatch",
       );
 
       check(
         amount.amount >= pair.min_order_size.amount,
-        "Below min order size"
+        "Below min order size",
       );
       check(
         amount.amount <= pair.max_order_size.amount,
-        "Exceeds max order size"
+        "Exceeds max order size",
       );
 
       this.lockBalanceMarket(user, side, amount, pair);
@@ -455,7 +455,7 @@ export class orderbook extends Contract {
     side: string,
     trigger_price: Asset,
     limit_price: Asset,
-    amount: Asset
+    amount: Asset,
   ): void {
     requireAuth(user);
 
@@ -472,42 +472,42 @@ export class orderbook extends Contract {
 
     check(
       amount.symbol.code() == pair.base_symbol.code(),
-      "Amount must be base asset"
+      "Amount must be base asset",
     );
     check(
       amount.symbol.precision() == pair.base_symbol.precision(),
-      "Amount precision mismatch"
+      "Amount precision mismatch",
     );
     check(
       trigger_price.symbol.code() == pair.quote_symbol.code(),
-      "Trigger price must be quote asset"
+      "Trigger price must be quote asset",
     );
     check(
       trigger_price.symbol.precision() == pair.quote_symbol.precision(),
-      "Trigger price precision mismatch"
+      "Trigger price precision mismatch",
     );
     check(
       limit_price.symbol.code() == pair.quote_symbol.code(),
-      "Limit price must be quote asset"
+      "Limit price must be quote asset",
     );
     check(
       limit_price.symbol.precision() == pair.quote_symbol.precision(),
-      "Limit price precision mismatch"
+      "Limit price precision mismatch",
     );
 
     check(amount.amount >= pair.min_order_size.amount, "Below min order size");
     check(
       amount.amount <= pair.max_order_size.amount,
-      "Exceeds max order size"
+      "Exceeds max order size",
     );
 
     check(
       trigger_price.amount % pair.tick_size.amount == 0,
-      "Trigger price must be multiple of tick size"
+      "Trigger price must be multiple of tick size",
     );
     check(
       limit_price.amount % pair.tick_size.amount == 0,
-      "Limit price must be multiple of tick size"
+      "Limit price must be multiple of tick size",
     );
 
     const currentPrice = this.getCurrentMarketPrice(pair_id);
@@ -516,12 +516,12 @@ export class orderbook extends Contract {
       if (side == "buy") {
         check(
           trigger_price.amount >= currentPrice.amount,
-          "Buy stop trigger must be >= current price"
+          "Buy stop trigger must be >= current price",
         );
       } else {
         check(
           trigger_price.amount <= currentPrice.amount,
-          "Sell stop trigger must be <= current price"
+          "Sell stop trigger must be <= current price",
         );
       }
 
@@ -529,20 +529,21 @@ export class orderbook extends Contract {
       if (side == "buy") {
         check(
           limit_price.amount >= trigger_price.amount,
-          "Buy limit price should be >= trigger price"
+          "Buy limit price should be >= trigger price",
         );
         check(
-          limit_price.amount <= trigger_price.amount * 2,
-          "Buy limit price too high (max 2x trigger)"
+          limit_price.amount <= u64.MAX_VALUE / 2 &&
+            limit_price.amount <= trigger_price.amount * 2,
+          "Buy limit price too high (max 2x trigger)",
         );
       } else {
         check(
           limit_price.amount <= trigger_price.amount,
-          "Sell limit price should be <= trigger price"
+          "Sell limit price should be <= trigger price",
         );
         check(
-          limit_price.amount >= trigger_price.amount / 2,
-          "Sell limit price too low (min 0.5x trigger)"
+          limit_price.amount * 2 >= trigger_price.amount,
+          "Sell limit price too low (min 0.5x trigger)",
         );
       }
     }
@@ -565,7 +566,7 @@ export class orderbook extends Contract {
       false,
       0,
       new TimePointSec(),
-      new TimePointSec()
+      new TimePointSec(),
     );
 
     this.ordersTable.store(order, this.receiver);
@@ -606,7 +607,7 @@ export class orderbook extends Contract {
             sellOrder,
             sellOrder.price,
             tradeAmount,
-            pair
+            pair,
           );
 
           processed++;
@@ -697,7 +698,7 @@ export class orderbook extends Contract {
           this.receiver,
           user,
           current.balance,
-          `Withdrawal: ${current.balance.toString()}`
+          `Withdrawal: ${current.balance.toString()}`,
         );
 
         current.balance = new Asset(0, current.balance.symbol);
@@ -716,7 +717,7 @@ export class orderbook extends Contract {
     const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
     const balance = balancesTable.requireGet(
       quantity.symbol.code(),
-      "No balance found"
+      "No balance found",
     );
 
     check(balance.balance.amount >= quantity.amount, "Insufficient balance");
@@ -731,7 +732,7 @@ export class orderbook extends Contract {
       this.receiver,
       user,
       quantity,
-      `Withdrawal: ${quantity.toString()}`
+      `Withdrawal: ${quantity.toString()}`,
     );
   }
 
@@ -757,7 +758,7 @@ export class orderbook extends Contract {
       order.side,
       order.remaining_amount,
       pair,
-      order.price
+      order.price,
     );
 
     order.status = 3;
@@ -781,7 +782,7 @@ export class orderbook extends Contract {
     base_symbol: Symbol,
     base_contract: Name,
     quote_symbol: Symbol,
-    quote_contract: Name
+    quote_contract: Name,
   ): void {
     let pair = this.pairsTable.first();
 
@@ -819,11 +820,11 @@ export class orderbook extends Contract {
 
     check(
       stat != null,
-      `Token ${symbolStr} not found in ${contract.toString()}`
+      `Token ${symbolStr} not found in ${contract.toString()}`,
     );
     check(
       stat!.supply.symbol.precision() == precision,
-      `Wrong precision for ${symbolStr}`
+      `Wrong precision for ${symbolStr}`,
     );
   }
 
@@ -863,29 +864,30 @@ export class orderbook extends Contract {
     // Skip validation if no market price yet (first orders)
     if (currentPrice.amount == 0) return;
 
-    // Allow up to 10x higher or 0.1x lower than current market price
+    // Allow up to 1.5x higher or 0.1x lower than current market price
     const maxPrice = (currentPrice.amount * 3) / 2;
     const minPrice = (currentPrice.amount * 2) / 3;
 
     check(
       price.amount >= minPrice && price.amount <= maxPrice,
-      "Price too far from market (max 1.5x deviation allowed)"
+      "Price too far from market (max 1.5x deviation allowed)",
     );
   }
 
   private calculateTotalValue(
     price: Asset,
     amount: Asset,
-    pair: PairsTable
+    pair: PairsTable,
   ): Asset {
     check(price.amount > 0, "Price must be positive");
     check(amount.amount > 0, "Amount must be positive");
     check(
       price.amount < 10_000_000_000 && amount.amount < 10_000_000_000,
-      "Order too large for calculation"
+      "Order too large for calculation",
     );
 
     const base_precision = pair.base_symbol.precision();
+    check(base_precision >= 0 && base_precision <= 18, "Invalid precision");
 
     // Use U128 to prevent overflow
     const priceU128 = U128.from(price.amount);
@@ -1019,7 +1021,7 @@ export class orderbook extends Contract {
     user: Name,
     pair: PairsTable,
     quoteToSpend: i64,
-    max_slippage_bp: u16
+    max_slippage_bp: u16,
   ): void {
     let remainingQuote = quoteToSpend;
     // ✅ Get best sell orders (price sorted)
@@ -1042,7 +1044,7 @@ export class orderbook extends Contract {
       const orderTotalValue = this.calculateTotalValue(
         sellOrder.price,
         sellOrder.remaining_amount,
-        pair
+        pair,
       );
 
       let tradeQuoteAmount: i64;
@@ -1070,7 +1072,7 @@ export class orderbook extends Contract {
         tradeBase,
         tradeQuote,
         pair,
-        "buy"
+        "buy",
       );
 
       remainingQuote -= tradeQuoteAmount;
@@ -1085,12 +1087,12 @@ export class orderbook extends Contract {
       const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
       const balance = balancesTable.requireGet(
         pair.quote_symbol.code(),
-        "Balance error"
+        "Balance error",
       );
 
       check(
         balance.locked.amount >= refund.amount,
-        "Insufficient locked balance"
+        "Insufficient locked balance",
       );
 
       balance.locked = Asset.sub(balance.locked, refund);
@@ -1102,7 +1104,7 @@ export class orderbook extends Contract {
 
     check(
       quoteToSpend - remainingQuote > 0,
-      "No liquidity at acceptable prices"
+      "No liquidity at acceptable prices",
     );
   }
 
@@ -1113,7 +1115,7 @@ export class orderbook extends Contract {
     user: Name,
     pair: PairsTable,
     baseToSell: i64,
-    max_slippage_bp: u16
+    max_slippage_bp: u16,
   ): void {
     let remainingBase = baseToSell;
 
@@ -1147,7 +1149,7 @@ export class orderbook extends Contract {
       const tradeQuote = this.calculateTotalValue(
         buyOrder.price,
         tradeBase,
-        pair
+        pair,
       );
 
       this.executeMarketTrade(
@@ -1158,7 +1160,7 @@ export class orderbook extends Contract {
         tradeBase,
         tradeQuote,
         pair,
-        "sell"
+        "sell",
       );
 
       remainingBase -= tradeBaseAmount;
@@ -1173,12 +1175,12 @@ export class orderbook extends Contract {
       const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
       const balance = balancesTable.requireGet(
         pair.base_symbol.code(),
-        "Balance error"
+        "Balance error",
       );
 
       check(
         balance.locked.amount >= refund.amount,
-        "Insufficient locked balance"
+        "Insufficient locked balance",
       );
 
       balance.locked = Asset.sub(balance.locked, refund);
@@ -1199,13 +1201,13 @@ export class orderbook extends Contract {
     side: string,
     amount: Asset,
     total_value: Asset,
-    pair: PairsTable
+    pair: PairsTable,
   ): void {
     const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
     if (side == "buy") {
       const balance = balancesTable.requireGet(
         pair.quote_symbol.code(),
-        "Insufficient quote token"
+        "Insufficient quote token",
       );
       check(balance.balance.amount >= total_value.amount, "Insufficient funds");
 
@@ -1217,7 +1219,7 @@ export class orderbook extends Contract {
     } else {
       const balance = balancesTable.requireGet(
         pair.base_symbol.code(),
-        "Insufficient base token"
+        "Insufficient base token",
       );
       check(balance.balance.amount >= amount.amount, "Insufficient funds");
 
@@ -1233,13 +1235,13 @@ export class orderbook extends Contract {
     user: Name,
     side: string,
     lockAmount: Asset,
-    pair: PairsTable
+    pair: PairsTable,
   ): void {
     const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
     if (side == "buy") {
       const balance = balancesTable.requireGet(
         pair.quote_symbol.code(),
-        "Insufficient quote token"
+        "Insufficient quote token",
       );
       check(balance.balance.amount >= lockAmount.amount, "Insufficient funds");
 
@@ -1251,7 +1253,7 @@ export class orderbook extends Contract {
     } else {
       const balance = balancesTable.requireGet(
         pair.base_symbol.code(),
-        "Insufficient base token"
+        "Insufficient base token",
       );
       check(balance.balance.amount >= lockAmount.amount, "Insufficient funds");
 
@@ -1279,14 +1281,14 @@ export class orderbook extends Contract {
       const initialLocked = this.calculateTotalValue(
         order.price,
         order.amount,
-        pair
+        pair,
       );
 
       // Calculate how much should still be locked
       const stillNeeded = this.calculateTotalValue(
         order.price,
         order.remaining_amount,
-        pair
+        pair,
       );
 
       // Unlock the difference
@@ -1295,7 +1297,7 @@ export class orderbook extends Contract {
       if (toUnlock.amount > 0) {
         const balance = balancesTable.requireGet(
           pair.quote_symbol.code(),
-          "Balance error"
+          "Balance error",
         );
         // Safety check
         if (balance.locked.amount >= toUnlock.amount) {
@@ -1314,7 +1316,7 @@ export class orderbook extends Contract {
     side: string,
     remaining_amount: Asset,
     pair: PairsTable,
-    price: Asset
+    price: Asset,
   ): void {
     const balancesTable = new TableStore<BalancesTable>(this.receiver, user);
 
@@ -1322,17 +1324,17 @@ export class orderbook extends Contract {
       const locked_value = this.calculateTotalValue(
         price,
         remaining_amount,
-        pair
+        pair,
       );
 
       const balance = balancesTable.requireGet(
         pair.quote_symbol.code(),
-        "Balance error"
+        "Balance error",
       );
 
       check(
         balance.locked.amount >= locked_value.amount,
-        "Insufficient locked balance"
+        "Insufficient locked balance",
       );
 
       balance.locked = Asset.sub(balance.locked, locked_value);
@@ -1343,12 +1345,12 @@ export class orderbook extends Contract {
     } else {
       const balance = balancesTable.requireGet(
         pair.base_symbol.code(),
-        "Balance error"
+        "Balance error",
       );
 
       check(
         balance.locked.amount >= remaining_amount.amount,
-        "Insufficient locked balance"
+        "Insufficient locked balance",
       );
 
       balance.locked = Asset.sub(balance.locked, remaining_amount);
@@ -1372,7 +1374,7 @@ export class orderbook extends Contract {
   */
   private matchStopLossOrder(
     stopLossOrder: OrdersTable,
-    pair: PairsTable
+    pair: PairsTable,
   ): void {
     // Get best matching orders (price sorted)
     const matchOrders =
@@ -1388,7 +1390,7 @@ export class orderbook extends Contract {
       if (this.canMatch(stopLossOrder, matchOrder)) {
         const tradeAmount = this.calculateTradeAmount(
           stopLossOrder,
-          matchOrder
+          matchOrder,
         );
 
         // ✅ Stop-loss is ALWAYS taker
@@ -1397,7 +1399,7 @@ export class orderbook extends Contract {
           matchOrder,
           matchOrder.price,
           tradeAmount,
-          pair
+          pair,
         );
 
         // ✅ Unlock partial fill
@@ -1457,7 +1459,7 @@ export class orderbook extends Contract {
 
   private calculateTradeAmount(
     order1: OrdersTable,
-    order2: OrdersTable
+    order2: OrdersTable,
   ): Asset {
     const amount1 = order1.remaining_amount.amount;
     const amount2 = order2.remaining_amount.amount;
@@ -1470,7 +1472,7 @@ export class orderbook extends Contract {
     order2: OrdersTable,
     executionPrice: Asset,
     tradeAmount: Asset,
-    pair: PairsTable
+    pair: PairsTable,
   ): void {
     const buyOrder = order1.side == "buy" ? order1 : order2;
     const sellOrder = order1.side == "sell" ? order1 : order2;
@@ -1481,7 +1483,7 @@ export class orderbook extends Contract {
     const totalValue = this.calculateTotalValue(
       executionPrice,
       tradeAmount,
-      pair
+      pair,
     );
 
     // ✅ Determine maker/taker (earlier order = maker)
@@ -1505,7 +1507,7 @@ export class orderbook extends Contract {
     // Check total funds available
     const buyerQuote = buyerBalances.requireGet(
       pair.quote_symbol.code(),
-      "Buyer balance error"
+      "Buyer balance error",
     );
 
     const buyerTotalNeeded = Asset.add(totalValue, buyerFee);
@@ -1513,7 +1515,7 @@ export class orderbook extends Contract {
 
     check(
       buyerAvailable.amount >= buyerTotalNeeded.amount,
-      "Buyer insufficient funds"
+      "Buyer insufficient funds",
     );
 
     // Deduct from locked first, then available if needed
@@ -1526,7 +1528,7 @@ export class orderbook extends Contract {
       buyerQuote.locked = new Asset(0, buyerQuote.locked.symbol);
       buyerQuote.balance = Asset.sub(
         buyerQuote.balance,
-        new Asset(fromAvailable, buyerQuote.balance.symbol)
+        new Asset(fromAvailable, buyerQuote.balance.symbol),
       );
     }
 
@@ -1537,12 +1539,12 @@ export class orderbook extends Contract {
     const sellerBalances = new TableStore<BalancesTable>(this.receiver, seller);
     const sellerBase = sellerBalances.requireGet(
       pair.base_symbol.code(),
-      "Seller balance error"
+      "Seller balance error",
     );
 
     check(
       sellerBase.locked.amount >= tradeAmount.amount,
-      "Seller insufficient locked"
+      "Seller insufficient locked",
     );
 
     sellerBase.locked = Asset.sub(sellerBase.locked, tradeAmount);
@@ -1557,7 +1559,7 @@ export class orderbook extends Contract {
       tradeAmount,
       `Order #${
         buyOrder.order_id
-      }: bought ${tradeAmount.toString()} @ ${executionPrice.toString()}`
+      }: bought ${tradeAmount.toString()} @ ${executionPrice.toString()}`,
     );
 
     // Send proceeds to seller (after deducting fee)
@@ -1569,7 +1571,7 @@ export class orderbook extends Contract {
       sellerNetProceeds,
       `Order #${
         sellOrder.order_id
-      }: sold ${tradeAmount.toString()} @ ${executionPrice.toString()}`
+      }: sold ${tradeAmount.toString()} @ ${executionPrice.toString()}`,
     );
 
     // Send fees DIRECTLY to fee_recipient
@@ -1581,20 +1583,20 @@ export class orderbook extends Contract {
       this.receiver,
       config.fee_recipient,
       totalFees,
-      `Fees from pair ${pair.pair_id}`
+      `Fees from pair ${pair.pair_id}`,
     );
 
     this.recordFeeStats(
       pair.pair_id,
       pair.quote_contract,
       buyerFee,
-      buyerIsMaker
+      buyerIsMaker,
     );
     this.recordFeeStats(
       pair.pair_id,
       pair.quote_contract,
       sellerFee,
-      !buyerIsMaker
+      !buyerIsMaker,
     );
 
     // Update orders
@@ -1615,7 +1617,7 @@ export class orderbook extends Contract {
       totalValue,
       buyerFee,
       sellerFee,
-      new TimePointSec()
+      new TimePointSec(),
     );
 
     this.tradesTable.store(trade, this.receiver);
@@ -1626,7 +1628,7 @@ export class orderbook extends Contract {
       totalValue,
       buyerFee,
       sellerFee,
-      pair
+      pair,
     );
   }
 
@@ -1642,18 +1644,18 @@ export class orderbook extends Contract {
     tradeBase: Asset,
     tradeQuote: Asset,
     pair: PairsTable,
-    marketSide: string
+    marketSide: string,
   ): void {
     // ✅ Market order is ALWAYS taker
     const takerFeeAmount = this.calculateFee(
       tradeQuote.amount,
-      pair.taker_fee_bp
+      pair.taker_fee_bp,
     );
     const takerFee = new Asset(takerFeeAmount, pair.quote_symbol);
 
     const makerFeeAmount = this.calculateFee(
       tradeQuote.amount,
-      pair.maker_fee_bp
+      pair.maker_fee_bp,
     );
     const makerFee = new Asset(makerFeeAmount, pair.quote_symbol);
 
@@ -1664,14 +1666,14 @@ export class orderbook extends Contract {
       // Buyer is taker
       const buyerQuote = buyerBalances.requireGet(
         pair.quote_symbol.code(),
-        "Buyer balance error"
+        "Buyer balance error",
       );
       const buyerTotalNeeded = Asset.add(tradeQuote, takerFee);
       const buyerAvailable = Asset.add(buyerQuote.balance, buyerQuote.locked);
 
       check(
         buyerAvailable.amount >= buyerTotalNeeded.amount,
-        "Buyer insufficient funds"
+        "Buyer insufficient funds",
       );
 
       if (buyerQuote.locked.amount >= buyerTotalNeeded.amount) {
@@ -1683,7 +1685,7 @@ export class orderbook extends Contract {
         buyerQuote.locked = new Asset(0, buyerQuote.locked.symbol);
         buyerQuote.balance = Asset.sub(
           buyerQuote.balance,
-          new Asset(fromAvailable, buyerQuote.balance.symbol)
+          new Asset(fromAvailable, buyerQuote.balance.symbol),
         );
       }
 
@@ -1693,12 +1695,12 @@ export class orderbook extends Contract {
       // Seller is maker
       const sellerBase = sellerBalances.requireGet(
         pair.base_symbol.code(),
-        "Seller balance error"
+        "Seller balance error",
       );
 
       check(
         sellerBase.locked.amount >= tradeBase.amount,
-        "Seller insufficient locked"
+        "Seller insufficient locked",
       );
 
       sellerBase.locked = Asset.sub(sellerBase.locked, tradeBase);
@@ -1711,7 +1713,7 @@ export class orderbook extends Contract {
         this.receiver,
         buyer,
         tradeBase,
-        `Market buy: ${tradeBase.toString()} @ ${price.toString()}`
+        `Market buy: ${tradeBase.toString()} @ ${price.toString()}`,
       );
 
       const sellerNetProceeds = Asset.sub(tradeQuote, makerFee);
@@ -1720,18 +1722,18 @@ export class orderbook extends Contract {
         this.receiver,
         seller,
         sellerNetProceeds,
-        `Order #${limitOrder.order_id}: sold ${tradeBase.toString()}`
+        `Order #${limitOrder.order_id}: sold ${tradeBase.toString()}`,
       );
     } else {
       // Seller is taker
       const sellerBase = sellerBalances.requireGet(
         pair.base_symbol.code(),
-        "Seller balance error"
+        "Seller balance error",
       );
 
       check(
         sellerBase.locked.amount >= tradeBase.amount,
-        "Seller insufficient locked"
+        "Seller insufficient locked",
       );
 
       sellerBase.locked = Asset.sub(sellerBase.locked, tradeBase);
@@ -1741,14 +1743,14 @@ export class orderbook extends Contract {
       // Buyer is maker
       const buyerQuote = buyerBalances.requireGet(
         pair.quote_symbol.code(),
-        "Buyer balance error"
+        "Buyer balance error",
       );
       const buyerTotalNeeded = Asset.add(tradeQuote, makerFee);
       const buyerAvailable = Asset.add(buyerQuote.balance, buyerQuote.locked);
 
       check(
         buyerAvailable.amount >= buyerTotalNeeded.amount,
-        "Buyer insufficient funds"
+        "Buyer insufficient funds",
       );
 
       if (buyerQuote.locked.amount >= buyerTotalNeeded.amount) {
@@ -1760,7 +1762,7 @@ export class orderbook extends Contract {
         buyerQuote.locked = new Asset(0, buyerQuote.locked.symbol);
         buyerQuote.balance = Asset.sub(
           buyerQuote.balance,
-          new Asset(fromAvailable, buyerQuote.balance.symbol)
+          new Asset(fromAvailable, buyerQuote.balance.symbol),
         );
       }
 
@@ -1773,7 +1775,7 @@ export class orderbook extends Contract {
         this.receiver,
         buyer,
         tradeBase,
-        `Order #${limitOrder.order_id}: bought ${tradeBase.toString()}`
+        `Order #${limitOrder.order_id}: bought ${tradeBase.toString()}`,
       );
 
       const sellerNetProceeds = Asset.sub(tradeQuote, takerFee);
@@ -1782,7 +1784,7 @@ export class orderbook extends Contract {
         this.receiver,
         seller,
         sellerNetProceeds,
-        `Market sell: ${tradeBase.toString()} @ ${price.toString()}`
+        `Market sell: ${tradeBase.toString()} @ ${price.toString()}`,
       );
     }
 
@@ -1790,7 +1792,7 @@ export class orderbook extends Contract {
     limitOrder.filled_amount = Asset.add(limitOrder.filled_amount, tradeBase);
     limitOrder.remaining_amount = Asset.sub(
       limitOrder.remaining_amount,
-      tradeBase
+      tradeBase,
     );
     limitOrder.status = limitOrder.remaining_amount.amount == 0 ? 2 : 1;
     limitOrder.updated_at = new TimePointSec();
@@ -1810,7 +1812,7 @@ export class orderbook extends Contract {
       tradeQuote,
       marketSide == "buy" ? takerFee : makerFee,
       marketSide == "sell" ? takerFee : makerFee,
-      new TimePointSec()
+      new TimePointSec(),
     );
 
     this.tradesTable.store(trade, this.receiver);
@@ -1824,7 +1826,7 @@ export class orderbook extends Contract {
       this.receiver,
       config.fee_recipient,
       totalFees,
-      `Fees from pair ${pair.pair_id}`
+      `Fees from pair ${pair.pair_id}`,
     );
 
     if (marketSide == "buy") {
@@ -1847,7 +1849,7 @@ export class orderbook extends Contract {
     limitOrder: OrdersTable,
     executionPrice: Asset,
     tradeAmount: Asset,
-    pair: PairsTable
+    pair: PairsTable,
   ): void {
     const buyer =
       stopLossOrder.side == "buy" ? stopLossOrder.user : limitOrder.user;
@@ -1857,18 +1859,18 @@ export class orderbook extends Contract {
     const totalValue = this.calculateTotalValue(
       executionPrice,
       tradeAmount,
-      pair
+      pair,
     );
     // ✅ Stop-loss is ALWAYS taker
     const takerFeeAmount = this.calculateFee(
       totalValue.amount,
-      pair.taker_fee_bp
+      pair.taker_fee_bp,
     );
     const takerFee = new Asset(takerFeeAmount, pair.quote_symbol);
 
     const makerFeeAmount = this.calculateFee(
       totalValue.amount,
-      pair.maker_fee_bp
+      pair.maker_fee_bp,
     );
     const makerFee = new Asset(makerFeeAmount, pair.quote_symbol);
 
@@ -1881,14 +1883,14 @@ export class orderbook extends Contract {
     // Buyer payment
     const buyerQuote = buyerBalances.requireGet(
       pair.quote_symbol.code(),
-      "Buyer balance error"
+      "Buyer balance error",
     );
     const buyerTotalNeeded = Asset.add(totalValue, buyerFee);
     const buyerAvailable = Asset.add(buyerQuote.balance, buyerQuote.locked);
 
     check(
       buyerAvailable.amount >= buyerTotalNeeded.amount,
-      "Buyer insufficient funds"
+      "Buyer insufficient funds",
     );
 
     if (buyerQuote.locked.amount >= buyerTotalNeeded.amount) {
@@ -1900,7 +1902,7 @@ export class orderbook extends Contract {
       buyerQuote.locked = new Asset(0, buyerQuote.locked.symbol);
       buyerQuote.balance = Asset.sub(
         buyerQuote.balance,
-        new Asset(fromAvailable, buyerQuote.balance.symbol)
+        new Asset(fromAvailable, buyerQuote.balance.symbol),
       );
     }
 
@@ -1910,12 +1912,12 @@ export class orderbook extends Contract {
     // Seller unlock
     const sellerBase = sellerBalances.requireGet(
       pair.base_symbol.code(),
-      "Seller balance error"
+      "Seller balance error",
     );
 
     check(
       sellerBase.locked.amount >= tradeAmount.amount,
-      "Seller insufficient locked"
+      "Seller insufficient locked",
     );
 
     sellerBase.locked = Asset.sub(sellerBase.locked, tradeAmount);
@@ -1930,7 +1932,7 @@ export class orderbook extends Contract {
       tradeAmount,
       `Stop-loss #${
         stopLossOrder.order_id
-      }: ${tradeAmount.toString()} @ ${executionPrice.toString()}`
+      }: ${tradeAmount.toString()} @ ${executionPrice.toString()}`,
     );
 
     const sellerNetProceeds = Asset.sub(totalValue, sellerFee);
@@ -1939,7 +1941,7 @@ export class orderbook extends Contract {
       this.receiver,
       seller,
       sellerNetProceeds,
-      `Order filled: ${tradeAmount.toString()} @ ${executionPrice.toString()}`
+      `Order filled: ${tradeAmount.toString()} @ ${executionPrice.toString()}`,
     );
 
     // Update orders
@@ -1964,7 +1966,7 @@ export class orderbook extends Contract {
       totalValue,
       buyerFee,
       sellerFee,
-      new TimePointSec()
+      new TimePointSec(),
     );
 
     this.tradesTable.store(trade, this.receiver);
@@ -1978,7 +1980,7 @@ export class orderbook extends Contract {
       this.receiver,
       config.fee_recipient,
       totalFees,
-      `Fees from pair ${pair.pair_id}`
+      `Fees from pair ${pair.pair_id}`,
     );
 
     this.recordFeeStats(pair.pair_id, pair.quote_contract, takerFee, false);
@@ -1990,7 +1992,7 @@ export class orderbook extends Contract {
       totalValue,
       takerFee,
       makerFee,
-      pair
+      pair,
     );
   }
 
@@ -2002,7 +2004,7 @@ export class orderbook extends Contract {
     quoteAmount: Asset,
     takerFee: Asset,
     makerFee: Asset,
-    pair: PairsTable
+    pair: PairsTable,
   ): void {
     // Base in = base out (no fees on base)
     check(baseAmount.amount > 0, "Invalid base amount in trade");
@@ -2011,24 +2013,24 @@ export class orderbook extends Contract {
     // Quote: amount + taker_fee + maker_fee should equal total quote moved
 
     const totalFees = Asset.add(takerFee, makerFee);
-    check(totalFees.amount <= quoteAmount.amount, "Fees exceed trade value");
+    check(totalFees.amount < quoteAmount.amount, "Fees exceed trade value");
 
     // Precision checks
     check(
       baseAmount.symbol.code() == pair.base_symbol.code(),
-      "Base symbol mismatch"
+      "Base symbol mismatch",
     );
     check(
       quoteAmount.symbol.code() == pair.quote_symbol.code(),
-      "Quote symbol mismatch"
+      "Quote symbol mismatch",
     );
     check(
       takerFee.symbol.code() == pair.quote_symbol.code(),
-      "Taker fee symbol mismatch"
+      "Taker fee symbol mismatch",
     );
     check(
       makerFee.symbol.code() == pair.quote_symbol.code(),
-      "Maker fee symbol mismatch"
+      "Maker fee symbol mismatch",
     );
   }
 
@@ -2044,11 +2046,11 @@ export class orderbook extends Contract {
     pair_id: u64,
     token_contract: Name,
     feeAmount: Asset,
-    isMaker: bool
+    isMaker: bool,
   ): void {
     const compositeKey = this.createCompositeKey(
       pair_id,
-      feeAmount.symbol.code()
+      feeAmount.symbol.code(),
     );
     let existing: FeesTable | null = this.feesTable.first();
 
@@ -2079,7 +2081,7 @@ export class orderbook extends Contract {
         feeAmount,
         isMaker ? feeAmount : new Asset(0, feeAmount.symbol),
         isMaker ? new Asset(0, feeAmount.symbol) : feeAmount,
-        new TimePointSec()
+        new TimePointSec(),
       );
       this.feesTable.store(newFee, this.receiver);
     }
@@ -2097,12 +2099,12 @@ export class orderbook extends Contract {
     from: Name,
     to: Name,
     quantity: Asset,
-    memo: string
+    memo: string,
   ): void {
     const transfer = new InlineAction<TokenTransfer>("transfer");
     const action = transfer.act(
       tokenContract,
-      new PermissionLevel(this.receiver, Name.fromString("active"))
+      new PermissionLevel(this.receiver, Name.fromString("active")),
     );
     const transferParams = new TokenTransfer(from, to, quantity, memo);
     action.send(transferParams);
