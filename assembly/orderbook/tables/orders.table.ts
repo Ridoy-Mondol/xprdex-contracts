@@ -1,4 +1,12 @@
-import { Asset, EMPTY_NAME, Name, Table, TimePointSec, U128 } from "proton-tsc";
+import {
+  Asset,
+  EMPTY_NAME,
+  Name,
+  Table,
+  TimePointSec,
+  U128,
+  currentTimeSec,
+} from "proton-tsc";
 
 @table("orders")
 export class OrdersTable extends Table {
