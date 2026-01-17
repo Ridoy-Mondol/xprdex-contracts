@@ -525,7 +525,7 @@ export class orderbook extends Contract {
         );
       }
 
-      // ✅ ADD: Validate limit price is reasonable relative to trigger
+      // ✅ Validate limit price is reasonable relative to trigger
       if (side == "buy") {
         check(
           limit_price.amount >= trigger_price.amount,
@@ -542,7 +542,8 @@ export class orderbook extends Contract {
           "Sell limit price should be <= trigger price",
         );
         check(
-          limit_price.amount * 2 >= trigger_price.amount,
+          limit_price.amount * 2 >= trigger_price.amount ||
+            trigger_price.amount > u64.MAX_VALUE / 2,
           "Sell limit price too low (min 0.5x trigger)",
         );
       }
@@ -621,6 +622,41 @@ export class orderbook extends Contract {
 
           if (updatedBuy) buyOrders[i] = updatedBuy;
           if (updatedSell) sellOrders[j] = updatedSell;
+
+          // ✅ Auto-cancel dust orders (remaining < min_size)
+          if (
+            updatedBuy &&
+            updatedBuy.status == 1 &&
+            updatedBuy.remaining_amount.amount < pair.min_order_size.amount
+          ) {
+            this.unlockBalance(
+              updatedBuy.user,
+              updatedBuy.side,
+              updatedBuy.remaining_amount,
+              pair,
+              updatedBuy.price,
+            );
+            updatedBuy.status = 3; // Cancelled
+            this.ordersTable.update(updatedBuy, this.receiver);
+            buyOrders[i] = updatedBuy; // Update local reference
+          }
+
+          if (
+            updatedSell &&
+            updatedSell.status == 1 &&
+            updatedSell.remaining_amount.amount < pair.min_order_size.amount
+          ) {
+            this.unlockBalance(
+              updatedSell.user,
+              updatedSell.side,
+              updatedSell.remaining_amount,
+              pair,
+              updatedSell.price,
+            );
+            updatedSell.status = 3; // Cancelled
+            this.ordersTable.update(updatedSell, this.receiver);
+            sellOrders[j] = updatedSell; // Update local reference
+          }
 
           if (updatedBuy && updatedBuy.status == 2) break;
         }
@@ -844,14 +880,22 @@ export class orderbook extends Contract {
    * Calculate fee with proper rounding (always round UP)
    */
   private calculateFee(amount: i64, fee_bp: u16): i64 {
-    const feeAmount = (amount * u64(fee_bp)) / 10000;
-    const remainder = (amount * u64(fee_bp)) % 10000;
+    check(amount > 0, "Fee amount must be positive");
 
-    if (remainder > 0) {
-      return feeAmount + 1; // Round up
+    const amountU128 = U128.fromU64(u64(amount));
+    const feeU128 = U128.fromU64(u64(fee_bp));
+    const product = U128.mul(amountU128, feeU128);
+    const divisor = U128.fromU64(10000);
+    const feeU128Result = U128.div(product, divisor);
+    const remainderU128 = U128.rem(product, divisor);
+
+    let feeResult = feeU128Result;
+    if (U128.gt(remainderU128, U128.fromU64(0))) {
+      feeResult = U128.add(feeU128Result, U128.fromU64(1));
     }
 
-    return feeAmount;
+    check(U128.le(feeResult, U128.fromU64(u64.MAX_VALUE)), "Fee overflow");
+    return i64(feeResult.lo);
   }
 
   /**
@@ -890,15 +934,16 @@ export class orderbook extends Contract {
     check(base_precision >= 0 && base_precision <= 18, "Invalid precision");
 
     // Use U128 to prevent overflow
-    const priceU128 = U128.from(price.amount);
-    const amountU128 = U128.from(amount.amount);
+    const priceU128 = U128.from(u64(price.amount));
+    const amountU128 = U128.from(u64(amount.amount));
     const product = U128.mul(priceU128, amountU128);
     const divisor = U128.from(u64(Math.pow(10, base_precision)));
     const result = U128.div(product, divisor);
 
     check(U128.le(result, U128.fromU64(u64.MAX_VALUE)), "Value overflow");
 
-    const resultValue = result.lo;
+    const resultValue = i64(result.lo);
+    check(resultValue > 0, "Calculated value is zero");
 
     return new Asset(resultValue, pair.quote_symbol);
   }
@@ -1059,6 +1104,8 @@ export class orderbook extends Contract {
         tradeBaseAmount =
           (tradeQuoteAmount * u64(Math.pow(10, base_precision))) /
           sellOrder.price.amount;
+
+        check(tradeBaseAmount > 0, "Trade amount too small");
       }
 
       const tradeBase = new Asset(tradeBaseAmount, pair.base_symbol);
@@ -1151,6 +1198,8 @@ export class orderbook extends Contract {
         tradeBase,
         pair,
       );
+
+      check(tradeQuote.amount > 0, "Trade value rounds to zero");
 
       this.executeMarketTrade(
         buyOrder.user,
@@ -1386,6 +1435,15 @@ export class orderbook extends Contract {
       const matchOrder = matchOrders[i];
 
       if (stopLossOrder.user == matchOrder.user) continue;
+
+      // Check limit price condition
+      if (stopLossOrder.side == "buy") {
+        // Stop-loss buy: only match if price <= limit_price
+        if (matchOrder.price.amount > stopLossOrder.price.amount) continue;
+      } else {
+        // Stop-loss sell: only match if price >= limit_price
+        if (matchOrder.price.amount < stopLossOrder.price.amount) continue;
+      }
 
       if (this.canMatch(stopLossOrder, matchOrder)) {
         const tradeAmount = this.calculateTradeAmount(
