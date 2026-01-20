@@ -1,5 +1,5 @@
 import * as _chain from "as-chain";
-import { Asset, EMPTY_NAME, Name, Table, TimePointSec } from "proton-tsc";
+import { Asset, EMPTY_NAME, Name, Table } from "proton-tsc";
 
 
 
@@ -15,7 +15,7 @@ export class BalancesTable implements _chain.MultiIndexValue {
     public token_contract: Name = EMPTY_NAME,
     public balance: Asset = new Asset(),
     public locked: Asset = new Asset(),
-    public updated_at: TimePointSec = new TimePointSec()
+    public updated_at: u64 = 0,
   ) {
     
   }
@@ -30,7 +30,7 @@ export class BalancesTable implements _chain.MultiIndexValue {
         enc.pack(this.token_contract);
         enc.pack(this.balance);
         enc.pack(this.locked);
-        enc.pack(this.updated_at);
+        enc.packNumber<u64>(this.updated_at);
         return enc.getBytes();
     }
     
@@ -54,12 +54,7 @@ export class BalancesTable implements _chain.MultiIndexValue {
             dec.unpack(obj);
             this.locked = obj;
         }
-        
-        {
-            let obj = new TimePointSec();
-            dec.unpack(obj);
-            this.updated_at = obj;
-        }
+        this.updated_at = dec.unpackNumber<u64>();
         return dec.getPos();
     }
 
@@ -68,7 +63,7 @@ export class BalancesTable implements _chain.MultiIndexValue {
         size += this.token_contract.getSize();
         size += this.balance.getSize();
         size += this.locked.getSize();
-        size += this.updated_at.getSize();
+        size += sizeof<u64>();
         return size;
     }
 

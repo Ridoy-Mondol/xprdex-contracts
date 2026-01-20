@@ -5,7 +5,6 @@ import {
   Name,
   Symbol,
   Table,
-  TimePointSec,
 } from "proton-tsc";
 
 
@@ -48,7 +47,7 @@ export class PairsTable implements _chain.MultiIndexValue {
     public maker_fee_bp: u16 = 0,
     public taker_fee_bp: u16 = 0,
     public status: string = "", // "active", "paused", "disabled"
-    public created_at: TimePointSec = new TimePointSec()
+    public created_at: u64 = 0,
   ) {
     
   }
@@ -85,7 +84,7 @@ export class PairsTable implements _chain.MultiIndexValue {
         enc.packNumber<u16>(this.maker_fee_bp);
         enc.packNumber<u16>(this.taker_fee_bp);
         enc.packString(this.status);
-        enc.pack(this.created_at);
+        enc.packNumber<u64>(this.created_at);
         return enc.getBytes();
     }
     
@@ -137,12 +136,7 @@ export class PairsTable implements _chain.MultiIndexValue {
         this.maker_fee_bp = dec.unpackNumber<u16>();
         this.taker_fee_bp = dec.unpackNumber<u16>();
         this.status = dec.unpackString();
-        
-        {
-            let obj = new TimePointSec();
-            dec.unpack(obj);
-            this.created_at = obj;
-        }
+        this.created_at = dec.unpackNumber<u64>();
         return dec.getPos();
     }
 
@@ -159,7 +153,7 @@ export class PairsTable implements _chain.MultiIndexValue {
         size += sizeof<u16>();
         size += sizeof<u16>();
         size += _chain.Utils.calcPackedStringLength(this.status);
-        size += this.created_at.getSize();
+        size += sizeof<u64>();
         return size;
     }
 

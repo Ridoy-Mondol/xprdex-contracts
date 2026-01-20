@@ -1,5 +1,5 @@
 import * as _chain from "as-chain";
-import { Asset, EMPTY_NAME, Name, Table, TimePointSec, U128 } from "proton-tsc";
+import { Asset, EMPTY_NAME, Name, Table, U128 } from "proton-tsc";
 
 
 
@@ -78,8 +78,8 @@ export class OrdersTable implements _chain.MultiIndexValue {
     public trigger_price: Asset = new Asset(),
     public is_triggered: bool = false,
     public status: u8 = 0, // 0=open,1=partial,2=filled,3=cancelled
-    public created_at: TimePointSec = new TimePointSec(),
-    public updated_at: TimePointSec = new TimePointSec()
+    public created_at: u64 = 0,
+    public updated_at: u64 = 0,
   ) {
     
   }
@@ -158,8 +158,8 @@ export class OrdersTable implements _chain.MultiIndexValue {
         enc.pack(this.trigger_price);
         enc.packNumber<bool>(this.is_triggered);
         enc.packNumber<u8>(this.status);
-        enc.pack(this.created_at);
-        enc.pack(this.updated_at);
+        enc.packNumber<u64>(this.created_at);
+        enc.packNumber<u64>(this.updated_at);
         return enc.getBytes();
     }
     
@@ -207,18 +207,8 @@ export class OrdersTable implements _chain.MultiIndexValue {
         }
         this.is_triggered = dec.unpackNumber<bool>();
         this.status = dec.unpackNumber<u8>();
-        
-        {
-            let obj = new TimePointSec();
-            dec.unpack(obj);
-            this.created_at = obj;
-        }
-        
-        {
-            let obj = new TimePointSec();
-            dec.unpack(obj);
-            this.updated_at = obj;
-        }
+        this.created_at = dec.unpackNumber<u64>();
+        this.updated_at = dec.unpackNumber<u64>();
         return dec.getPos();
     }
 
@@ -236,8 +226,8 @@ export class OrdersTable implements _chain.MultiIndexValue {
         size += this.trigger_price.getSize();
         size += sizeof<bool>();
         size += sizeof<u8>();
-        size += this.created_at.getSize();
-        size += this.updated_at.getSize();
+        size += sizeof<u64>();
+        size += sizeof<u64>();
         return size;
     }
 

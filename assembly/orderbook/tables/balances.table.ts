@@ -1,4 +1,4 @@
-import { Asset, EMPTY_NAME, Name, Table, TimePointSec } from "proton-tsc";
+import { Asset, EMPTY_NAME, Name, Table } from "proton-tsc";
 
 @table("balances")
 export class BalancesTable extends Table {
@@ -6,7 +6,7 @@ export class BalancesTable extends Table {
     public token_contract: Name = EMPTY_NAME,
     public balance: Asset = new Asset(),
     public locked: Asset = new Asset(),
-    public updated_at: TimePointSec = new TimePointSec()
+    public updated_at: u64 = 0,
   ) {
     super();
   }

@@ -1,4 +1,4 @@
-import { Asset, EMPTY_NAME, Name, Table, TimePointSec } from "proton-tsc";
+import { Asset, EMPTY_NAME, Name, Table } from "proton-tsc";
 
 @table("trades")
 export class TradesTable extends Table {
@@ -14,7 +14,7 @@ export class TradesTable extends Table {
     public total_value: Asset = new Asset(), // price × amount in quote
     public buyer_fee: Asset = new Asset(), // Fee paid by buyer (quote)
     public seller_fee: Asset = new Asset(), // Fee paid by seller (base)
-    public executed_at: TimePointSec = new TimePointSec()
+    public executed_at: u64 = 0,
   ) {
     super();
   }
@@ -62,7 +62,7 @@ export class TradesTable extends Table {
 
   @secondary
   get bytimestamp(): u64 {
-    return this.executed_at.secSinceEpoch();
+    return this.executed_at;
   }
 
   set bytimestamp(value: u64) {}

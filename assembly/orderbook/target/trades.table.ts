@@ -1,5 +1,5 @@
 import * as _chain from "as-chain";
-import { Asset, EMPTY_NAME, Name, Table, TimePointSec } from "proton-tsc";
+import { Asset, EMPTY_NAME, Name, Table } from "proton-tsc";
 
 
 
@@ -68,7 +68,7 @@ export class TradesTable implements _chain.MultiIndexValue {
     public total_value: Asset = new Asset(), // price × amount in quote
     public buyer_fee: Asset = new Asset(), // Fee paid by buyer (quote)
     public seller_fee: Asset = new Asset(), // Fee paid by seller (base)
-    public executed_at: TimePointSec = new TimePointSec()
+    public executed_at: u64 = 0,
   ) {
     
   }
@@ -116,7 +116,7 @@ export class TradesTable implements _chain.MultiIndexValue {
 
   @secondary
   get bytimestamp(): u64 {
-    return this.executed_at.secSinceEpoch();
+    return this.executed_at;
   }
 
   set bytimestamp(value: u64) {}
@@ -134,7 +134,7 @@ export class TradesTable implements _chain.MultiIndexValue {
         enc.pack(this.total_value);
         enc.pack(this.buyer_fee);
         enc.pack(this.seller_fee);
-        enc.pack(this.executed_at);
+        enc.packNumber<u64>(this.executed_at);
         return enc.getBytes();
     }
     
@@ -186,12 +186,7 @@ export class TradesTable implements _chain.MultiIndexValue {
             dec.unpack(obj);
             this.seller_fee = obj;
         }
-        
-        {
-            let obj = new TimePointSec();
-            dec.unpack(obj);
-            this.executed_at = obj;
-        }
+        this.executed_at = dec.unpackNumber<u64>();
         return dec.getPos();
     }
 
@@ -208,7 +203,7 @@ export class TradesTable implements _chain.MultiIndexValue {
         size += this.total_value.getSize();
         size += this.buyer_fee.getSize();
         size += this.seller_fee.getSize();
-        size += this.executed_at.getSize();
+        size += sizeof<u64>();
         return size;
     }
 

@@ -19,7 +19,7 @@
         },
         {
           "name": "updated_at",
-          "type": "time_point_sec"
+          "type": "uint64"
         }
       ]
     },
@@ -91,7 +91,7 @@
         },
         {
           "name": "last_updated",
-          "type": "time_point_sec"
+          "type": "uint64"
         }
       ]
     },
@@ -149,11 +149,11 @@
         },
         {
           "name": "created_at",
-          "type": "time_point_sec"
+          "type": "uint64"
         },
         {
           "name": "updated_at",
-          "type": "time_point_sec"
+          "type": "uint64"
         }
       ]
     },
@@ -207,7 +207,7 @@
         },
         {
           "name": "created_at",
-          "type": "time_point_sec"
+          "type": "uint64"
         }
       ]
     },
@@ -279,7 +279,7 @@
         },
         {
           "name": "executed_at",
-          "type": "time_point_sec"
+          "type": "uint64"
         }
       ]
     },
@@ -403,6 +403,10 @@
         {
           "name": "amount",
           "type": "asset"
+        },
+        {
+          "name": "max_slippage_bp",
+          "type": "uint16"
         }
       ]
     },
@@ -416,7 +420,7 @@
         },
         {
           "name": "max_orders",
-          "type": "uint32"
+          "type": "int32"
         }
       ]
     },

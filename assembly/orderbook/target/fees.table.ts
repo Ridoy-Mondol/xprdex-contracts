@@ -1,5 +1,5 @@
 import * as _chain from "as-chain";
-import { Asset, EMPTY_NAME, Name, Table, TimePointSec, U128 } from "proton-tsc";
+import { Asset, EMPTY_NAME, Name, Table, U128 } from "proton-tsc";
 
 
 
@@ -45,7 +45,7 @@ export class FeesTable implements _chain.MultiIndexValue {
     public total_collected: Asset = new Asset(),
     public maker_fees: Asset = new Asset(), // Fees from makers
     public taker_fees: Asset = new Asset(), // Fees from takers
-    public last_updated: TimePointSec = new TimePointSec()
+    public last_updated: u64 = 0
   ) {
     
   }
@@ -89,7 +89,7 @@ export class FeesTable implements _chain.MultiIndexValue {
         enc.pack(this.total_collected);
         enc.pack(this.maker_fees);
         enc.pack(this.taker_fees);
-        enc.pack(this.last_updated);
+        enc.packNumber<u64>(this.last_updated);
         return enc.getBytes();
     }
     
@@ -121,12 +121,7 @@ export class FeesTable implements _chain.MultiIndexValue {
             dec.unpack(obj);
             this.taker_fees = obj;
         }
-        
-        {
-            let obj = new TimePointSec();
-            dec.unpack(obj);
-            this.last_updated = obj;
-        }
+        this.last_updated = dec.unpackNumber<u64>();
         return dec.getPos();
     }
 
@@ -138,7 +133,7 @@ export class FeesTable implements _chain.MultiIndexValue {
         size += this.total_collected.getSize();
         size += this.maker_fees.getSize();
         size += this.taker_fees.getSize();
-        size += this.last_updated.getSize();
+        size += sizeof<u64>();
         return size;
     }
 

@@ -1,4 +1,4 @@
-import { Asset, EMPTY_NAME, Name, Table, TimePointSec, U128 } from "proton-tsc";
+import { Asset, EMPTY_NAME, Name, Table, U128 } from "proton-tsc";
 
 @table("fees")
 export class FeesTable extends Table {
@@ -9,7 +9,7 @@ export class FeesTable extends Table {
     public total_collected: Asset = new Asset(),
     public maker_fees: Asset = new Asset(), // Fees from makers
     public taker_fees: Asset = new Asset(), // Fees from takers
-    public last_updated: TimePointSec = new TimePointSec()
+    public last_updated: u64 = 0
   ) {
     super();
   }

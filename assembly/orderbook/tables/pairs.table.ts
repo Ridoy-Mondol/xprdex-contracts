@@ -4,7 +4,6 @@ import {
   Name,
   Symbol,
   Table,
-  TimePointSec,
 } from "proton-tsc";
 
 @table("pairs")
@@ -21,7 +20,7 @@ export class PairsTable extends Table {
     public maker_fee_bp: u16 = 0,
     public taker_fee_bp: u16 = 0,
     public status: string = "", // "active", "paused", "disabled"
-    public created_at: TimePointSec = new TimePointSec()
+    public created_at: u64 = 0,
   ) {
     super();
   }

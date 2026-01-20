@@ -1,12 +1,4 @@
-import {
-  Asset,
-  EMPTY_NAME,
-  Name,
-  Table,
-  TimePointSec,
-  U128,
-  currentTimeSec,
-} from "proton-tsc";
+import { Asset, EMPTY_NAME, Name, Table, U128 } from "proton-tsc";
 
 @table("orders")
 export class OrdersTable extends Table {
@@ -23,8 +15,8 @@ export class OrdersTable extends Table {
     public trigger_price: Asset = new Asset(),
     public is_triggered: bool = false,
     public status: u8 = 0, // 0=open,1=partial,2=filled,3=cancelled
-    public created_at: TimePointSec = new TimePointSec(),
-    public updated_at: TimePointSec = new TimePointSec()
+    public created_at: u64 = 0,
+    public updated_at: u64 = 0,
   ) {
     super();
   }
